@@ -1,18 +1,19 @@
 object Login: TLogin
   Left = 241
-  Height = 474
+  Height = 500
   Top = 32
   Width = 800
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Login'
-  ClientHeight = 474
+  ClientHeight = 500
   ClientWidth = 800
   Color = 16740096
+  Position = poScreenCenter
   object Shape1: TShape
     Left = 160
-    Height = 435
-    Top = 20
+    Height = 450
+    Top = 25
     Width = 481
     Pen.Style = psClear
     Shape = stRoundRect
@@ -830,7 +831,7 @@ object Login: TLogin
   object Shape2: TShape
     Left = 250
     Height = 50
-    Top = 208
+    Top = 192
     Width = 300
     Brush.Style = bsClear
     Pen.Color = 16740096
@@ -839,7 +840,7 @@ object Login: TLogin
   object Shape3: TShape
     Left = 250
     Height = 50
-    Top = 288
+    Top = 272
     Width = 300
     Brush.Style = bsClear
     Pen.Color = 16740096
@@ -848,7 +849,7 @@ object Login: TLogin
   object Image2: TImage
     Left = 264
     Height = 32
-    Top = 217
+    Top = 201
     Width = 32
     Picture.Data = {
       1754506F727461626C654E6574776F726B477261706869631707000089504E47
@@ -915,7 +916,7 @@ object Login: TLogin
   object Image3: TImage
     Left = 264
     Height = 32
-    Top = 297
+    Top = 281
     Width = 32
     Picture.Data = {
       1754506F727461626C654E6574776F726B477261706869638307000089504E47
@@ -984,8 +985,8 @@ object Login: TLogin
   end
   object Edit1: TEdit
     Left = 304
-    Height = 35
-    Top = 216
+    Height = 36
+    Top = 200
     Width = 232
     BorderStyle = bsNone
     Color = clNone
@@ -997,8 +998,8 @@ object Login: TLogin
   end
   object Edit2: TEdit
     Left = 304
-    Height = 35
-    Top = 296
+    Height = 36
+    Top = 280
     Width = 232
     BorderStyle = bsNone
     Color = clNone
@@ -1009,5 +1010,124 @@ object Login: TLogin
     TabOrder = 1
     TextHint = 'Password'
     OnChange = Edit2Change
+  end
+  object BCButton1: TBCButton
+    Cursor = crHandPoint
+    Left = 275
+    Height = 35
+    Top = 352
+    Width = 250
+    StateClicked.Background.Gradient1.StartColor = 16759552
+    StateClicked.Background.Gradient1.EndColor = 16727040
+    StateClicked.Background.Gradient1.GradientType = gtRadial
+    StateClicked.Background.Gradient1.Point1XPercent = 50
+    StateClicked.Background.Gradient1.Point1YPercent = 100
+    StateClicked.Background.Gradient1.Point2XPercent = 0
+    StateClicked.Background.Gradient1.Point2YPercent = 0
+    StateClicked.Background.Gradient2.StartColor = 16759552
+    StateClicked.Background.Gradient2.EndColor = 15722194
+    StateClicked.Background.Gradient2.GradientType = gtLinear
+    StateClicked.Background.Gradient2.Point1XPercent = 0
+    StateClicked.Background.Gradient2.Point1YPercent = 0
+    StateClicked.Background.Gradient2.Point2XPercent = 0
+    StateClicked.Background.Gradient2.Point2YPercent = 100
+    StateClicked.Background.Gradient1EndPercent = 100
+    StateClicked.Background.Style = bbsGradient
+    StateClicked.Border.Color = 11235643
+    StateClicked.Border.Style = bboNone
+    StateClicked.FontEx.Color = 16770790
+    StateClicked.FontEx.FontQuality = fqSystemClearType
+    StateClicked.FontEx.Shadow = False
+    StateClicked.FontEx.ShadowRadius = 2
+    StateClicked.FontEx.ShadowOffsetX = 1
+    StateClicked.FontEx.ShadowOffsetY = 1
+    StateClicked.FontEx.Style = []
+    StateHover.Background.Gradient1.StartColor = 16727040
+    StateHover.Background.Gradient1.EndColor = 16759552
+    StateHover.Background.Gradient1.GradientType = gtRadial
+    StateHover.Background.Gradient1.Point1XPercent = 50
+    StateHover.Background.Gradient1.Point1YPercent = 100
+    StateHover.Background.Gradient1.Point2XPercent = 0
+    StateHover.Background.Gradient1.Point2YPercent = 0
+    StateHover.Background.Gradient2.StartColor = 13137169
+    StateHover.Background.Gradient2.EndColor = 15722194
+    StateHover.Background.Gradient2.GradientType = gtLinear
+    StateHover.Background.Gradient2.Point1XPercent = 0
+    StateHover.Background.Gradient2.Point1YPercent = 0
+    StateHover.Background.Gradient2.Point2XPercent = 0
+    StateHover.Background.Gradient2.Point2YPercent = 100
+    StateHover.Background.Gradient1EndPercent = 100
+    StateHover.Background.Style = bbsGradient
+    StateHover.Border.Color = clRed
+    StateHover.Border.Style = bboNone
+    StateHover.FontEx.Color = clWhite
+    StateHover.FontEx.FontQuality = fqSystemClearType
+    StateHover.FontEx.Shadow = False
+    StateHover.FontEx.ShadowRadius = 2
+    StateHover.FontEx.ShadowOffsetX = 1
+    StateHover.FontEx.ShadowOffsetY = 1
+    StateHover.FontEx.Style = []
+    StateNormal.Background.Color = 16727040
+    StateNormal.Background.Gradient1.StartColor = 16727040
+    StateNormal.Background.Gradient1.EndColor = 16759552
+    StateNormal.Background.Gradient1.GradientType = gtLinear
+    StateNormal.Background.Gradient1.Point1XPercent = 0
+    StateNormal.Background.Gradient1.Point1YPercent = 0
+    StateNormal.Background.Gradient1.Point2XPercent = 0
+    StateNormal.Background.Gradient1.Point2YPercent = 100
+    StateNormal.Background.Gradient2.StartColor = 16759552
+    StateNormal.Background.Gradient2.EndColor = 16727040
+    StateNormal.Background.Gradient2.GradientType = gtRadial
+    StateNormal.Background.Gradient2.Point1XPercent = 0
+    StateNormal.Background.Gradient2.Point1YPercent = 0
+    StateNormal.Background.Gradient2.Point2XPercent = 0
+    StateNormal.Background.Gradient2.Point2YPercent = 0
+    StateNormal.Background.Gradient1EndPercent = 60
+    StateNormal.Background.Style = bbsColor
+    StateNormal.Border.Color = 11235643
+    StateNormal.Border.Style = bboNone
+    StateNormal.FontEx.Color = clBtnText
+    StateNormal.FontEx.FontQuality = fqSystemClearType
+    StateNormal.FontEx.Shadow = False
+    StateNormal.FontEx.ShadowRadius = 2
+    StateNormal.FontEx.ShadowOffsetX = 1
+    StateNormal.FontEx.ShadowOffsetY = 1
+    StateNormal.FontEx.Style = []
+    Caption = 'SIGN IN'
+    Color = 16740096
+    DropDownWidth = 16
+    DropDownArrowSize = 8
+    GlobalOpacity = 255
+    ParentColor = False
+    Rounding.RoundX = 15
+    Rounding.RoundY = 15
+    RoundingDropDown.RoundX = 1
+    RoundingDropDown.RoundY = 1
+    TextApplyGlobalOpacity = False
+    MemoryUsage = bmuHigh
+  end
+  object Label1: TLabel
+    Left = 271
+    Height = 22
+    Top = 416
+    Width = 160
+    Caption = 'Don''t have an account?'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Sans'
+    ParentFont = False
+  end
+  object LblSignUp: TLabel
+    Left = 439
+    Height = 22
+    Top = 416
+    Width = 90
+    Caption = 'Sign Up Now'
+    Font.Color = 16727040
+    Font.Height = -15
+    Font.Name = 'Sans'
+    ParentFont = False
+    OnMouseEnter = LblSignUpMouseEnter
+    OnMouseLeave = LblSignUpMouseLeave
   end
 end
