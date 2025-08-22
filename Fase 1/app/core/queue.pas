@@ -15,6 +15,8 @@ type
     Front, Rear: PQueueNode;
   end;
 
+  TDataToString = function (Data: Pointer): string;
+
 procedure Init(var Q: TQueue);
 procedure Enqueue(var Q: TQueue; Item: Pointer);
 function Dequeue(var Q: TQueue): Pointer;
@@ -23,7 +25,7 @@ function IsEmpty(var Q: TQueue): Boolean;
 function Count(var Q: TQueue): Integer;
 procedure Clear(var Q: TQueue);
 function GetRear(var Q: TQueue): Pointer;
-procedure GenerateDotFile(var Q: TQueue; const FileName: string; DataToString: function(Data: Pointer): string);
+procedure GenerateDotFile(var Q: TQueue; const FileName: string; DataToString: TDataToString);
 
 implementation
 
@@ -123,7 +125,7 @@ begin
   Q.Rear := nil;
 end;
 
-procedure GenerateDotFile(var Q: TQueue; const FileName: string; DataToString: function(Data: Pointer): string);
+procedure GenerateDotFile(var Q: TQueue; const FileName: string; DataToString: TDataToString);
 var
   F: TextFile;
   Current: PQueueNode;

@@ -15,6 +15,8 @@ type
     Head: PCircularNode;
   end;
 
+  TDataToString = function (Data: Pointer): string;
+
 procedure Init(var L: TCircularLinkedList);
 procedure Insert(var L: TCircularLinkedList; Item: Pointer);
 procedure InsertFirst(var L: TCircularLinkedList; Item: Pointer);
@@ -26,7 +28,7 @@ function Count(var L: TCircularLinkedList): Integer;
 procedure Clear(var L: TCircularLinkedList);
 function IsEmpty(var L: TCircularLinkedList): Boolean;
 function GetTail(var L: TCircularLinkedList): PCircularNode;
-procedure GenerateDotFile(var L: TCircularLinkedList; const FileName: string; DataToString: function(Data: Pointer): string);
+procedure GenerateDotFile(var L: TCircularLinkedList; const FileName: string; DataToString: TDataToString);
 
 implementation
 
@@ -225,7 +227,7 @@ begin
   L.Head := nil;
 end;
 
-procedure GenerateDotFile(var L: TCircularLinkedList; const FileName: string; DataToString: function(Data: Pointer): string);
+procedure GenerateDotFile(var L: TCircularLinkedList; const FileName: string; DataToString: TDataToString);
 var
   F: TextFile;
   Current: PCircularNode;

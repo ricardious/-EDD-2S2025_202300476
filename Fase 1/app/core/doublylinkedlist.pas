@@ -1,4 +1,4 @@
-unit CircularLinkedList;
+unit DoublyLinkedList;
 
 {$mode ObjFPC}{$H+}
 
@@ -15,6 +15,8 @@ type
     Head, Tail: PDoublyNode;
   end;
 
+  TDataToString = function (Data: Pointer): string;
+
 procedure Init(var L: TDoublyLinkedList);
 procedure InsertLast(var L: TDoublyLinkedList; Item: Pointer);
 procedure InsertFirst(var L: TDoublyLinkedList; Item: Pointer);
@@ -26,7 +28,7 @@ procedure DeleteNode(var L: TDoublyLinkedList; Node: PDoublyNode);
 function Count(var L: TDoublyLinkedList): Integer;
 procedure Clear(var L: TDoublyLinkedList);
 function IsEmpty(var L: TDoublyLinkedList): Boolean;
-procedure GenerateDotFile(var L: TDoublyLinkedList; const FileName: string; DataToString: function(Data: Pointer): string);
+procedure GenerateDotFile(var L: TDoublyLinkedList; const FileName: string; DataToString: TDataToString);
 
 implementation
 
@@ -199,15 +201,14 @@ begin
   L.Tail := nil;
 end;
 
-procedure GenerateDotFile(var L: TDoublyLinkedList; const FileName: string; DataToString: function(Data: Pointer): string);
+procedure GenerateDotFile(var L: TDoublyLinkedList; const FileName: string; DataToString: TDataToString);
 var
   F: TextFile;
   Temp: PDoublyNode;
-  NodeIndex: Integer;
+  NodeIndex, N: Integer;
 begin
   AssignFile(F, FileName);
   Rewrite(F);
-
   try
     WriteLn(F, 'digraph DoublyLinkedList {');
     WriteLn(F, '    rankdir=LR;');
@@ -217,7 +218,7 @@ begin
 
     if IsEmpty(L) then
     begin
-      WriteLn(F, '    empty [label="Lista Vacía", shape=ellipse, fillcolor=lightgray];');
+      WriteLn(F, '    empty [label="Empty list", shape=ellipse, fillcolor=lightgray];');
     end
     else
     begin
@@ -225,6 +226,7 @@ begin
       WriteLn(F, '    tail [label="TAIL", shape=ellipse, fillcolor=orange];');
       WriteLn(F, '');
 
+      // Nodes
       Temp := L.Head;
       NodeIndex := 0;
       while Temp <> nil do
@@ -240,6 +242,7 @@ begin
       WriteLn(F, '    null_right [label="NULL", shape=ellipse, fillcolor=lightcoral];');
       WriteLn(F, '');
 
+      // Next edges (left -> right)
       Temp := L.Head;
       NodeIndex := 0;
       while (Temp <> nil) and (Temp^.Next <> nil) do
@@ -252,8 +255,10 @@ begin
 
       WriteLn(F, '');
 
+      // Prev edges (right -> left)
       Temp := L.Tail;
-      NodeIndex := Count(L) - 1;
+      N := Count(L);           // cache the count
+      NodeIndex := N - 1;
       while (Temp <> nil) and (Temp^.Prev <> nil) do
       begin
         WriteLn(F, Format('    node%d:prev -> node%d:data [color=red, label="prev"];',
@@ -264,21 +269,22 @@ begin
 
       WriteLn(F, '');
 
-      if Count(L) > 0 then
+      if N > 0 then
       begin
-        WriteLn(F, Format('    node0:prev -> null_left [color=red];'));
-        WriteLn(F, Format('    node%d:next -> null_right [color=blue];', [Count(L) - 1]));
+        // These two lines do NOT need Format
+        WriteLn(F, '    node0:prev -> null_left [color=red];');
+        WriteLn(F, Format('    node%d:next -> null_right [color=blue];', [N - 1]));
       end;
 
       WriteLn(F, '');
 
       WriteLn(F, '    head -> node0:data [color=darkgreen, style=bold];');
-      WriteLn(F, Format('    tail -> node%d:data [color=darkorange, style=bold];', [Count(L) - 1]));
+      WriteLn(F, Format('    tail -> node%d:data [color=darkorange, style=bold];', [N - 1]));
 
       WriteLn(F, '');
-      WriteLn(F, '    // Agrupar elementos para mejor visualización');
+      WriteLn(F, '    // Group elements for better visualization');
       WriteLn(F, '    {rank=same; head; node0;}');
-      WriteLn(F, Format('    {rank=same; tail; node%d;}', [Count(L) - 1]));
+      WriteLn(F, Format('    {rank=same; tail; node%d;}', [N - 1]));
     end;
 
     WriteLn(F, '}');
@@ -286,6 +292,7 @@ begin
     CloseFile(F);
   end;
 end;
+
 
 end.
 
