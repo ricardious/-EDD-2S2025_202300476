@@ -10,8 +10,9 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, FormLogin
-  { you can add units after this };
+  Forms, FormLogin, User, Email, UserService, SinglyLinkedList,
+  DoublyLinkedList, CircularLinkedList, Queue, Stack, AppState,
+  AuthService;
 
 {$R *.res}
 
@@ -22,7 +23,9 @@ begin
   Application.MainFormOnTaskbar:=True;
   {$POP}
   Application.Initialize;
-  Application.CreateForm(TLogin, Login);
+  InitAppState;
+  BootstrapRoot(Users);
+  Application.CreateForm(FormLogin.TSignIn, FormLogin.SignIn);
   Application.Run;
 end.
 

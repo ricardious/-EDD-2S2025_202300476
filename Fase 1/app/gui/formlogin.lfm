@@ -1,11 +1,11 @@
-object Login: TLogin
+object SignIn: TSignIn
   Left = 241
   Height = 500
   Top = 32
   Width = 800
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'Login'
+  Caption = 'Sign In'
   ClientHeight = 500
   ClientWidth = 800
   Color = 16740096
@@ -983,7 +983,7 @@ object Login: TLogin
     }
     Proportional = True
   end
-  object Edit1: TEdit
+  object EditEmail: TEdit
     Left = 304
     Height = 36
     Top = 200
@@ -996,7 +996,7 @@ object Login: TLogin
     TabOrder = 0
     TextHint = 'Username'
   end
-  object Edit2: TEdit
+  object EditPsw: TEdit
     Left = 304
     Height = 36
     Top = 280
@@ -1009,9 +1009,9 @@ object Login: TLogin
     ParentShowHint = False
     TabOrder = 1
     TextHint = 'Password'
-    OnChange = Edit2Change
+    OnChange = EditPswChange
   end
-  object BCButton1: TBCButton
+  object BtnSignIn: TBCButton
     Cursor = crHandPoint
     Left = 275
     Height = 35
@@ -1098,6 +1098,7 @@ object Login: TLogin
     DropDownWidth = 16
     DropDownArrowSize = 8
     GlobalOpacity = 255
+    OnClick = BtnSignInClick
     ParentColor = False
     Rounding.RoundX = 15
     Rounding.RoundY = 15
@@ -1127,6 +1128,7 @@ object Login: TLogin
     Font.Height = -15
     Font.Name = 'Sans'
     ParentFont = False
+    OnClick = LblSignUpClick
     OnMouseEnter = LblSignUpMouseEnter
     OnMouseLeave = LblSignUpMouseLeave
   end

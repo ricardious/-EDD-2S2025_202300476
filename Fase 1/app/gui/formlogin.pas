@@ -10,12 +10,12 @@ uses
 
 type
 
-  { TLogin }
+  { TSignIn }
 
-  TLogin = class(TForm)
-    BCButton1: TBCButton;
-    Edit1: TEdit;
-    Edit2: TEdit;
+  TSignIn = class(TForm)
+    BtnSignIn: TBCButton;
+    EditEmail: TEdit;
+    EditPsw: TEdit;
     Image1: TImage;
     Image2: TImage;
     Image3: TImage;
@@ -24,7 +24,9 @@ type
     Shape1: TShape;
     Shape2: TShape;
     Shape3: TShape;
-    procedure Edit2Change(Sender: TObject);
+    procedure BtnSignInClick(Sender: TObject);
+    procedure EditPswChange(Sender: TObject);
+    procedure LblSignUpClick(Sender: TObject);
     procedure LblSignUpMouseEnter(Sender: TObject);
     procedure LblSignUpMouseLeave(Sender: TObject);
   private
@@ -34,27 +36,75 @@ type
   end;
 
 var
-  Login: TLogin;
+  SignIn: TSignIn;
 
 implementation
 
+uses
+  AppState, UserService, User, FormRegister;
+
 {$R *.lfm}
 
-{ TLogin }
+{ TSignIn }
 
-procedure TLogin.Edit2Change(Sender: TObject);
+procedure TSignIn.EditPswChange(Sender: TObject);
 begin
-     Edit2.PasswordChar := '*';
+     EditPsw.PasswordChar := '*';
 end;
 
-procedure TLogin.LblSignUpMouseEnter(Sender: TObject);
+procedure TSignIn.LblSignUpClick(Sender: TObject);
+begin
+  Self.Hide;
+  if Assigned(FormRegister.SignUp) then
+    FormRegister.SignUp.Show
+  else
+  begin
+    Application.CreateForm(TSignUp, SignUp);
+    SignUp.Show;
+  end;
+end;
+
+procedure TSignIn.BtnSignInClick(Sender: TObject);
+var
+  email, password: AnsiString;
+  foundUser: PUser;
+begin
+  email := EditEmail.Text;
+  password := EditPsw.Text;
+
+  if (Trim(email) = '') or (Trim(password) = '') then
+  begin
+    ShowMessage('Please enter your email and password.');
+    Exit;
+  end;
+
+  foundUser := FindUserByEmail(Users, email);
+
+  if foundUser <> nil then
+  begin
+    if foundUser^.Password = password then
+    begin
+      ShowMessage('Welcome, ' + foundUser^.Name + '!');
+    end
+    else
+    begin
+      ShowMessage('The password is incorrect. Please try again.');
+    end;
+  end
+  else
+  begin
+    ShowMessage('The user with email "' + email + '" was not found.');
+  end;
+end;
+
+procedure TSignIn.LblSignUpMouseEnter(Sender: TObject);
 begin
      LblSignUp.Font.Color := TColor($00FF3C00);
      LblSignUp.Font.Style := [fsUnderline];
      LblSignUp.Cursor := crHandPoint;
 end;
 
-procedure TLogin.LblSignUpMouseLeave(Sender: TObject);
+procedure TSignIn.LblSignUpMouseLeave(Sender: TObject);
 begin
      LblSignUp.Font.Color := TColor($00FF3C00);
      LblSignUp.Font.Style := [];

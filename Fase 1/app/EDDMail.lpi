@@ -37,12 +37,67 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="gui/formlogin.pas"/>
+        <Filename Value="gui/formregister.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="Login"/>
+        <ComponentName Value="SignUp"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="FormLogin"/>
+        <UnitName Value="FormRegister"/>
+      </Unit>
+      <Unit>
+        <Filename Value="domain/user.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="User"/>
+      </Unit>
+      <Unit>
+        <Filename Value="domain/email.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Email"/>
+      </Unit>
+      <Unit>
+        <Filename Value="services/userservice.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UserService"/>
+      </Unit>
+      <Unit>
+        <Filename Value="core/singlylinkedlist.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SinglyLinkedList"/>
+      </Unit>
+      <Unit>
+        <Filename Value="core/doublylinkedlist.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="DoublyLinkedList"/>
+      </Unit>
+      <Unit>
+        <Filename Value="core/circularlinkedlist.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CircularLinkedList"/>
+      </Unit>
+      <Unit>
+        <Filename Value="core/queue.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Queue"/>
+      </Unit>
+      <Unit>
+        <Filename Value="core/stack.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Stack"/>
+      </Unit>
+      <Unit>
+        <Filename Value="core/sparsematrix.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Unit1"/>
+      </Unit>
+      <Unit>
+        <Filename Value="services/appstate.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="AppState"/>
+      </Unit>
+      <Unit>
+        <Filename Value="services/authservice.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="AuthService"/>
       </Unit>
     </Units>
   </ProjectOptions>
@@ -53,7 +108,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="gui"/>
+      <OtherUnitFiles Value="gui;domain;services;core"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
