@@ -99,6 +99,14 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="AuthService"/>
       </Unit>
+      <Unit>
+        <Filename Value="gui/formdashboardroot.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="DashboardRoot"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormDashboardRoot"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -12,7 +12,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, FormLogin, User, Email, UserService, SinglyLinkedList,
   DoublyLinkedList, CircularLinkedList, Queue, Stack, AppState,
-  AuthService;
+  AuthService, FormDashboardRoot;
 
 {$R *.res}
 
@@ -25,7 +25,7 @@ begin
   Application.Initialize;
   InitAppState;
   BootstrapRoot(Users);
-  Application.CreateForm(FormLogin.TSignIn, FormLogin.SignIn);
+  Application.CreateForm(TDashboardRoot, DashboardRoot);
   Application.Run;
 end.
 
