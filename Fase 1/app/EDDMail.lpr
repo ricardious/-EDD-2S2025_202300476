@@ -12,7 +12,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, FormLogin, User, Email, UserService, SinglyLinkedList,
   DoublyLinkedList, CircularLinkedList, Queue, Stack, AppState,
-  AuthService, FormDashboardRoot;
+  AuthService, FormDashboardRoot, JsonUsersLoader;
 
 {$R *.res}
 

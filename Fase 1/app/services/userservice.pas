@@ -10,6 +10,7 @@ uses
 procedure BootstrapRoot(var L: TSinglyLinkedList);
 function  AddUser(var L: TSinglyLinkedList; const U: TUser): PUser;
 function  FindUserByEmail(const L: TSinglyLinkedList; const Email: AnsiString): PUser;
+function  FindUserById(const L: TSinglyLinkedList; const Id: Integer): PUser;
 
 implementation
 
@@ -46,6 +47,22 @@ begin
   begin
     Curr := PUser(Node^.Data);
     if (Curr <> nil) and (Curr^.Email = Email) then
+      exit(Curr);
+    Node := Node^.Next;
+  end;
+  Result := nil;
+end;
+
+function FindUserById(const L: TSinglyLinkedList; const Id: Integer): PUser;
+var
+  Node: PSinglyNode;
+  Curr: PUser;
+begin
+  Node := L.Head;
+  while Node <> nil do
+  begin
+    Curr := PUser(Node^.Data);
+    if (Curr <> nil) and (Curr^.Id = Id) then
       exit(Curr);
     Node := Node^.Next;
   end;
