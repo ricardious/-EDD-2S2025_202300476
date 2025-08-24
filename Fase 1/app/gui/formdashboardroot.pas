@@ -187,8 +187,6 @@ begin
                Format('Successfully loaded %d users from %s',
                       [LoadedCount, SourceLabel]),
                mtInformation, [mbOK], 0);
-
-    MemoJson.Lines.Text := UsersDump;
   except
     on E: Exception do
       MessageDlg('Bulk Load error', E.Message, mtError, [mbOK], 0);

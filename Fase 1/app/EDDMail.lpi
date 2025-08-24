@@ -100,12 +100,12 @@
         <UnitName Value="AuthService"/>
       </Unit>
       <Unit>
-        <Filename Value="gui/formdashboardroot.pas"/>
+        <Filename Value="gui/formdashboarduser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="DashboardRoot"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="FormDashboardRoot"/>
+        <UnitName Value="FormDashboardUser"/>
       </Unit>
       <Unit>
         <Filename Value="infra/jsonusersloader.pas"/>
