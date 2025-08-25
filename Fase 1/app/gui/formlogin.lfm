@@ -10,7 +10,6 @@ object SignIn: TSignIn
   ClientWidth = 800
   Color = 16740096
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   object Shape1: TShape
     Left = 160
     Height = 450
@@ -986,7 +985,7 @@ object SignIn: TSignIn
   end
   object EditEmail: TEdit
     Left = 304
-    Height = 36
+    Height = 27
     Top = 200
     Width = 232
     BorderStyle = bsNone
@@ -999,7 +998,7 @@ object SignIn: TSignIn
   end
   object EditPsw: TEdit
     Left = 304
-    Height = 36
+    Height = 27
     Top = 280
     Width = 232
     BorderStyle = bsNone

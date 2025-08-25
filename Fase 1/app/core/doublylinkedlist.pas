@@ -2,7 +2,10 @@ unit DoublyLinkedList;
 
 {$mode ObjFPC}{$H+}
 
+
 interface
+
+
 
 type
   PDoublyNode = ^TDoublyNode;
@@ -18,6 +21,8 @@ type
 
   TDataToString = function(Data: Pointer): string;
 
+  TCompareFunc = function(Node1, Node2: PDoublyNode): integer;
+
 procedure Init(var L: TDoublyLinkedList);
 procedure InsertLast(var L: TDoublyLinkedList; Item: Pointer);
 procedure InsertFirst(var L: TDoublyLinkedList; Item: Pointer);
@@ -31,6 +36,7 @@ procedure Clear(var L: TDoublyLinkedList);
 function IsEmpty(var L: TDoublyLinkedList): boolean;
 procedure GenerateDotFile(var L: TDoublyLinkedList; const FileName: string;
   DataToString: TDataToString);
+procedure Sort(CompareFunc: TCompareFunc; var List: TDoublyLinkedList);
 
 implementation
 
@@ -297,5 +303,33 @@ begin
   end;
 end;
 
+procedure Sort(CompareFunc: TCompareFunc; var List: TDoublyLinkedList);
+var
+  Changed: boolean;
+  Current, Next: PDoublyNode;
+  TempData: Pointer;
+begin
+  if (List.Head = nil) or (List.Head^.Next = nil) then Exit;
+
+  repeat
+    Changed := False;
+    Current := List.Head;
+
+    while (Current <> nil) and (Current^.Next <> nil) do
+    begin
+      Next := Current^.Next;
+
+      if CompareFunc(Current, Next) > 0 then
+      begin
+        TempData := Current^.Data;
+        Current^.Data := Next^.Data;
+        Next^.Data := TempData;
+        Changed := True;
+      end;
+
+      Current := Current^.Next;
+    end;
+  until not Changed;
+end;
 
 end.

@@ -20,6 +20,9 @@ type
     MessageBody: ansistring;
   end;
 
+var
+  NextEmailId: longint = 1;
+
 implementation
 
 end.

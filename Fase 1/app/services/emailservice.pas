@@ -1,0 +1,161 @@
+unit EmailService;
+
+{$mode ObjFPC}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, Dialogs, DoublyLinkedList, User, Email, Stack,
+  CircularLinkedList, AppState;
+
+type
+  TEmailSendResult = (esrSuccess, esrEmptyRecipient, esrNotInContacts);
+  TEmailDeliveryResult = (edrSuccess, edrUserNotFound);
+
+function SendEmailToContact(const SenderUser: PUser;
+  const RecipientEmail, Subject, MessageBody: string): TEmailSendResult;
+function DeliverEmailToUser(const RecipientEmail: string;
+  MailPtr: PEmail): TEmailDeliveryResult;
+function CreateNewEmail(const Sender, Subject, MessageBody: string): PEmail;
+
+function ValidateEmailRecipient(const RecipientEmail: string;
+  var SenderContacts: TCircularLinkedList): TEmailSendResult;
+
+procedure MarkEmailAsRead(MailPtr: PEmail);
+function CountUnreadEmails(const UserInbox: TDoublyLinkedList): integer;
+procedure DeleteEmailFromInbox(var UserInbox: TDoublyLinkedList;
+  var UserTrash: TStack; EmailNode: PDoublyNode);
+
+function CompareEmailsBySubject(Node1, Node2: PDoublyNode): integer;
+function CompareEmailsByDate(Node1, Node2: PDoublyNode): integer;
+function CompareEmailsBySender(Node1, Node2: PDoublyNode): integer;
+
+implementation
+
+uses
+  UserService, ContactService;
+
+function CreateNewEmail(const Sender, Subject, MessageBody: string): PEmail;
+begin
+  New(Result);
+  Result^.Id := NextEmailId;
+  Inc(NextEmailId);
+  Result^.Sender := Sender;
+  Result^.Subject := Subject;
+  Result^.MessageBody := MessageBody;
+  Result^.Date := FormatDateTime('yyyy-mm-dd hh:nn', Now);
+  Result^.State := esUnread;
+  Result^.Scheduled := False;
+end;
+
+function ValidateEmailRecipient(const RecipientEmail: string;
+  var SenderContacts: TCircularLinkedList): TEmailSendResult;
+begin
+  if Trim(RecipientEmail) = '' then
+    Exit(esrEmptyRecipient);
+
+  if not ContactExists(SenderContacts, RecipientEmail) then
+    Exit(esrNotInContacts);
+
+  Result := esrSuccess;
+end;
+
+function DeliverEmailToUser(const RecipientEmail: string;
+  MailPtr: PEmail): TEmailDeliveryResult;
+var
+  Receiver: PUser;
+begin
+  Receiver := FindUserByEmail(Users, RecipientEmail);
+  if Receiver = nil then
+  begin
+    Dispose(MailPtr);
+    Exit(edrUserNotFound);
+  end;
+
+  DoublyLinkedList.InsertLast(Receiver^.Inbox, MailPtr);
+  Result := edrSuccess;
+end;
+
+function SendEmailToContact(const SenderUser: PUser;
+  const RecipientEmail, Subject, MessageBody: string): TEmailSendResult;
+var
+  MailPtr: PEmail;
+  ValidationResult: TEmailSendResult;
+  DeliveryResult: TEmailDeliveryResult;
+begin
+  ValidationResult := ValidateEmailRecipient(RecipientEmail, SenderUser^.Contacts);
+  if ValidationResult <> esrSuccess then
+    Exit(ValidationResult);
+
+  MailPtr := CreateNewEmail(SenderUser^.Email, Subject, MessageBody);
+
+  DeliveryResult := DeliverEmailToUser(RecipientEmail, MailPtr);
+  if DeliveryResult = edrUserNotFound then
+    Exit(esrNotInContacts);
+
+  Result := esrSuccess;
+end;
+
+procedure MarkEmailAsRead(MailPtr: PEmail);
+begin
+  if MailPtr <> nil then
+    MailPtr^.State := esRead;
+end;
+
+function CountUnreadEmails(const UserInbox: TDoublyLinkedList): integer;
+var
+  Node: PDoublyNode;
+  Mail: PEmail;
+begin
+  Result := 0;
+  Node := UserInbox.Head;
+  while Node <> nil do
+  begin
+    Mail := PEmail(Node^.Data);
+    if (Mail <> nil) and (Mail^.State = esUnread) then
+      Inc(Result);
+    Node := Node^.Next;
+  end;
+end;
+
+procedure DeleteEmailFromInbox(var UserInbox: TDoublyLinkedList;
+  var UserTrash: TStack; EmailNode: PDoublyNode);
+begin
+  if EmailNode = nil then Exit;
+
+  Stack.Push(UserTrash, EmailNode^.Data);
+
+  DoublyLinkedList.DeleteNode(UserInbox, EmailNode);
+end;
+
+function CompareEmailsBySubject(Node1, Node2: PDoublyNode): integer;
+var
+  M1, M2: PEmail;
+begin
+  M1 := PEmail(Node1^.Data);
+  M2 := PEmail(Node2^.Data);
+  if (M1 = nil) or (M2 = nil) then Exit(0);
+  Result := CompareText(M1^.Subject, M2^.Subject);
+end;
+
+function CompareEmailsByDate(Node1, Node2: PDoublyNode): integer;
+var
+  M1, M2: PEmail;
+begin
+  M1 := PEmail(Node1^.Data);
+  M2 := PEmail(Node2^.Data);
+  if (M1 = nil) or (M2 = nil) then Exit(0);
+  Result := CompareText(M1^.Date, M2^.Date);
+end;
+
+function CompareEmailsBySender(Node1, Node2: PDoublyNode): integer;
+var
+  M1, M2: PEmail;
+begin
+  M1 := PEmail(Node1^.Data);
+  M2 := PEmail(Node2^.Data);
+  if (M1 = nil) or (M2 = nil) then Exit(0);
+  Result := CompareText(M1^.Sender, M2^.Sender);
+end;
+
+end.

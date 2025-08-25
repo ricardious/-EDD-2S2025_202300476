@@ -9,7 +9,8 @@ uses
   ComCtrls, MaskEdit, Grids, DateTimePicker, BCMDButton, ATShapeLineBGRA,
   BCLabel, BCRoundedImage, BGRACustomDrawn, BCButton, BGRAThemeButton,
   BCMDButtonFocus, JsonUsersLoader, fpjson, jsonparser, AppState,
-  FormLogin, ContactService, CircularLinkedList, User;
+  FormLogin, ContactService, CircularLinkedList, User, Email,
+  DoublyLinkedList, UserService, Stack, EmailService;
 
 type
 
@@ -84,7 +85,7 @@ type
     BtnSortAZ: TBCMDButton;
     LblSection: TLabel;
     Label2: TLabel;
-    ListView1: TListView;
+    LvInbox: TListView;
     MemoMessage: TMemo;
     MemoPreview: TMemo;
     PanelInboxBody: TPanel;
@@ -102,21 +103,33 @@ type
     Splitter2: TSplitter;
     procedure BtnAddContactClick(Sender: TObject);
     procedure BtnContactsClick(Sender: TObject);
+    procedure BtnDeleteClick(Sender: TObject);
     procedure BtnInboxClick(Sender: TObject);
     procedure BtnLogoutClick(Sender: TObject);
     procedure BtnNextClick(Sender: TObject);
     procedure BtnPrevClick(Sender: TObject);
     procedure BtnScheduledEmailsClick(Sender: TObject);
     procedure BtnScheduleEmailClick(Sender: TObject);
+    procedure BtnSendClick(Sender: TObject);
     procedure BtnSendEmailClick(Sender: TObject);
+    procedure BtnSortAZClick(Sender: TObject);
     procedure BtnTrashClick(Sender: TObject);
     procedure BtnUpdateProfileClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure LvInboxSelectItem(Sender: TObject; Item: TListItem;
+      Selected: boolean);
   private
     procedure ShowPanel(APanel: TPanel);
+    procedure ClearUserUI;
   private
     FContactCursor: PCircularNode;
     procedure ShowCurrentContact;
     procedure UpdateContactCursor;
+  private
+    FInboxCursor: PDoublyNode;
+    procedure RefreshInboxList;
+    procedure ShowSelectedMail;
+    procedure UpdateUnreadCount;
   public
 
   end;
@@ -166,6 +179,82 @@ begin
   LblEditPhone.Text := C^.Phone;
 end;
 
+procedure TDashboardUser.RefreshInboxList;
+var
+  Node: PDoublyNode;
+  Mail: PEmail;
+  Item: TListItem;
+begin
+  LvInbox.Items.BeginUpdate;
+  try
+    LvInbox.Items.Clear;
+    Node := CurrentUser^.Inbox.Head;
+    while Node <> nil do
+    begin
+      Mail := PEmail(Node^.Data);
+      if Mail = nil then Continue;
+
+      Item := LvInbox.Items.Add;
+      case Mail^.State of
+        esUnread: Item.Caption := 'NL';
+        esRead: Item.Caption := 'L';
+      end;
+      Item.SubItems.Add(Mail^.Subject);
+      Item.SubItems.Add(Mail^.Sender);
+      Item.Data := Node;
+      Node := Node^.Next;
+    end;
+  finally
+    LvInbox.Items.EndUpdate;
+  end;
+  LvInbox.ItemIndex := -1;
+  UpdateUnreadCount;
+  // MemoPreview.SetFocus;  -> ERROR
+end;
+
+procedure TDashboardUser.UpdateUnreadCount;
+var
+  UnreadCount: integer;
+begin
+  UnreadCount := CountUnreadEmails(CurrentUser^.Inbox);
+  LblFileSelected.Caption := 'Unread: ' + IntToStr(UnreadCount);
+end;
+
+
+procedure TDashboardUser.ShowSelectedMail;
+var
+  Mail: PEmail;
+begin
+  if FInboxCursor = nil then Exit;
+
+  Mail := PEmail(FInboxCursor^.Data);
+  if Mail = nil then Exit;
+
+  MarkEmailAsRead(Mail);
+  LvInbox.Selected.Caption := 'L';
+
+  MemoPreview.Lines.Text :=
+    'Status: ' + LvInbox.Selected.Caption + #13#10 + 'Subject: ' +
+    Mail^.Subject + #13#10 + 'From: ' + Mail^.Sender + #13#10 +
+    'Date: ' + Mail^.Date + #13#10#13#10 + Mail^.MessageBody;
+
+  UpdateUnreadCount;
+end;
+
+
+procedure TDashboardUser.ClearUserUI;
+begin
+  EditEmail.Text := '';
+end;
+
+procedure TDashboardUser.BtnSortAZClick(Sender: TObject);
+begin
+  if CurrentUser = nil then Exit;
+  DoublyLinkedList.Sort(@CompareEmailsBySubject, CurrentUser^.Inbox);
+  RefreshInboxList;
+  ShowMessage('Emails sorted by subject (A-Z)');
+end;
+
 procedure TDashboardUser.UpdateContactCursor;
 begin
   FContactCursor := CurrentUser^.Contacts.Head;
@@ -179,6 +268,7 @@ end;
 
 procedure TDashboardUser.BtnLogoutClick(Sender: TObject);
 begin
+  ClearUserUI;
   CurrentUser := nil;
   Self.Close;
   SignIn.Show;
@@ -203,6 +293,20 @@ begin
   ShowPanel(PanelContacts);
 end;
 
+procedure TDashboardUser.BtnDeleteClick(Sender: TObject);
+begin
+  if FInboxCursor = nil then Exit;
+
+  if MessageDlg('Delete this email?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    DeleteEmailFromInbox(CurrentUser^.Inbox, CurrentUser^.Trash, FInboxCursor);
+    FInboxCursor := nil;
+    RefreshInboxList;
+    MemoPreview.Clear;
+    BtnDelete.Enabled := False;
+  end;
+end;
+
 procedure TDashboardUser.BtnAddContactClick(Sender: TObject);
 var
   Err: integer;
@@ -216,6 +320,7 @@ begin
     -1: ShowMessage('Please enter an email');
     -2: ShowMessage('This user is not registered');
     -3: ShowMessage('The contact already exists');
+    -4: ShowMessage('You cannot add yourself as a contact');
   end;
 
 end;
@@ -228,6 +333,25 @@ end;
 procedure TDashboardUser.BtnScheduleEmailClick(Sender: TObject);
 begin
   ShowPanel(PanelScheduleEmail);
+end;
+
+procedure TDashboardUser.BtnSendClick(Sender: TObject);
+var
+  SendResult: TEmailSendResult;
+begin
+  SendResult := SendEmailToContact(CurrentUser, Trim(EditRecipient.Text),
+    Trim(EditSubject.Text), MemoMessage.Text);
+
+  case SendResult of
+    esrSuccess: begin
+      ShowMessage('Email sent');
+      EditRecipient.Text := '';
+      EditSubject.Text := '';
+      MemoMessage.Lines.Clear;
+    end;
+    esrEmptyRecipient: ShowMessage('Please enter the recipient');
+    esrNotInContacts: ShowMessage('Error: the recipient is not in your contact list');
+  end;
 end;
 
 procedure TDashboardUser.BtnSendEmailClick(Sender: TObject);
@@ -243,6 +367,29 @@ end;
 procedure TDashboardUser.BtnUpdateProfileClick(Sender: TObject);
 begin
   ShowPanel(PanelUpdateProfile);
+end;
+
+procedure TDashboardUser.FormShow(Sender: TObject);
+begin
+  RefreshInboxList;
+  UpdateContactCursor;
+end;
+
+procedure TDashboardUser.LvInboxSelectItem(Sender: TObject; Item: TListItem;
+  Selected: boolean);
+begin
+  if Selected and (Item <> nil) then
+  begin
+    FInboxCursor := PDoublyNode(Item.Data);
+    ShowSelectedMail;
+    BtnDelete.Enabled := True;
+  end
+  else
+  begin
+    FInboxCursor := nil;
+    MemoPreview.Clear;
+    BtnDelete.Enabled := False;
+  end;
 end;
 
 end.

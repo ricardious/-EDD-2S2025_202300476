@@ -100,6 +100,7 @@ begin
         ShowMessage('Welcome, ' + foundUser^.Name + '!');
         if not Assigned(DashboardUser) then
           Application.CreateForm(TDashboardUser, DashboardUser);
+        //DashboardUser.RefreshInboxList;
         DashboardUser.Show;
       end;
 

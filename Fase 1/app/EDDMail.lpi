@@ -131,6 +131,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ContactService"/>
       </Unit>
+      <Unit>
+        <Filename Value="services/emailservice.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="EmailService"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

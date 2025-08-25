@@ -10,6 +10,9 @@ uses
 function AddContactToUser(var CurrentUser: TUser;
   const GlobalUserList: TSinglyLinkedList; const Email: string): integer;
 
+function ContactExists(var Contacts: TCircularLinkedList;
+  const Email: string): boolean;
+
 implementation
 
 function FindContactByEmail(var L: TCircularLinkedList;
@@ -48,8 +51,28 @@ begin
   if FindContactByEmail(CurrentUser.Contacts, NormalizedEmail) <> nil then
     Exit(-3);
 
+  if SameText(NormalizedEmail, CurrentUser.Email) then
+    Exit(-4);
+
   Insert(CurrentUser.Contacts, P);
   Result := 0;
+end;
+
+function ContactExists(var Contacts: TCircularLinkedList; const Email: string): boolean;
+var
+  Node: PCircularNode;
+  U: PUser;
+begin
+  Result := False;
+  if IsEmpty(Contacts) then Exit;
+
+  Node := Contacts.Head;
+  repeat
+    U := PUser(Node^.Data);
+    if SameText(U^.Email, Email) then
+      Exit(True);
+    Node := Node^.Next;
+  until Node = Contacts.Head;
 end;
 
 
