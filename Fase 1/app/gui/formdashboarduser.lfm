@@ -25,9 +25,9 @@ object DashboardUser: TDashboardUser
     TabOrder = 0
     object LblSection: TLabel
       Left = 16
-      Height = 23
+      Height = 20
       Top = 16
-      Width = 199
+      Width = 191
       Caption = 'Admin · Root Dashboard'
       Color = cl3DDkShadow
       Font.Color = clWhite
@@ -78,7 +78,7 @@ object DashboardUser: TDashboardUser
       object ShapeLineBGRA1: TShapeLineBGRA
         Left = 50
         Height = 30
-        Top = 105
+        Top = 102
         Width = 120
         Color = clNone
         Align = alTop
@@ -4049,7 +4049,7 @@ object DashboardUser: TDashboardUser
       end
       object Label2: TLabel
         Left = 0
-        Height = 23
+        Height = 20
         Top = 82
         Width = 220
         Align = alTop
@@ -4065,7 +4065,7 @@ object DashboardUser: TDashboardUser
       object BtnInbox: TBCMDButton
         Left = 0
         Height = 50
-        Top = 135
+        Top = 132
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4082,6 +4082,7 @@ object DashboardUser: TDashboardUser
         Align = alTop
         Caption = '📥 Inbox'
         Font.Style = [fsBold]
+        OnClick = BtnInboxClick
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
@@ -4089,7 +4090,7 @@ object DashboardUser: TDashboardUser
       object BtnSendEmail: TBCMDButton
         Left = 0
         Height = 50
-        Top = 185
+        Top = 182
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4106,6 +4107,7 @@ object DashboardUser: TDashboardUser
         Align = alTop
         Caption = '✉️ Send Email'
         Font.Style = [fsBold]
+        OnClick = BtnSendEmailClick
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
@@ -4113,7 +4115,7 @@ object DashboardUser: TDashboardUser
       object BtnTrash: TBCMDButton
         Left = 0
         Height = 50
-        Top = 235
+        Top = 232
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4130,6 +4132,7 @@ object DashboardUser: TDashboardUser
         Align = alTop
         Caption = '🗑️ Trash'
         Font.Style = [fsBold]
+        OnClick = BtnTrashClick
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
@@ -4137,7 +4140,7 @@ object DashboardUser: TDashboardUser
       object BtnScheduledEmails: TBCMDButton
         Left = 0
         Height = 50
-        Top = 335
+        Top = 332
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4154,6 +4157,7 @@ object DashboardUser: TDashboardUser
         Align = alTop
         Caption = '📅 Scheduled Emails'
         Font.Style = [fsBold]
+        OnClick = BtnScheduledEmailsClick
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
@@ -4161,7 +4165,7 @@ object DashboardUser: TDashboardUser
       object BtnScheduleEmail: TBCMDButton
         Left = 0
         Height = 50
-        Top = 285
+        Top = 282
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4178,6 +4182,7 @@ object DashboardUser: TDashboardUser
         Align = alTop
         Caption = '⏰ Schedule Email'
         Font.Style = [fsBold]
+        OnClick = BtnScheduleEmailClick
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
@@ -4185,7 +4190,7 @@ object DashboardUser: TDashboardUser
       object BtnContacts: TBCMDButton
         Left = 0
         Height = 50
-        Top = 385
+        Top = 382
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4202,6 +4207,7 @@ object DashboardUser: TDashboardUser
         Align = alTop
         Caption = '👥 Contacts'
         Font.Style = [fsBold]
+        OnClick = BtnContactsClick
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
@@ -4209,7 +4215,7 @@ object DashboardUser: TDashboardUser
       object BtnUpdateProfile: TBCMDButton
         Left = 0
         Height = 50
-        Top = 435
+        Top = 432
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4226,6 +4232,7 @@ object DashboardUser: TDashboardUser
         Align = alTop
         Caption = '🛠️ Update Profile'
         Font.Style = [fsBold]
+        OnClick = BtnUpdateProfileClick
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
@@ -4233,7 +4240,7 @@ object DashboardUser: TDashboardUser
       object BtnGenerateReports: TBCMDButton
         Left = 0
         Height = 50
-        Top = 485
+        Top = 482
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4279,7 +4286,7 @@ object DashboardUser: TDashboardUser
         ShowHint = True
       end
     end
-    object PanelInbox: TPanel
+    object PanelUpdateProfile: TPanel
       Left = 220
       Height = 594
       Top = 0
@@ -4289,25 +4296,365 @@ object DashboardUser: TDashboardUser
       ClientHeight = 594
       ClientWidth = 740
       ParentBackground = False
-      TabOrder = 1
+      TabOrder = 7
       Visible = False
-      object LblInfo: TLabel
+      object LblInfo5: TLabel
         Left = 0
-        Height = 46
+        Height = 39
         Top = 10
         Width = 740
         Align = alTop
         Alignment = taCenter
         BorderSpacing.Top = 10
-        Caption = 'Inbox'
+        Caption = 'Update Profile'
         Font.Height = 32
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object PanelControls: TPanel
+      object LblEditName4: TLabeledEdit
+        AnchorSideTop.Side = asrCenter
+        Left = 208
+        Height = 36
+        Top = 109
+        Width = 350
+        Anchors = [akTop, akLeft, akRight]
+        EditLabel.Height = 36
+        EditLabel.Width = 54
+        EditLabel.Caption = 'Name'
+        EditLabel.ParentFont = False
+        EditLabel.Font.Height = -19
+        EditLabel.Font.Name = 'Sans'
+        LabelPosition = lpLeft
+        LabelSpacing = 15
+        ReadOnly = True
+        TabOrder = 0
+      end
+      object LblEditName5: TLabeledEdit
+        Left = 208
+        Height = 36
+        Top = 170
+        Width = 350
+        Anchors = [akTop, akLeft, akRight]
+        EditLabel.Height = 36
+        EditLabel.Width = 94
+        EditLabel.Caption = 'Username'
+        EditLabel.ParentFont = False
+        EditLabel.Font.Height = -19
+        EditLabel.Font.Name = 'Sans'
+        LabelPosition = lpLeft
+        LabelSpacing = 15
+        ReadOnly = True
+        TabOrder = 1
+      end
+      object LblEditName6: TLabeledEdit
+        Left = 208
+        Height = 36
+        Top = 231
+        Width = 350
+        Anchors = [akTop, akLeft, akRight]
+        EditLabel.Height = 36
+        EditLabel.Width = 50
+        EditLabel.Caption = 'Email'
+        EditLabel.ParentFont = False
+        EditLabel.Font.Height = -19
+        EditLabel.Font.Name = 'Sans'
+        LabelPosition = lpLeft
+        LabelSpacing = 15
+        ReadOnly = True
+        TabOrder = 2
+      end
+      object LblEditName7: TLabeledEdit
+        Left = 208
+        Height = 36
+        Top = 292
+        Width = 350
+        Anchors = [akTop, akLeft, akRight]
+        EditLabel.Height = 36
+        EditLabel.Width = 57
+        EditLabel.Caption = 'Phone'
+        EditLabel.ParentFont = False
+        EditLabel.Font.Height = -19
+        EditLabel.Font.Name = 'Sans'
+        LabelPosition = lpLeft
+        LabelSpacing = 15
+        ReadOnly = True
+        TabOrder = 3
+      end
+      object BtnSelectFile4: TBCMDButton
+        AnchorSideLeft.Control = PanelUpdateProfile
+        AnchorSideLeft.Side = asrCenter
+        AnchorSideRight.Side = asrCenter
+        Left = 295
+        Height = 50
+        Top = 360
+        Width = 150
+        Animation = True
+        StyleNormal.Color = 16530449
+        StyleNormal.TextColor = clWhite
+        StyleHover.Color = 15046421
+        StyleHover.TextColor = clWhite
+        StyleActive.Color = 14408297
+        StyleActive.TextColor = clWhite
+        StyleDisabled.Color = clWhite
+        StyleDisabled.TextColor = 10724259
+        TextAutoSize = True
+        TextProportional = False
+        TextProportionalRatio = 0.5
+        Caption = 'Update Profile'
+        Constraints.MaxWidth = 200
+        ParentFont = False
+      end
+    end
+    object PanelContacts: TPanel
+      Left = 220
+      Height = 594
+      Top = 0
+      Width = 740
+      Align = alClient
+      BevelOuter = bvNone
+      ClientHeight = 594
+      ClientWidth = 740
+      ParentBackground = False
+      TabOrder = 6
+      Visible = False
+      object LblInfo4: TLabel
+        Left = 0
+        Height = 39
+        Top = 10
+        Width = 740
+        Align = alTop
+        Alignment = taCenter
+        BorderSpacing.Top = 10
+        Caption = 'Contacts'
+        Font.Height = 32
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object GroupBox1: TGroupBox
+        Left = 25
+        Height = 100
+        Top = 74
+        Width = 690
+        Align = alTop
+        BorderSpacing.Around = 25
+        Caption = 'Add Contact'
+        ClientHeight = 80
+        ClientWidth = 688
+        ParentBackground = False
+        TabOrder = 0
+        object LblEmail: TLabel
+          Left = 16
+          Height = 19
+          Top = 24
+          Width = 38
+          Caption = 'Email'
+        end
+        object EditEmail: TEdit
+          Left = 100
+          Height = 36
+          Top = 18
+          Width = 250
+          Anchors = [akTop, akLeft, akRight]
+          Constraints.MaxWidth = 450
+          TabOrder = 0
+          TextHint = 'Email'
+        end
+        object BCMDButtonFocus1: TBCMDButtonFocus
+          AnchorSideLeft.Control = EditEmail
+          AnchorSideLeft.Side = asrBottom
+          Left = 375
+          Height = 33
+          Top = 19
+          Width = 150
+          StyleNormal.Color = 16530449
+          StyleNormal.TextColor = clWhite
+          StyleHover.Color = 15046421
+          StyleHover.TextColor = clWhite
+          StyleActive.Color = 14408297
+          StyleActive.TextColor = clWhite
+          StyleDisabled.Color = clWhite
+          StyleDisabled.TextColor = 10724259
+          TextAutoSize = True
+          TextProportional = False
+          TextProportionalRatio = 0.5
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Left = 25
+          Caption = 'Add'
+          Constraints.MaxWidth = 200
+        end
+      end
+      object GroupViewContacts: TGroupBox
+        Left = 25
+        Height = 370
+        Top = 199
+        Width = 690
+        Align = alClient
+        BorderSpacing.Around = 25
+        Caption = 'My Contacts'
+        ClientHeight = 350
+        ClientWidth = 688
+        ParentBackground = False
+        TabOrder = 1
+        object Panel1: TPanel
+          AnchorSideLeft.Control = GroupViewContacts
+          AnchorSideLeft.Side = asrCenter
+          AnchorSideTop.Side = asrCenter
+          Left = 94
+          Height = 50
+          Top = 264
+          Width = 500
+          BevelOuter = bvNone
+          ClientHeight = 50
+          ClientWidth = 500
+          Constraints.MaxWidth = 500
+          ParentBackground = False
+          TabOrder = 0
+          object BtnSelectFile: TBCMDButton
+            Left = 350
+            Height = 50
+            Top = 0
+            Width = 150
+            Animation = True
+            StyleNormal.Color = 16530449
+            StyleNormal.TextColor = clWhite
+            StyleHover.Color = 15046421
+            StyleHover.TextColor = clWhite
+            StyleActive.Color = 14408297
+            StyleActive.TextColor = clWhite
+            StyleDisabled.Color = clWhite
+            StyleDisabled.TextColor = 10724259
+            TextAutoSize = True
+            TextProportional = False
+            TextProportionalRatio = 0.5
+            Align = alRight
+            Anchors = []
+            Caption = 'Next →'
+            ParentFont = False
+          end
+          object BtnSelectFile1: TBCMDButton
+            Left = 0
+            Height = 50
+            Top = 0
+            Width = 150
+            Animation = True
+            StyleNormal.Color = 16530449
+            StyleNormal.TextColor = clWhite
+            StyleHover.Color = 15046421
+            StyleHover.TextColor = clWhite
+            StyleActive.Color = 14408297
+            StyleActive.TextColor = clWhite
+            StyleDisabled.Color = clWhite
+            StyleDisabled.TextColor = 10724259
+            TextAutoSize = True
+            TextProportional = False
+            TextProportionalRatio = 0.5
+            Align = alLeft
+            Anchors = []
+            BorderSpacing.Right = 8
+            Caption = '← Previous'
+            ParentFont = False
+          end
+        end
+        object LblEditName: TLabeledEdit
+          AnchorSideTop.Side = asrCenter
+          Left = 195
+          Height = 36
+          Top = 16
+          Width = 350
+          Anchors = [akTop, akLeft, akRight]
+          EditLabel.Height = 36
+          EditLabel.Width = 54
+          EditLabel.Caption = 'Name'
+          EditLabel.ParentFont = False
+          EditLabel.Font.Height = -19
+          EditLabel.Font.Name = 'Sans'
+          LabelPosition = lpLeft
+          LabelSpacing = 15
+          ReadOnly = True
+          TabOrder = 1
+        end
+        object LblEditName1: TLabeledEdit
+          Left = 195
+          Height = 36
+          Top = 77
+          Width = 350
+          Anchors = [akTop, akLeft, akRight]
+          EditLabel.Height = 36
+          EditLabel.Width = 94
+          EditLabel.Caption = 'Username'
+          EditLabel.ParentFont = False
+          EditLabel.Font.Height = -19
+          EditLabel.Font.Name = 'Sans'
+          LabelPosition = lpLeft
+          LabelSpacing = 15
+          ReadOnly = True
+          TabOrder = 2
+        end
+        object LblEditName2: TLabeledEdit
+          Left = 195
+          Height = 36
+          Top = 138
+          Width = 350
+          Anchors = [akTop, akLeft, akRight]
+          EditLabel.Height = 36
+          EditLabel.Width = 50
+          EditLabel.Caption = 'Email'
+          EditLabel.ParentFont = False
+          EditLabel.Font.Height = -19
+          EditLabel.Font.Name = 'Sans'
+          LabelPosition = lpLeft
+          LabelSpacing = 15
+          ReadOnly = True
+          TabOrder = 3
+        end
+        object LblEditName3: TLabeledEdit
+          Left = 195
+          Height = 36
+          Top = 199
+          Width = 350
+          Anchors = [akTop, akLeft, akRight]
+          EditLabel.Height = 36
+          EditLabel.Width = 57
+          EditLabel.Caption = 'Phone'
+          EditLabel.ParentFont = False
+          EditLabel.Font.Height = -19
+          EditLabel.Font.Name = 'Sans'
+          LabelPosition = lpLeft
+          LabelSpacing = 15
+          ReadOnly = True
+          TabOrder = 4
+        end
+      end
+    end
+    object PanelScheduledEmails: TPanel
+      Left = 220
+      Height = 594
+      Top = 0
+      Width = 740
+      Align = alClient
+      BevelOuter = bvNone
+      ClientHeight = 594
+      ClientWidth = 740
+      ParentBackground = False
+      TabOrder = 5
+      Visible = False
+      object LblInfo3: TLabel
+        Left = 0
+        Height = 39
+        Top = 10
+        Width = 740
+        Align = alTop
+        Alignment = taCenter
+        BorderSpacing.Top = 10
+        Caption = 'Scheduled Emails'
+        Font.Height = 32
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object PanelControls1: TPanel
         Left = 25
         Height = 32
-        Top = 81
+        Top = 74
         Width = 690
         Align = alTop
         Anchors = []
@@ -4317,48 +4664,11 @@ object DashboardUser: TDashboardUser
         ClientWidth = 690
         ParentBackground = False
         TabOrder = 0
-        OnClick = PanelControlsClick
-        object LblFileSelected: TBCLabel
+        object BtnSendAllClick: TBCMDButton
           Left = 0
           Height = 32
           Top = 0
-          Width = 76
-          Align = alLeft
-          Anchors = [akTop, akRight]
-          Background.Gradient1.StartColor = clWhite
-          Background.Gradient1.EndColor = clBlack
-          Background.Gradient1.GradientType = gtLinear
-          Background.Gradient1.Point1XPercent = 0
-          Background.Gradient1.Point1YPercent = 0
-          Background.Gradient1.Point2XPercent = 0
-          Background.Gradient1.Point2YPercent = 100
-          Background.Gradient2.StartColor = clWhite
-          Background.Gradient2.EndColor = clBlack
-          Background.Gradient2.GradientType = gtLinear
-          Background.Gradient2.Point1XPercent = 0
-          Background.Gradient2.Point1YPercent = 0
-          Background.Gradient2.Point2XPercent = 0
-          Background.Gradient2.Point2YPercent = 100
-          Background.Gradient1EndPercent = 35
-          Background.Style = bbsClear
-          Border.Style = bboNone
-          BorderSpacing.Right = 8
-          Caption = 'Unread: 0'
-          FontEx.Color = 16751360
-          FontEx.FontQuality = fqFineAntialiasing
-          FontEx.Shadow = False
-          FontEx.ShadowRadius = 5
-          FontEx.ShadowOffsetX = 5
-          FontEx.ShadowOffsetY = 5
-          FontEx.Style = [fsItalic]
-          Rounding.RoundX = 1
-          Rounding.RoundY = 1
-        end
-        object BtnSortAZ: TBCMDButton
-          Left = 84
-          Height = 32
-          Top = 0
-          Width = 90
+          Width = 120
           Animation = True
           StyleNormal.Color = 16530449
           StyleNormal.TextColor = clWhite
@@ -4374,61 +4684,46 @@ object DashboardUser: TDashboardUser
           Align = alLeft
           AutoSize = True
           BorderSpacing.Right = 8
-          Caption = 'Sort A-Z'
-        end
-        object BtnDelete: TBCMDButton
-          Left = 613
-          Height = 32
-          Top = 0
-          Width = 77
-          Animation = True
-          StyleNormal.Color = 16530449
-          StyleNormal.TextColor = clWhite
-          StyleHover.Color = 15046421
-          StyleHover.TextColor = clWhite
-          StyleActive.Color = 14408297
-          StyleActive.TextColor = clWhite
-          StyleDisabled.Color = 12861184
-          StyleDisabled.TextColor = 10724259
-          TextAutoSize = True
-          TextProportional = False
-          TextProportionalRatio = 0.5
-          Align = alRight
-          AutoSize = True
-          Caption = 'Delete'
-          Enabled = False
+          Caption = 'Send All Now'
         end
       end
-      object PanelInboxBody: TPanel
+      object PanelInboxBody2: TPanel
         Left = 25
-        Height = 431
-        Top = 138
+        Height = 438
+        Top = 131
         Width = 690
         Align = alClient
         BorderSpacing.Around = 25
         BevelOuter = bvNone
-        ClientHeight = 431
+        ClientHeight = 438
         ClientWidth = 690
         ParentBackground = False
         TabOrder = 1
-        object ListView1: TListView
+        object ListView3: TListView
           Left = 0
-          Height = 431
+          Height = 438
           Top = 0
-          Width = 350
-          Align = alLeft
+          Width = 690
+          Align = alClient
           Columns = <          
             item
-              Caption = 'Estado'
-              Width = 100
-            end          
-            item
               Caption = 'Subject'
-              Width = 100
+              MaxWidth = 200
+              Width = 150
             end          
             item
               Caption = 'Sender'
+              MaxWidth = 200
               Width = 135
+            end          
+            item
+              Caption = 'Scheduled Date'
+              MaxWidth = 200
+              Width = 160
+            end          
+            item
+              Caption = 'Scheduled Time'
+              Width = 230
             end>
           GridLines = True
           HideSelection = False
@@ -4436,501 +4731,6 @@ object DashboardUser: TDashboardUser
           RowSelect = True
           TabOrder = 0
           ViewStyle = vsReport
-        end
-        object Splitter1: TSplitter
-          Left = 350
-          Height = 431
-          Top = 0
-          Width = 5
-        end
-        object MemoPreview: TMemo
-          Left = 355
-          Height = 431
-          Top = 0
-          Width = 335
-          Align = alClient
-          Lines.Strings = (
-            '📭 No email selected'
-            ''
-            '👆 Click on a message in your inbox'
-            'to preview its content here.'
-            ''
-            '💡 Tip: Unread emails are marked as "NL".'
-          )
-          ReadOnly = True
-          ScrollBars = ssVertical
-          TabOrder = 2
-        end
-      end
-    end
-    object PanelSendEmail: TPanel
-      Left = 220
-      Height = 594
-      Top = 0
-      Width = 740
-      Align = alClient
-      BevelOuter = bvNone
-      ClientHeight = 594
-      ClientWidth = 740
-      ParentBackground = False
-      ParentColor = False
-      TabOrder = 2
-      Visible = False
-      object LblInfo1: TLabel
-        Left = 0
-        Height = 46
-        Top = 10
-        Width = 740
-        Align = alTop
-        Alignment = taCenter
-        BorderSpacing.Top = 10
-        Caption = 'Send Email'
-        Font.Height = 32
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object LblRecipient: TBCLabel
-        Left = 143
-        Height = 28
-        Top = 109
-        Width = 96
-        Background.Gradient1.StartColor = clWhite
-        Background.Gradient1.EndColor = clBlack
-        Background.Gradient1.GradientType = gtLinear
-        Background.Gradient1.Point1XPercent = 0
-        Background.Gradient1.Point1YPercent = 0
-        Background.Gradient1.Point2XPercent = 0
-        Background.Gradient1.Point2YPercent = 100
-        Background.Gradient2.StartColor = clWhite
-        Background.Gradient2.EndColor = clBlack
-        Background.Gradient2.GradientType = gtLinear
-        Background.Gradient2.Point1XPercent = 0
-        Background.Gradient2.Point1YPercent = 0
-        Background.Gradient2.Point2XPercent = 0
-        Background.Gradient2.Point2YPercent = 100
-        Background.Gradient1EndPercent = 35
-        Background.Style = bbsClear
-        Border.Style = bboNone
-        Caption = 'Recipient'
-        FontEx.Color = 16749568
-        FontEx.FontQuality = fqFineAntialiasing
-        FontEx.Height = 20
-        FontEx.Shadow = False
-        FontEx.ShadowRadius = 5
-        FontEx.ShadowOffsetX = 5
-        FontEx.ShadowOffsetY = 5
-        FontEx.Style = [fsBold]
-        Rounding.RoundX = 1
-        Rounding.RoundY = 1
-      end
-      object EditRecipient: TEdit
-        Left = 272
-        Height = 40
-        Top = 100
-        Width = 350
-        Anchors = [akTop, akLeft, akRight]
-        Font.Height = 20
-        ParentFont = False
-        TabOrder = 0
-        Text = 'Enter recipient email...'
-      end
-      object LblSubject: TBCLabel
-        Left = 143
-        Height = 28
-        Top = 184
-        Width = 77
-        Background.Gradient1.StartColor = clWhite
-        Background.Gradient1.EndColor = clBlack
-        Background.Gradient1.GradientType = gtLinear
-        Background.Gradient1.Point1XPercent = 0
-        Background.Gradient1.Point1YPercent = 0
-        Background.Gradient1.Point2XPercent = 0
-        Background.Gradient1.Point2YPercent = 100
-        Background.Gradient2.StartColor = clWhite
-        Background.Gradient2.EndColor = clBlack
-        Background.Gradient2.GradientType = gtLinear
-        Background.Gradient2.Point1XPercent = 0
-        Background.Gradient2.Point1YPercent = 0
-        Background.Gradient2.Point2XPercent = 0
-        Background.Gradient2.Point2YPercent = 100
-        Background.Gradient1EndPercent = 35
-        Background.Style = bbsClear
-        Border.Style = bboNone
-        Caption = 'Subject'
-        FontEx.Color = 16749568
-        FontEx.FontQuality = fqFineAntialiasing
-        FontEx.Height = 20
-        FontEx.Shadow = False
-        FontEx.ShadowRadius = 5
-        FontEx.ShadowOffsetX = 5
-        FontEx.ShadowOffsetY = 5
-        FontEx.Style = [fsBold]
-        Rounding.RoundX = 1
-        Rounding.RoundY = 1
-      end
-      object EditSubject: TEdit
-        Left = 272
-        Height = 40
-        Top = 175
-        Width = 350
-        Anchors = [akTop, akLeft, akRight]
-        Font.Height = 20
-        ParentFont = False
-        TabOrder = 1
-        Text = 'Enter subject...'
-      end
-      object LblMessage: TBCLabel
-        Left = 143
-        Height = 28
-        Top = 250
-        Width = 92
-        Background.Gradient1.StartColor = clWhite
-        Background.Gradient1.EndColor = clBlack
-        Background.Gradient1.GradientType = gtLinear
-        Background.Gradient1.Point1XPercent = 0
-        Background.Gradient1.Point1YPercent = 0
-        Background.Gradient1.Point2XPercent = 0
-        Background.Gradient1.Point2YPercent = 100
-        Background.Gradient2.StartColor = clWhite
-        Background.Gradient2.EndColor = clBlack
-        Background.Gradient2.GradientType = gtLinear
-        Background.Gradient2.Point1XPercent = 0
-        Background.Gradient2.Point1YPercent = 0
-        Background.Gradient2.Point2XPercent = 0
-        Background.Gradient2.Point2YPercent = 100
-        Background.Gradient1EndPercent = 35
-        Background.Style = bbsClear
-        Border.Style = bboNone
-        Caption = 'Message'
-        FontEx.Color = 16749568
-        FontEx.FontQuality = fqFineAntialiasing
-        FontEx.Height = 20
-        FontEx.Shadow = False
-        FontEx.ShadowRadius = 5
-        FontEx.ShadowOffsetX = 5
-        FontEx.ShadowOffsetY = 5
-        FontEx.Style = [fsBold]
-        Rounding.RoundX = 1
-        Rounding.RoundY = 1
-      end
-      object MemoMessage: TMemo
-        Left = 272
-        Height = 200
-        Top = 250
-        Width = 350
-        Anchors = [akTop, akLeft, akRight]
-        Font.Height = 20
-        Lines.Strings = (
-          'Type your message here...'
-        )
-        ParentFont = False
-        TabOrder = 2
-      end
-      object BtnSend: TBCButton
-        Cursor = crHandPoint
-        Left = 220
-        Height = 35
-        Top = 520
-        Width = 250
-        Anchors = [akTop, akLeft, akRight]
-        StateClicked.Background.Gradient1.StartColor = 16759552
-        StateClicked.Background.Gradient1.EndColor = 16727040
-        StateClicked.Background.Gradient1.GradientType = gtRadial
-        StateClicked.Background.Gradient1.Point1XPercent = 50
-        StateClicked.Background.Gradient1.Point1YPercent = 100
-        StateClicked.Background.Gradient1.Point2XPercent = 0
-        StateClicked.Background.Gradient1.Point2YPercent = 0
-        StateClicked.Background.Gradient2.StartColor = 16759552
-        StateClicked.Background.Gradient2.EndColor = 15722194
-        StateClicked.Background.Gradient2.GradientType = gtLinear
-        StateClicked.Background.Gradient2.Point1XPercent = 0
-        StateClicked.Background.Gradient2.Point1YPercent = 0
-        StateClicked.Background.Gradient2.Point2XPercent = 0
-        StateClicked.Background.Gradient2.Point2YPercent = 100
-        StateClicked.Background.Gradient1EndPercent = 100
-        StateClicked.Background.Style = bbsGradient
-        StateClicked.Border.Color = 11235643
-        StateClicked.Border.Style = bboNone
-        StateClicked.FontEx.Color = 16770790
-        StateClicked.FontEx.FontQuality = fqSystemClearType
-        StateClicked.FontEx.Shadow = False
-        StateClicked.FontEx.ShadowRadius = 2
-        StateClicked.FontEx.ShadowOffsetX = 1
-        StateClicked.FontEx.ShadowOffsetY = 1
-        StateClicked.FontEx.Style = []
-        StateHover.Background.Gradient1.StartColor = 16727040
-        StateHover.Background.Gradient1.EndColor = 16759552
-        StateHover.Background.Gradient1.GradientType = gtRadial
-        StateHover.Background.Gradient1.Point1XPercent = 50
-        StateHover.Background.Gradient1.Point1YPercent = 100
-        StateHover.Background.Gradient1.Point2XPercent = 0
-        StateHover.Background.Gradient1.Point2YPercent = 0
-        StateHover.Background.Gradient2.StartColor = 13137169
-        StateHover.Background.Gradient2.EndColor = 15722194
-        StateHover.Background.Gradient2.GradientType = gtLinear
-        StateHover.Background.Gradient2.Point1XPercent = 0
-        StateHover.Background.Gradient2.Point1YPercent = 0
-        StateHover.Background.Gradient2.Point2XPercent = 0
-        StateHover.Background.Gradient2.Point2YPercent = 100
-        StateHover.Background.Gradient1EndPercent = 100
-        StateHover.Background.Style = bbsGradient
-        StateHover.Border.Color = clRed
-        StateHover.Border.Style = bboNone
-        StateHover.FontEx.Color = clWhite
-        StateHover.FontEx.FontQuality = fqSystemClearType
-        StateHover.FontEx.Shadow = False
-        StateHover.FontEx.ShadowRadius = 2
-        StateHover.FontEx.ShadowOffsetX = 1
-        StateHover.FontEx.ShadowOffsetY = 1
-        StateHover.FontEx.Style = []
-        StateNormal.Background.Color = 16727040
-        StateNormal.Background.Gradient1.StartColor = 16727040
-        StateNormal.Background.Gradient1.EndColor = 16759552
-        StateNormal.Background.Gradient1.GradientType = gtLinear
-        StateNormal.Background.Gradient1.Point1XPercent = 0
-        StateNormal.Background.Gradient1.Point1YPercent = 0
-        StateNormal.Background.Gradient1.Point2XPercent = 0
-        StateNormal.Background.Gradient1.Point2YPercent = 100
-        StateNormal.Background.Gradient2.StartColor = 16759552
-        StateNormal.Background.Gradient2.EndColor = 16727040
-        StateNormal.Background.Gradient2.GradientType = gtRadial
-        StateNormal.Background.Gradient2.Point1XPercent = 0
-        StateNormal.Background.Gradient2.Point1YPercent = 0
-        StateNormal.Background.Gradient2.Point2XPercent = 0
-        StateNormal.Background.Gradient2.Point2YPercent = 0
-        StateNormal.Background.Gradient1EndPercent = 60
-        StateNormal.Background.Style = bbsColor
-        StateNormal.Border.Color = 11235643
-        StateNormal.Border.Style = bboNone
-        StateNormal.FontEx.Color = clBtnText
-        StateNormal.FontEx.FontQuality = fqSystemClearType
-        StateNormal.FontEx.Shadow = False
-        StateNormal.FontEx.ShadowRadius = 2
-        StateNormal.FontEx.ShadowOffsetX = 1
-        StateNormal.FontEx.ShadowOffsetY = 1
-        StateNormal.FontEx.Style = []
-        Caption = 'Send'
-        Color = 16740096
-        DropDownWidth = 16
-        DropDownArrowSize = 8
-        GlobalOpacity = 255
-        ParentColor = False
-        Rounding.RoundX = 15
-        Rounding.RoundY = 15
-        RoundingDropDown.RoundX = 1
-        RoundingDropDown.RoundY = 1
-        TextApplyGlobalOpacity = False
-        MemoryUsage = bmuHigh
-      end
-    end
-    object PanelTrash: TPanel
-      Left = 220
-      Height = 594
-      Top = 0
-      Width = 740
-      Align = alClient
-      BevelOuter = bvNone
-      ClientHeight = 594
-      ClientWidth = 740
-      ParentBackground = False
-      TabOrder = 3
-      Visible = False
-      object PanelTitle: TLabel
-        Left = 0
-        Height = 46
-        Top = 10
-        Width = 740
-        Align = alTop
-        Alignment = taCenter
-        BorderSpacing.Top = 10
-        Caption = 'Trash'
-        Font.Height = 32
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object PanelControls2: TPanel
-        Left = 25
-        Height = 32
-        Top = 81
-        Width = 690
-        Align = alTop
-        Anchors = []
-        BorderSpacing.Around = 25
-        BevelOuter = bvNone
-        ClientHeight = 32
-        ClientWidth = 690
-        ParentBackground = False
-        TabOrder = 0
-        OnClick = PanelControlsClick
-        object Image2: TImage
-          Left = 0
-          Height = 32
-          Top = 0
-          Width = 32
-          Align = alLeft
-          BorderSpacing.Right = 8
-          Picture.Data = {
-            1754506F727461626C654E6574776F726B477261706869639A07000089504E47
-            0D0A1A0A0000000D49484452000000300000003008060000005702F987000007
-            4F494441547801BC598B75DB38109CD535E2547276274E05762AB05C41EC3420
-            A512FB2AB11A8971338B25B124405997CFE1E1B37FEC9020084A3BFC8FC53497
-            7722A6D60926C5626C56064B9A4D00D928D96F90975917797B27626A14DC976B
-            B4763569C66341498A4D00D928D96F909758AF40DE975BDC95035BB182174423
-            FD46D90BDBC1EECB0CA6AC678E709B00D6F63FC7C72CEE9C52B82B4AF840F12D
-            9879D290A314B806705B0ADE20A064BA1A4E7F1840CC32CDAE2B7A57DEC82A41
-            0EAA19A4F8A985EF3B0E04B19FA4F3E86E8604C025F89385CB4357FDEADC1C2D
-            8BA034143C7420025F0210922EBA2274C28B05B3F77DD973866BB05B39BF725B
-            F9CCF689EDA6181EA93F616D5820100DBC072EF90ED06D58FB1917661E088801
-            EBE2DE5A3A4A40CA6CB8C30D9EED064F76643BB1BDB2ED61B801EC152A1E4004
-            9B81CF0C6A0979BA03550E8B71380C94112886A117856D62325E0D8FF86A3549
-            17A8339886273BE1797763C0A90A50CB0F2CEF02A53D80B3999C5532DC462DF8
-            7BA539E1C9F6E84A419B81B4E17B120086AE2C002CF4DABEB86E316A5FCA7E20
-            BFA5ACADD16EAA10141F4FDE7FD0319FD741D269070376968214BD0DEFCA0B5F
-            227AB91CF08E0714F42DE4DC55661DE903EABEBD01A2661E099D7041A1C7B65D
-            24BEA3510DC52BCE245EC8384297BB915360725421E68797D0902E939A34FAF5
-            0E150F26426D03E4C226D9B59998480515A2BA84EA2E7108991C6BCB82889D45
-            D5487D2845EAC1AB63EB0DFF70E2C6033AFB5CA12B5D74BF98408AFFB47B75CE
-            3B6007159D4334AAE51826817722BC35AEE4B0AE63C7ED7077E438D7B07FC5DA
-            BA402F35A8848DC8D6EA457D6802A7FCEA1791DE81006408B4AB6160092D29CE
-            FB8867B3A99599DE59A343FFCD3E03C997FECE3D1901C027472BD77CD65E50E7
-            9FA526EA4BB945293A72886B4D5B6FE39CDAB18FDB444AB5A8F33022C07CB4F7
-            EE2BF341EFBE1B360682EB74D78CFF066D1CF765CFF150EE98F80FF0EEA41C9A
-            9B2E44E3480940BBFA1420FB1509D80A0620B2216D52ED3412E82E0CAEA0DC38
-            8D803C90D606705573A09482451DEC720230DB689E60EA3A4E02742006138473
-            374CA67A796D8060FCCE6D285881580098E6C1B3D6322A08A4D28148BA44CE71
-            28CBD7802C5041DC20ED566EE31DA573758172F067C7B94997402C004C7A1F05
-            A24001B0281782987C32189729132DA767FB04C30D0C8FB479A54E896A3C726B
-            79A4FC1394C30E7A764EB4A149AA01621B806C7D57C151730268A560F04C34F5
-            592A672220BA233A910A501D3FE3ABEDA1031D5874E0AB1B800052B0A8D79B00
-            6CB2E355E09CBF7C27A6708B719E64921A4CA47722A211A80D4194ABC55928CC
-            7D60D23E7A47101C1B8849F9E19DB071420CE6758AE38CBA021779273E358260
-            305F4E213DE269B76F67A1906E0E198425AB0EC452D9E5C23317EEDF6FF32F0E
-            29DA26E97104A22E35BD5805868FCBA6CB4041104CAFDD89C96401C2A70A0DAD
-            4549A437EE5D79E1253EA0D8A114746F61F012635D22C45A3CF19BCF801B0C9C
-            797C10F2A3EB73573078B095398D947C3DFBE4B7FE153599271BF6A4E63A10E5
-            B4CE0318387B60DE098E27B6651D8198932FAB64A1AFB2FE42605C5AD2862293
-            109C072043DED6B0756EEEB416D3CBC8E58A2C105A2AFA38D27A2F784101935F
-            45E1FE8F4B4AB815C5F298EFBA73604CF7AE0034B1B3A3AE4CB6BD720D2226A3
-            A1CE364A9C8732D409918AB6C4273B26C936A9DCF413A49660C11473B6AF0066
-            F6278835088630B645CD8241F259DDFC42AA25C89F1983937AF131540124AD2C
-            CEB5A16905719CFC74D12ADD28E707C94BEE565D60974AED7770E62449DF2F15
-            40156EF639F62A50F8D0420FB6CE368BE7827259E84C459DAD978D49196D1C38
-            94E093886509DF0AE003E70FD40C1C16F945A35FDD0C3A901974A6A22EAC681F
-            3504918B0B33ED82E8C234380E21A8003AAF4E408F4B6BF8EA10361DC83E708D
-            5CDC2AD32E88704EE72EE415405638DD8571E9B92EE2D164DBB7D9D02C5597B7
-            2E69480EC2B969C83700D051D52D45B49645998E78CD7040B94D760A1B974737
-            5087551BDC34D8F300B2A53BC45BD0E9F95D12DC85431773E9F7817A694CEE3C
-            001A2CEB7F0DBFF46E9CC11AF34B54FD1E58E7555F1EBF14B83A6FA579E6ED5E
-            1DBDDFF2766574FA1E384D972339F0EC1216AB21D94C6E2B8BCC960B6CB27DA6
-            63B91A56B914805B32A268099D820655952CD0D1B8FE5CCEBB616C885662149F
-            69F1A37689CDC80FF73CB4DD973DF4A746CD0A28226CCE57DC0E15CD4208BDAA
-            75787AC71BF8F5CF8F8F37FED4FE267ADCCA4267F419DB61B6E32FE1338D6DFB
-            87C52D3466C63F3D3490F2AA3B00E8AD89B20681CE19DBC592AA247A8BBCC4A6
-            F32DD037C4BEF91A5307CB573BC1EC3BA913DBD96A43ADF1224E8A167E92FCA6
-            F1C46CF53598C2158A2656BFCFE8B4B8388C4DCA36E6F4B6C034EBDF40D5098F
-            D089B72EF714D41200301D19C8F099BBABE1060274A69533BAF3BEE5F3793D26
-            FD277CB3F91708E4C274C1FB5E9F015754A808050446C7DFA93DDB91B2D47689
-            5EEB3EE2FFBAD43796B4A12B91EEBF000000FFFF5FC840780000000649444154
-            0300C772F184EDFF962A0000000049454E44AE426082
-          }
-          Stretch = True
-        end
-        object BtnDelete1: TBCMDButton
-          Left = 613
-          Height = 32
-          Top = 0
-          Width = 77
-          Animation = True
-          StyleNormal.Color = 16530449
-          StyleNormal.TextColor = clWhite
-          StyleHover.Color = 15046421
-          StyleHover.TextColor = clWhite
-          StyleActive.Color = 14408297
-          StyleActive.TextColor = clWhite
-          StyleDisabled.Color = 12861184
-          StyleDisabled.TextColor = 10724259
-          TextAutoSize = True
-          TextProportional = False
-          TextProportionalRatio = 0.5
-          Align = alRight
-          AutoSize = True
-          Caption = 'Delete'
-          Enabled = False
-        end
-        object EditSearh: TEdit
-          Left = 40
-          Height = 32
-          Top = 0
-          Width = 250
-          Align = alLeft
-          Anchors = [akTop, akLeft, akRight]
-          Font.Height = 12
-          ParentFont = False
-          TabOrder = 0
-          Text = 'Search in subject...'
-        end
-      end
-      object PanelInboxBody1: TPanel
-        Left = 25
-        Height = 431
-        Top = 138
-        Width = 690
-        Align = alClient
-        BorderSpacing.Around = 25
-        BevelOuter = bvNone
-        ClientHeight = 431
-        ClientWidth = 690
-        ParentBackground = False
-        TabOrder = 1
-        object ListView2: TListView
-          Left = 0
-          Height = 431
-          Top = 0
-          Width = 350
-          Align = alLeft
-          Columns = <          
-            item
-              Caption = 'Estado'
-              Width = 100
-            end          
-            item
-              Caption = 'Subject'
-              Width = 100
-            end          
-            item
-              Caption = 'Sender'
-              Width = 135
-            end>
-          GridLines = True
-          HideSelection = False
-          ReadOnly = True
-          RowSelect = True
-          TabOrder = 0
-          ViewStyle = vsReport
-        end
-        object Splitter2: TSplitter
-          Left = 350
-          Height = 431
-          Top = 0
-          Width = 5
-        end
-        object MemoPreview1: TMemo
-          Left = 355
-          Height = 431
-          Top = 0
-          Width = 335
-          Align = alClient
-          Lines.Strings = (
-            '🗑️ No email selected in Trash'
-            ''
-            '👆 Click on a deleted message'
-            'to preview it here.'
-            ''
-            '⚠️ Note: Emails removed from Trash are permanently deleted.'
-          )
-          ReadOnly = True
-          ScrollBars = ssVertical
-          TabOrder = 2
         end
       end
     end
@@ -4949,7 +4749,7 @@ object DashboardUser: TDashboardUser
       Visible = False
       object LblInfo2: TLabel
         Left = 0
-        Height = 46
+        Height = 39
         Top = 10
         Width = 740
         Align = alTop
@@ -4962,9 +4762,9 @@ object DashboardUser: TDashboardUser
       end
       object LblRecipient1: TBCLabel
         Left = 143
-        Height = 28
+        Height = 25
         Top = 181
-        Width = 96
+        Width = 91
         Background.Gradient1.StartColor = clWhite
         Background.Gradient1.EndColor = clBlack
         Background.Gradient1.GradientType = gtLinear
@@ -4996,7 +4796,7 @@ object DashboardUser: TDashboardUser
       end
       object EditRecipient1: TEdit
         Left = 272
-        Height = 40
+        Height = 42
         Top = 175
         Width = 350
         Anchors = [akTop, akLeft, akRight]
@@ -5007,9 +4807,9 @@ object DashboardUser: TDashboardUser
       end
       object LblSubject1: TBCLabel
         Left = 143
-        Height = 28
+        Height = 25
         Top = 256
-        Width = 77
+        Width = 74
         Background.Gradient1.StartColor = clWhite
         Background.Gradient1.EndColor = clBlack
         Background.Gradient1.GradientType = gtLinear
@@ -5041,7 +4841,7 @@ object DashboardUser: TDashboardUser
       end
       object EditSubject1: TEdit
         Left = 272
-        Height = 40
+        Height = 42
         Top = 250
         Width = 350
         Anchors = [akTop, akLeft, akRight]
@@ -5052,9 +4852,9 @@ object DashboardUser: TDashboardUser
       end
       object LblMessage1: TBCLabel
         Left = 143
-        Height = 28
+        Height = 25
         Top = 325
-        Width = 92
+        Width = 90
         Background.Gradient1.StartColor = clWhite
         Background.Gradient1.EndColor = clBlack
         Background.Gradient1.GradientType = gtLinear
@@ -5195,7 +4995,7 @@ object DashboardUser: TDashboardUser
       end
       object DateEditSend: TDateTimePicker
         Left = 272
-        Height = 34
+        Height = 31
         Top = 100
         Width = 350
         CenturyFrom = 1941
@@ -5221,9 +5021,9 @@ object DashboardUser: TDashboardUser
       end
       object LblSendDate: TBCLabel
         Left = 143
-        Height = 28
+        Height = 25
         Top = 103
-        Width = 104
+        Width = 100
         Background.Gradient1.StartColor = clWhite
         Background.Gradient1.EndColor = clBlack
         Background.Gradient1.GradientType = gtLinear
@@ -5254,7 +5054,7 @@ object DashboardUser: TDashboardUser
         Rounding.RoundY = 1
       end
     end
-    object PanelScheduledEmails: TPanel
+    object PanelTrash: TPanel
       Left = 220
       Height = 594
       Top = 0
@@ -5264,25 +5064,25 @@ object DashboardUser: TDashboardUser
       ClientHeight = 594
       ClientWidth = 740
       ParentBackground = False
-      TabOrder = 5
+      TabOrder = 3
       Visible = False
-      object LblInfo3: TLabel
+      object PanelTitle: TLabel
         Left = 0
-        Height = 46
+        Height = 39
         Top = 10
         Width = 740
         Align = alTop
         Alignment = taCenter
         BorderSpacing.Top = 10
-        Caption = 'Scheduled Emails'
+        Caption = 'Trash'
         Font.Height = 32
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object PanelControls1: TPanel
+      object PanelControls2: TPanel
         Left = 25
         Height = 32
-        Top = 81
+        Top = 74
         Width = 690
         Align = alTop
         Anchors = []
@@ -5292,12 +5092,515 @@ object DashboardUser: TDashboardUser
         ClientWidth = 690
         ParentBackground = False
         TabOrder = 0
-        OnClick = PanelControlsClick
-        object BtnSendAllClick: TBCMDButton
+        object Image2: TImage
           Left = 0
           Height = 32
           Top = 0
-          Width = 127
+          Width = 32
+          Align = alLeft
+          BorderSpacing.Right = 8
+          Picture.Data = {
+            1754506F727461626C654E6574776F726B477261706869639A07000089504E47
+            0D0A1A0A0000000D49484452000000300000003008060000005702F987000007
+            4F494441547801BC598B75DB38109CD535E2547276274E05762AB05C41EC3420
+            A512FB2AB11A8971338B25B124405997CFE1E1B37FEC9020084A3BFC8FC53497
+            7722A6D60926C5626C56064B9A4D00D928D96F90975917797B27626A14DC976B
+            B4763569C66341498A4D00D928D96F909758AF40DE975BDC95035BB182174423
+            FD46D90BDBC1EECB0CA6AC678E709B00D6F63FC7C72CEE9C52B82B4AF840F12D
+            9879D290A314B806705B0ADE20A064BA1A4E7F1840CC32CDAE2B7A57DEC82A41
+            0EAA19A4F8A985EF3B0E04B19FA4F3E86E8604C025F89385CB4357FDEADC1C2D
+            8BA034143C7420025F0210922EBA2274C28B05B3F77DD973866BB05B39BF725B
+            F9CCF689EDA6181EA93F616D5820100DBC072EF90ED06D58FB1917661E088801
+            EBE2DE5A3A4A40CA6CB8C30D9EED064F76643BB1BDB2ED61B801EC152A1E4004
+            9B81CF0C6A0979BA03550E8B71380C94112886A117856D62325E0D8FF86A3549
+            17A8339886273BE1797763C0A90A50CB0F2CEF02A53D80B3999C5532DC462DF8
+            7BA539E1C9F6E84A419B81B4E17B120086AE2C002CF4DABEB86E316A5FCA7E20
+            BFA5ACADD16EAA10141F4FDE7FD0319FD741D269070376968214BD0DEFCA0B5F
+            227AB91CF08E0714F42DE4DC55661DE903EABEBD01A2661E099D7041A1C7B65D
+            24BEA3510DC52BCE245EC8384297BB915360725421E68797D0902E939A34FAF5
+            0E150F26426D03E4C226D9B59998480515A2BA84EA2E7108991C6BCB82889D45
+            D5487D2845EAC1AB63EB0DFF70E2C6033AFB5CA12B5D74BF98408AFFB47B75CE
+            3B6007159D4334AAE51826817722BC35AEE4B0AE63C7ED7077E438D7B07FC5DA
+            BA402F35A8848DC8D6EA457D6802A7FCEA1791DE81006408B4AB6160092D29CE
+            FB8867B3A99599DE59A343FFCD3E03C997FECE3D1901C027472BD77CD65E50E7
+            9FA526EA4BB945293A72886B4D5B6FE39CDAB18FDB444AB5A8F33022C07CB4F7
+            EE2BF341EFBE1B360682EB74D78CFF066D1CF765CFF150EE98F80FF0EEA41C9A
+            9B2E44E3480940BBFA1420FB1509D80A0620B2216D52ED3412E82E0CAEA0DC38
+            8D803C90D606705573A09482451DEC720230DB689E60EA3A4E02742006138473
+            374CA67A796D8060FCCE6D285881580098E6C1B3D6322A08A4D28148BA44CE71
+            28CBD7802C5041DC20ED566EE31DA573758172F067C7B94997402C004C7A1F05
+            A24001B0281782987C32189729132DA767FB04C30D0C8FB479A54E896A3C726B
+            79A4FC1394C30E7A764EB4A149AA01621B806C7D57C151730268A560F04C34F5
+            592A672220BA233A910A501D3FE3ABEDA1031D5874E0AB1B800052B0A8D79B00
+            6CB2E355E09CBF7C27A6708B719E64921A4CA47722A211A80D4194ABC55928CC
+            7D60D23E7A47101C1B8849F9E19DB071420CE6758AE38CBA021779273E358260
+            305F4E213DE269B76F67A1906E0E198425AB0EC452D9E5C23317EEDF6FF32F0E
+            29DA26E97104A22E35BD5805868FCBA6CB4041104CAFDD89C96401C2A70A0DAD
+            4549A437EE5D79E1253EA0D8A114746F61F012635D22C45A3CF19BCF801B0C9C
+            797C10F2A3EB73573078B095398D947C3DFBE4B7FE153599271BF6A4E63A10E5
+            B4CE0318387B60DE098E27B6651D8198932FAB64A1AFB2FE42605C5AD2862293
+            109C072043DED6B0756EEEB416D3CBC8E58A2C105A2AFA38D27A2F784101935F
+            45E1FE8F4B4AB815C5F298EFBA73604CF7AE0034B1B3A3AE4CB6BD720D2226A3
+            A1CE364A9C8732D409918AB6C4273B26C936A9DCF413A49660C11473B6AF0066
+            F6278835088630B645CD8241F259DDFC42AA25C89F1983937AF131540124AD2C
+            CEB5A16905719CFC74D12ADD28E707C94BEE565D60974AED7770E62449DF2F15
+            40156EF639F62A50F8D0420FB6CE368BE7827259E84C459DAD978D49196D1C38
+            94E093886509DF0AE003E70FD40C1C16F945A35FDD0C3A901974A6A22EAC681F
+            3504918B0B33ED82E8C234380E21A8003AAF4E408F4B6BF8EA10361DC83E708D
+            5CDC2AD32E88704EE72EE415405638DD8571E9B92EE2D164DBB7D9D02C5597B7
+            2E69480EC2B969C83700D051D52D45B49645998E78CD7040B94D760A1B974737
+            5087551BDC34D8F300B2A53BC45BD0E9F95D12DC85431773E9F7817A694CEE3C
+            001A2CEB7F0DBFF46E9CC11AF34B54FD1E58E7555F1EBF14B83A6FA579E6ED5E
+            1DBDDFF2766574FA1E384D972339F0EC1216AB21D94C6E2B8BCC960B6CB27DA6
+            63B91A56B914805B32A268099D820655952CD0D1B8FE5CCEBB616C885662149F
+            69F1A37689CDC80FF73CB4DD973DF4A746CD0A28226CCE57DC0E15CD4208BDAA
+            75787AC71BF8F5CF8F8F37FED4FE267ADCCA4267F419DB61B6E32FE1338D6DFB
+            87C52D3466C63F3D3490F2AA3B00E8AD89B20681CE19DBC592AA247A8BBCC4A6
+            F32DD037C4BEF91A5307CB573BC1EC3BA913DBD96A43ADF1224E8A167E92FCA6
+            F1C46CF53598C2158A2656BFCFE8B4B8388C4DCA36E6F4B6C034EBDF40D5098F
+            D089B72EF714D41200301D19C8F099BBABE1060274A69533BAF3BEE5F3793D26
+            FD277CB3F91708E4C274C1FB5E9F015754A808050446C7DFA93DDB91B2D47689
+            5EEB3EE2FFBAD43796B4A12B91EEBF000000FFFF5FC840780000000649444154
+            0300C772F184EDFF962A0000000049454E44AE426082
+          }
+          Stretch = True
+        end
+        object BtnDelete1: TBCMDButton
+          Left = 617
+          Height = 32
+          Top = 0
+          Width = 73
+          Animation = True
+          StyleNormal.Color = 16530449
+          StyleNormal.TextColor = clWhite
+          StyleHover.Color = 15046421
+          StyleHover.TextColor = clWhite
+          StyleActive.Color = 14408297
+          StyleActive.TextColor = clWhite
+          StyleDisabled.Color = 12861184
+          StyleDisabled.TextColor = 10724259
+          TextAutoSize = True
+          TextProportional = False
+          TextProportionalRatio = 0.5
+          Align = alRight
+          AutoSize = True
+          Caption = 'Delete'
+          Enabled = False
+        end
+        object EditSearh: TEdit
+          Left = 40
+          Height = 32
+          Top = 0
+          Width = 250
+          Align = alLeft
+          Anchors = [akTop, akLeft, akRight]
+          Font.Height = 12
+          ParentFont = False
+          TabOrder = 0
+          Text = 'Search in subject...'
+        end
+      end
+      object PanelInboxBody1: TPanel
+        Left = 25
+        Height = 438
+        Top = 131
+        Width = 690
+        Align = alClient
+        BorderSpacing.Around = 25
+        BevelOuter = bvNone
+        ClientHeight = 438
+        ClientWidth = 690
+        ParentBackground = False
+        TabOrder = 1
+        object ListView2: TListView
+          Left = 0
+          Height = 438
+          Top = 0
+          Width = 350
+          Align = alLeft
+          Columns = <          
+            item
+              Caption = 'Estado'
+              Width = 100
+            end          
+            item
+              Caption = 'Subject'
+              Width = 100
+            end          
+            item
+              Caption = 'Sender'
+              Width = 135
+            end>
+          GridLines = True
+          HideSelection = False
+          ReadOnly = True
+          RowSelect = True
+          TabOrder = 0
+          ViewStyle = vsReport
+        end
+        object Splitter2: TSplitter
+          Left = 350
+          Height = 438
+          Top = 0
+          Width = 5
+        end
+        object MemoPreview1: TMemo
+          Left = 355
+          Height = 438
+          Top = 0
+          Width = 335
+          Align = alClient
+          Lines.Strings = (
+            '🗑️ No email selected in Trash'
+            ''
+            '👆 Click on a deleted message'
+            'to preview it here.'
+            ''
+            '⚠️ Note: Emails removed from Trash are permanently deleted.'
+          )
+          ReadOnly = True
+          ScrollBars = ssVertical
+          TabOrder = 2
+        end
+      end
+    end
+    object PanelSendEmail: TPanel
+      Left = 220
+      Height = 594
+      Top = 0
+      Width = 740
+      Align = alClient
+      BevelOuter = bvNone
+      ClientHeight = 594
+      ClientWidth = 740
+      ParentBackground = False
+      ParentColor = False
+      TabOrder = 2
+      Visible = False
+      object LblInfo1: TLabel
+        Left = 0
+        Height = 39
+        Top = 10
+        Width = 740
+        Align = alTop
+        Alignment = taCenter
+        BorderSpacing.Top = 10
+        Caption = 'Send Email'
+        Font.Height = 32
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object LblRecipient: TBCLabel
+        Left = 143
+        Height = 25
+        Top = 109
+        Width = 91
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Style = bboNone
+        Caption = 'Recipient'
+        FontEx.Color = 16749568
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 20
+        FontEx.Shadow = False
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold]
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+      end
+      object EditRecipient: TEdit
+        Left = 272
+        Height = 42
+        Top = 100
+        Width = 350
+        Anchors = [akTop, akLeft, akRight]
+        Font.Height = 20
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Enter recipient email...'
+      end
+      object LblSubject: TBCLabel
+        Left = 143
+        Height = 25
+        Top = 184
+        Width = 74
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Style = bboNone
+        Caption = 'Subject'
+        FontEx.Color = 16749568
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 20
+        FontEx.Shadow = False
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold]
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+      end
+      object EditSubject: TEdit
+        Left = 272
+        Height = 42
+        Top = 175
+        Width = 350
+        Anchors = [akTop, akLeft, akRight]
+        Font.Height = 20
+        ParentFont = False
+        TabOrder = 1
+        Text = 'Enter subject...'
+      end
+      object LblMessage: TBCLabel
+        Left = 143
+        Height = 25
+        Top = 250
+        Width = 90
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsClear
+        Border.Style = bboNone
+        Caption = 'Message'
+        FontEx.Color = 16749568
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 20
+        FontEx.Shadow = False
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = [fsBold]
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+      end
+      object MemoMessage: TMemo
+        Left = 272
+        Height = 200
+        Top = 250
+        Width = 350
+        Anchors = [akTop, akLeft, akRight]
+        Font.Height = 20
+        Lines.Strings = (
+          'Type your message here...'
+        )
+        ParentFont = False
+        TabOrder = 2
+      end
+      object BtnSend: TBCButton
+        Cursor = crHandPoint
+        Left = 220
+        Height = 35
+        Top = 520
+        Width = 250
+        Anchors = [akTop, akLeft, akRight]
+        StateClicked.Background.Gradient1.StartColor = 16759552
+        StateClicked.Background.Gradient1.EndColor = 16727040
+        StateClicked.Background.Gradient1.GradientType = gtRadial
+        StateClicked.Background.Gradient1.Point1XPercent = 50
+        StateClicked.Background.Gradient1.Point1YPercent = 100
+        StateClicked.Background.Gradient1.Point2XPercent = 0
+        StateClicked.Background.Gradient1.Point2YPercent = 0
+        StateClicked.Background.Gradient2.StartColor = 16759552
+        StateClicked.Background.Gradient2.EndColor = 15722194
+        StateClicked.Background.Gradient2.GradientType = gtLinear
+        StateClicked.Background.Gradient2.Point1XPercent = 0
+        StateClicked.Background.Gradient2.Point1YPercent = 0
+        StateClicked.Background.Gradient2.Point2XPercent = 0
+        StateClicked.Background.Gradient2.Point2YPercent = 100
+        StateClicked.Background.Gradient1EndPercent = 100
+        StateClicked.Background.Style = bbsGradient
+        StateClicked.Border.Color = 11235643
+        StateClicked.Border.Style = bboNone
+        StateClicked.FontEx.Color = 16770790
+        StateClicked.FontEx.FontQuality = fqSystemClearType
+        StateClicked.FontEx.Shadow = False
+        StateClicked.FontEx.ShadowRadius = 2
+        StateClicked.FontEx.ShadowOffsetX = 1
+        StateClicked.FontEx.ShadowOffsetY = 1
+        StateClicked.FontEx.Style = []
+        StateHover.Background.Gradient1.StartColor = 16727040
+        StateHover.Background.Gradient1.EndColor = 16759552
+        StateHover.Background.Gradient1.GradientType = gtRadial
+        StateHover.Background.Gradient1.Point1XPercent = 50
+        StateHover.Background.Gradient1.Point1YPercent = 100
+        StateHover.Background.Gradient1.Point2XPercent = 0
+        StateHover.Background.Gradient1.Point2YPercent = 0
+        StateHover.Background.Gradient2.StartColor = 13137169
+        StateHover.Background.Gradient2.EndColor = 15722194
+        StateHover.Background.Gradient2.GradientType = gtLinear
+        StateHover.Background.Gradient2.Point1XPercent = 0
+        StateHover.Background.Gradient2.Point1YPercent = 0
+        StateHover.Background.Gradient2.Point2XPercent = 0
+        StateHover.Background.Gradient2.Point2YPercent = 100
+        StateHover.Background.Gradient1EndPercent = 100
+        StateHover.Background.Style = bbsGradient
+        StateHover.Border.Color = clRed
+        StateHover.Border.Style = bboNone
+        StateHover.FontEx.Color = clWhite
+        StateHover.FontEx.FontQuality = fqSystemClearType
+        StateHover.FontEx.Shadow = False
+        StateHover.FontEx.ShadowRadius = 2
+        StateHover.FontEx.ShadowOffsetX = 1
+        StateHover.FontEx.ShadowOffsetY = 1
+        StateHover.FontEx.Style = []
+        StateNormal.Background.Color = 16727040
+        StateNormal.Background.Gradient1.StartColor = 16727040
+        StateNormal.Background.Gradient1.EndColor = 16759552
+        StateNormal.Background.Gradient1.GradientType = gtLinear
+        StateNormal.Background.Gradient1.Point1XPercent = 0
+        StateNormal.Background.Gradient1.Point1YPercent = 0
+        StateNormal.Background.Gradient1.Point2XPercent = 0
+        StateNormal.Background.Gradient1.Point2YPercent = 100
+        StateNormal.Background.Gradient2.StartColor = 16759552
+        StateNormal.Background.Gradient2.EndColor = 16727040
+        StateNormal.Background.Gradient2.GradientType = gtRadial
+        StateNormal.Background.Gradient2.Point1XPercent = 0
+        StateNormal.Background.Gradient2.Point1YPercent = 0
+        StateNormal.Background.Gradient2.Point2XPercent = 0
+        StateNormal.Background.Gradient2.Point2YPercent = 0
+        StateNormal.Background.Gradient1EndPercent = 60
+        StateNormal.Background.Style = bbsColor
+        StateNormal.Border.Color = 11235643
+        StateNormal.Border.Style = bboNone
+        StateNormal.FontEx.Color = clBtnText
+        StateNormal.FontEx.FontQuality = fqSystemClearType
+        StateNormal.FontEx.Shadow = False
+        StateNormal.FontEx.ShadowRadius = 2
+        StateNormal.FontEx.ShadowOffsetX = 1
+        StateNormal.FontEx.ShadowOffsetY = 1
+        StateNormal.FontEx.Style = []
+        Caption = 'Send'
+        Color = 16740096
+        DropDownWidth = 16
+        DropDownArrowSize = 8
+        GlobalOpacity = 255
+        ParentColor = False
+        Rounding.RoundX = 15
+        Rounding.RoundY = 15
+        RoundingDropDown.RoundX = 1
+        RoundingDropDown.RoundY = 1
+        TextApplyGlobalOpacity = False
+        MemoryUsage = bmuHigh
+      end
+    end
+    object PanelInbox: TPanel
+      Left = 220
+      Height = 594
+      Top = 0
+      Width = 740
+      Align = alClient
+      BevelOuter = bvNone
+      ClientHeight = 594
+      ClientWidth = 740
+      ParentBackground = False
+      TabOrder = 1
+      object LblInfo: TLabel
+        Left = 0
+        Height = 39
+        Top = 10
+        Width = 740
+        Align = alTop
+        Alignment = taCenter
+        BorderSpacing.Top = 10
+        Caption = 'Inbox'
+        Font.Height = 32
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object PanelControls: TPanel
+        Left = 25
+        Height = 32
+        Top = 74
+        Width = 690
+        Align = alTop
+        Anchors = []
+        BorderSpacing.Around = 25
+        BevelOuter = bvNone
+        ClientHeight = 32
+        ClientWidth = 690
+        ParentBackground = False
+        TabOrder = 0
+        object LblFileSelected: TBCLabel
+          Left = 0
+          Height = 32
+          Top = 0
+          Width = 76
+          Align = alLeft
+          Background.Gradient1.StartColor = clWhite
+          Background.Gradient1.EndColor = clBlack
+          Background.Gradient1.GradientType = gtLinear
+          Background.Gradient1.Point1XPercent = 0
+          Background.Gradient1.Point1YPercent = 0
+          Background.Gradient1.Point2XPercent = 0
+          Background.Gradient1.Point2YPercent = 100
+          Background.Gradient2.StartColor = clWhite
+          Background.Gradient2.EndColor = clBlack
+          Background.Gradient2.GradientType = gtLinear
+          Background.Gradient2.Point1XPercent = 0
+          Background.Gradient2.Point1YPercent = 0
+          Background.Gradient2.Point2XPercent = 0
+          Background.Gradient2.Point2YPercent = 100
+          Background.Gradient1EndPercent = 35
+          Background.Style = bbsClear
+          Border.Style = bboNone
+          BorderSpacing.Right = 8
+          Caption = 'Unread: 0'
+          FontEx.Color = 16751360
+          FontEx.FontQuality = fqFineAntialiasing
+          FontEx.Shadow = False
+          FontEx.ShadowRadius = 5
+          FontEx.ShadowOffsetX = 5
+          FontEx.ShadowOffsetY = 5
+          FontEx.Style = [fsItalic]
+          Rounding.RoundX = 1
+          Rounding.RoundY = 1
+        end
+        object BtnSortAZ: TBCMDButton
+          Left = 84
+          Height = 32
+          Top = 0
+          Width = 85
           Animation = True
           StyleNormal.Color = 16530449
           StyleNormal.TextColor = clWhite
@@ -5313,46 +5616,61 @@ object DashboardUser: TDashboardUser
           Align = alLeft
           AutoSize = True
           BorderSpacing.Right = 8
-          Caption = 'Send All Now'
+          Caption = 'Sort A-Z'
+        end
+        object BtnDelete: TBCMDButton
+          Left = 617
+          Height = 32
+          Top = 0
+          Width = 73
+          Animation = True
+          StyleNormal.Color = 16530449
+          StyleNormal.TextColor = clWhite
+          StyleHover.Color = 15046421
+          StyleHover.TextColor = clWhite
+          StyleActive.Color = 14408297
+          StyleActive.TextColor = clWhite
+          StyleDisabled.Color = 12861184
+          StyleDisabled.TextColor = 10724259
+          TextAutoSize = True
+          TextProportional = False
+          TextProportionalRatio = 0.5
+          Align = alRight
+          AutoSize = True
+          Caption = 'Delete'
+          Enabled = False
         end
       end
-      object PanelInboxBody2: TPanel
+      object PanelInboxBody: TPanel
         Left = 25
-        Height = 431
-        Top = 138
+        Height = 438
+        Top = 131
         Width = 690
         Align = alClient
         BorderSpacing.Around = 25
         BevelOuter = bvNone
-        ClientHeight = 431
+        ClientHeight = 438
         ClientWidth = 690
         ParentBackground = False
         TabOrder = 1
-        object ListView3: TListView
+        object ListView1: TListView
           Left = 0
-          Height = 431
+          Height = 438
           Top = 0
-          Width = 690
-          Align = alClient
+          Width = 350
+          Align = alLeft
           Columns = <          
             item
+              Caption = 'Estado'
+              Width = 100
+            end          
+            item
               Caption = 'Subject'
-              MaxWidth = 200
-              Width = 150
+              Width = 100
             end          
             item
               Caption = 'Sender'
-              MaxWidth = 200
               Width = 135
-            end          
-            item
-              Caption = 'Scheduled Date'
-              MaxWidth = 200
-              Width = 160
-            end          
-            item
-              Caption = 'Scheduled Time'
-              Width = 226
             end>
           GridLines = True
           HideSelection = False
@@ -5361,345 +5679,30 @@ object DashboardUser: TDashboardUser
           TabOrder = 0
           ViewStyle = vsReport
         end
-      end
-    end
-    object PanelContacts: TPanel
-      Left = 220
-      Height = 594
-      Top = 0
-      Width = 740
-      Align = alClient
-      BevelOuter = bvNone
-      ClientHeight = 594
-      ClientWidth = 740
-      ParentBackground = False
-      TabOrder = 6
-      Visible = False
-      object LblInfo4: TLabel
-        Left = 0
-        Height = 46
-        Top = 10
-        Width = 740
-        Align = alTop
-        Alignment = taCenter
-        BorderSpacing.Top = 10
-        Caption = 'Contacts'
-        Font.Height = 32
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object GroupBox1: TGroupBox
-        Left = 25
-        Height = 100
-        Top = 81
-        Width = 690
-        Align = alTop
-        BorderSpacing.Around = 25
-        Caption = 'Add Contact'
-        ClientHeight = 76
-        ClientWidth = 688
-        ParentBackground = False
-        TabOrder = 0
-        object LblEmail: TLabel
-          Left = 16
-          Height = 23
-          Top = 24
-          Width = 43
-          Caption = 'Email'
+        object Splitter1: TSplitter
+          Left = 350
+          Height = 438
+          Top = 0
+          Width = 5
         end
-        object EditEmail: TEdit
-          Left = 100
-          Height = 35
-          Top = 18
-          Width = 250
-          Anchors = [akTop, akLeft, akRight]
-          Constraints.MaxWidth = 450
-          TabOrder = 0
-          TextHint = 'Email'
-        end
-        object BCMDButtonFocus1: TBCMDButtonFocus
-          AnchorSideLeft.Control = EditEmail
-          AnchorSideLeft.Side = asrBottom
-          Left = 375
-          Height = 33
-          Top = 19
-          Width = 150
-          StyleNormal.Color = 16530449
-          StyleNormal.TextColor = clWhite
-          StyleHover.Color = 15046421
-          StyleHover.TextColor = clWhite
-          StyleActive.Color = 14408297
-          StyleActive.TextColor = clWhite
-          StyleDisabled.Color = clWhite
-          StyleDisabled.TextColor = 10724259
-          TextAutoSize = True
-          TextProportional = False
-          TextProportionalRatio = 0.5
-          Anchors = [akTop, akLeft, akRight]
-          BorderSpacing.Left = 25
-          Caption = 'Add'
-          Constraints.MaxWidth = 200
-        end
-      end
-      object GroupViewContacts: TGroupBox
-        Left = 25
-        Height = 363
-        Top = 206
-        Width = 690
-        Align = alClient
-        BorderSpacing.Around = 25
-        Caption = 'My Contacts'
-        ClientHeight = 339
-        ClientWidth = 688
-        ParentBackground = False
-        TabOrder = 1
-        object Panel1: TPanel
-          AnchorSideLeft.Control = GroupViewContacts
-          AnchorSideLeft.Side = asrCenter
-          AnchorSideTop.Side = asrCenter
-          Left = 94
-          Height = 50
-          Top = 264
-          Width = 500
-          BevelOuter = bvNone
-          ClientHeight = 50
-          ClientWidth = 500
-          Constraints.MaxWidth = 500
-          ParentBackground = False
-          TabOrder = 0
-          object BtnSelectFile: TBCMDButton
-            Left = 350
-            Height = 50
-            Top = 0
-            Width = 150
-            Animation = True
-            StyleNormal.Color = 16530449
-            StyleNormal.TextColor = clWhite
-            StyleHover.Color = 15046421
-            StyleHover.TextColor = clWhite
-            StyleActive.Color = 14408297
-            StyleActive.TextColor = clWhite
-            StyleDisabled.Color = clWhite
-            StyleDisabled.TextColor = 10724259
-            TextAutoSize = True
-            TextProportional = False
-            TextProportionalRatio = 0.5
-            Align = alRight
-            Anchors = []
-            Caption = 'Next →'
-            ParentFont = False
-          end
-          object BtnSelectFile1: TBCMDButton
-            Left = 0
-            Height = 50
-            Top = 0
-            Width = 150
-            Animation = True
-            StyleNormal.Color = 16530449
-            StyleNormal.TextColor = clWhite
-            StyleHover.Color = 15046421
-            StyleHover.TextColor = clWhite
-            StyleActive.Color = 14408297
-            StyleActive.TextColor = clWhite
-            StyleDisabled.Color = clWhite
-            StyleDisabled.TextColor = 10724259
-            TextAutoSize = True
-            TextProportional = False
-            TextProportionalRatio = 0.5
-            Align = alLeft
-            Anchors = []
-            BorderSpacing.Right = 8
-            Caption = '← Previous'
-            ParentFont = False
-          end
-        end
-        object LblEditName: TLabeledEdit
-          AnchorSideTop.Side = asrCenter
-          Left = 195
-          Height = 35
-          Top = 16
-          Width = 350
-          Anchors = [akTop, akLeft, akRight]
-          EditLabel.Height = 35
-          EditLabel.Width = 54
-          EditLabel.Caption = 'Name'
-          EditLabel.ParentFont = False
-          EditLabel.Font.Height = -19
-          EditLabel.Font.Name = 'Sans'
-          LabelPosition = lpLeft
-          LabelSpacing = 15
+        object MemoPreview: TMemo
+          Left = 355
+          Height = 438
+          Top = 0
+          Width = 335
+          Align = alClient
+          Lines.Strings = (
+            '📭 No email selected'
+            ''
+            '👆 Click on a message in your inbox'
+            'to preview its content here.'
+            ''
+            '💡 Tip: Unread emails are marked as "NL".'
+          )
           ReadOnly = True
-          TabOrder = 1
-        end
-        object LblEditName1: TLabeledEdit
-          Left = 195
-          Height = 35
-          Top = 77
-          Width = 350
-          Anchors = [akTop, akLeft, akRight]
-          EditLabel.Height = 35
-          EditLabel.Width = 94
-          EditLabel.Caption = 'Username'
-          EditLabel.ParentFont = False
-          EditLabel.Font.Height = -19
-          EditLabel.Font.Name = 'Sans'
-          LabelPosition = lpLeft
-          LabelSpacing = 15
-          ReadOnly = True
+          ScrollBars = ssVertical
           TabOrder = 2
         end
-        object LblEditName2: TLabeledEdit
-          Left = 195
-          Height = 35
-          Top = 138
-          Width = 350
-          Anchors = [akTop, akLeft, akRight]
-          EditLabel.Height = 35
-          EditLabel.Width = 50
-          EditLabel.Caption = 'Email'
-          EditLabel.ParentFont = False
-          EditLabel.Font.Height = -19
-          EditLabel.Font.Name = 'Sans'
-          LabelPosition = lpLeft
-          LabelSpacing = 15
-          ReadOnly = True
-          TabOrder = 3
-        end
-        object LblEditName3: TLabeledEdit
-          Left = 195
-          Height = 35
-          Top = 199
-          Width = 350
-          Anchors = [akTop, akLeft, akRight]
-          EditLabel.Height = 35
-          EditLabel.Width = 57
-          EditLabel.Caption = 'Phone'
-          EditLabel.ParentFont = False
-          EditLabel.Font.Height = -19
-          EditLabel.Font.Name = 'Sans'
-          LabelPosition = lpLeft
-          LabelSpacing = 15
-          ReadOnly = True
-          TabOrder = 4
-        end
-      end
-    end
-    object PanelUpdateProfile: TPanel
-      Left = 220
-      Height = 594
-      Top = 0
-      Width = 740
-      Align = alClient
-      BevelOuter = bvNone
-      ClientHeight = 594
-      ClientWidth = 740
-      ParentBackground = False
-      TabOrder = 7
-      object LblInfo5: TLabel
-        Left = 0
-        Height = 46
-        Top = 10
-        Width = 740
-        Align = alTop
-        Alignment = taCenter
-        BorderSpacing.Top = 10
-        Caption = 'Update Profile'
-        Font.Height = 32
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object LblEditName4: TLabeledEdit
-        AnchorSideTop.Side = asrCenter
-        Left = 208
-        Height = 35
-        Top = 109
-        Width = 350
-        Anchors = [akTop, akLeft, akRight]
-        EditLabel.Height = 35
-        EditLabel.Width = 54
-        EditLabel.Caption = 'Name'
-        EditLabel.ParentFont = False
-        EditLabel.Font.Height = -19
-        EditLabel.Font.Name = 'Sans'
-        LabelPosition = lpLeft
-        LabelSpacing = 15
-        ReadOnly = True
-        TabOrder = 0
-      end
-      object LblEditName5: TLabeledEdit
-        Left = 208
-        Height = 35
-        Top = 170
-        Width = 350
-        Anchors = [akTop, akLeft, akRight]
-        EditLabel.Height = 35
-        EditLabel.Width = 94
-        EditLabel.Caption = 'Username'
-        EditLabel.ParentFont = False
-        EditLabel.Font.Height = -19
-        EditLabel.Font.Name = 'Sans'
-        LabelPosition = lpLeft
-        LabelSpacing = 15
-        ReadOnly = True
-        TabOrder = 1
-      end
-      object LblEditName6: TLabeledEdit
-        Left = 208
-        Height = 35
-        Top = 231
-        Width = 350
-        Anchors = [akTop, akLeft, akRight]
-        EditLabel.Height = 35
-        EditLabel.Width = 50
-        EditLabel.Caption = 'Email'
-        EditLabel.ParentFont = False
-        EditLabel.Font.Height = -19
-        EditLabel.Font.Name = 'Sans'
-        LabelPosition = lpLeft
-        LabelSpacing = 15
-        ReadOnly = True
-        TabOrder = 2
-      end
-      object LblEditName7: TLabeledEdit
-        Left = 208
-        Height = 35
-        Top = 292
-        Width = 350
-        Anchors = [akTop, akLeft, akRight]
-        EditLabel.Height = 35
-        EditLabel.Width = 57
-        EditLabel.Caption = 'Phone'
-        EditLabel.ParentFont = False
-        EditLabel.Font.Height = -19
-        EditLabel.Font.Name = 'Sans'
-        LabelPosition = lpLeft
-        LabelSpacing = 15
-        ReadOnly = True
-        TabOrder = 3
-      end
-      object BtnSelectFile4: TBCMDButton
-        AnchorSideLeft.Control = PanelUpdateProfile
-        AnchorSideLeft.Side = asrCenter
-        AnchorSideRight.Side = asrCenter
-        Left = 295
-        Height = 50
-        Top = 360
-        Width = 150
-        Animation = True
-        StyleNormal.Color = 16530449
-        StyleNormal.TextColor = clWhite
-        StyleHover.Color = 15046421
-        StyleHover.TextColor = clWhite
-        StyleActive.Color = 14408297
-        StyleActive.TextColor = clWhite
-        StyleDisabled.Color = clWhite
-        StyleDisabled.TextColor = 10724259
-        TextAutoSize = True
-        TextProportional = False
-        TextProportionalRatio = 0.5
-        Caption = 'Update Profile'
-        Constraints.MaxWidth = 200
-        ParentFont = False
       end
     end
   end

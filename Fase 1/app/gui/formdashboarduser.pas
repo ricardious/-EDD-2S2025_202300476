@@ -99,13 +99,15 @@ type
     ShapeLineBGRA1: TShapeLineBGRA;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
+    procedure BtnContactsClick(Sender: TObject);
+    procedure BtnInboxClick(Sender: TObject);
+    procedure BtnScheduledEmailsClick(Sender: TObject);
+    procedure BtnScheduleEmailClick(Sender: TObject);
+    procedure BtnSendEmailClick(Sender: TObject);
     procedure BtnTrashClick(Sender: TObject);
-    procedure PanelControlsClick(Sender: TObject);
-    procedure PanelInboxClick(Sender: TObject);
+    procedure BtnUpdateProfileClick(Sender: TObject);
   private
     procedure ShowPanel(APanel: TPanel);
-  private
-
   public
 
   end;
@@ -114,33 +116,60 @@ var
   DashboardUser: TDashboardUser;
 
 implementation
-
 {$R *.lfm}
 
 { TDashboardUser }
 
-
 procedure TDashboardUser.ShowPanel(APanel: TPanel);
 begin
+  PanelInbox.Visible := False;
+  PanelSendEmail.Visible := False;
+  PanelTrash.Visible := False;
+  PanelScheduleEmail.Visible := False;
+  PanelScheduledEmails.Visible := False;
+  PanelContacts.Visible := False;
+  PanelUpdateProfile.Visible := False;
 
+  if Assigned(APanel) then
+  begin
+    APanel.Visible := True;
+  end;
 end;
 
-procedure TDashboardUser.PanelControlsClick(Sender: TObject);
+procedure TDashboardUser.BtnInboxClick(Sender: TObject);
 begin
-
+  ShowPanel(PanelInbox);
 end;
 
-procedure TDashboardUser.PanelInboxClick(Sender: TObject);
+procedure TDashboardUser.BtnContactsClick(Sender: TObject);
 begin
-
+  ShowPanel(PanelContacts);
 end;
 
+procedure TDashboardUser.BtnScheduledEmailsClick(Sender: TObject);
+begin
+  ShowPanel(PanelScheduledEmails);
+end;
+
+procedure TDashboardUser.BtnScheduleEmailClick(Sender: TObject);
+begin
+  ShowPanel(PanelScheduleEmail);
+end;
+
+procedure TDashboardUser.BtnSendEmailClick(Sender: TObject);
+begin
+  ShowPanel(PanelSendEmail);
+end;
 
 procedure TDashboardUser.BtnTrashClick(Sender: TObject);
 begin
+  ShowPanel(PanelTrash);
 end;
 
-
+procedure TDashboardUser.BtnUpdateProfileClick(Sender: TObject);
+begin
+  ShowPanel(PanelUpdateProfile);
+end;
 
 end.
 
