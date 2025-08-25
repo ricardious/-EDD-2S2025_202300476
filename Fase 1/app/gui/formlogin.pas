@@ -41,15 +41,15 @@ var
 implementation
 
 uses
-  AppState, UserService, User, FormRegister;
+  AppState, UserService, User, FormRegister, FormDashboardRoot, FormDashboardUser;
 
-{$R *.lfm}
+  {$R *.lfm}
 
-{ TSignIn }
+  { TSignIn }
 
 procedure TSignIn.EditPswChange(Sender: TObject);
 begin
-     EditPsw.PasswordChar := '*';
+  EditPsw.PasswordChar := '*';
 end;
 
 procedure TSignIn.LblSignUpClick(Sender: TObject);
@@ -66,7 +66,7 @@ end;
 
 procedure TSignIn.BtnSignInClick(Sender: TObject);
 var
-  email, password: AnsiString;
+  email, password: ansistring;
   foundUser: PUser;
 begin
   email := EditEmail.Text;
@@ -84,7 +84,25 @@ begin
   begin
     if foundUser^.Password = password then
     begin
-      ShowMessage('Welcome, ' + foundUser^.Name + '!');
+      // ShowMessage('Welcome, ' + foundUser^.Name + '!');
+      CurrentUser := foundUser;
+      Self.Hide;
+
+      if foundUser^.Email = 'root@edd.com' then
+      begin
+        ShowMessage('Welcome, Admin!');
+        if not Assigned(DashboardRoot) then
+          Application.CreateForm(TDashboardRoot, DashboardRoot);
+        DashboardRoot.Show;
+      end
+      else
+      begin
+        ShowMessage('Welcome, ' + foundUser^.Name + '!');
+        if not Assigned(DashboardUser) then
+          Application.CreateForm(TDashboardUser, DashboardUser);
+        DashboardUser.Show;
+      end;
+
     end
     else
     begin
@@ -99,17 +117,16 @@ end;
 
 procedure TSignIn.LblSignUpMouseEnter(Sender: TObject);
 begin
-     LblSignUp.Font.Color := TColor($00FF3C00);
-     LblSignUp.Font.Style := [fsUnderline];
-     LblSignUp.Cursor := crHandPoint;
+  LblSignUp.Font.Color := TColor($00FF3C00);
+  LblSignUp.Font.Style := [fsUnderline];
+  LblSignUp.Cursor := crHandPoint;
 end;
 
 procedure TSignIn.LblSignUpMouseLeave(Sender: TObject);
 begin
-     LblSignUp.Font.Color := TColor($00FF3C00);
-     LblSignUp.Font.Style := [];
-     LblSignUp.Cursor := crDefault;
+  LblSignUp.Font.Color := TColor($00FF3C00);
+  LblSignUp.Font.Style := [];
+  LblSignUp.Cursor := crDefault;
 end;
 
 end.
-

@@ -7,11 +7,13 @@ interface
 uses
   User, SinglyLinkedList, UserService;
 
-function SignIn(const Users: TSinglyLinkedList; const Email, Password: AnsiString): PUser;
+function SignIn(const Users: TSinglyLinkedList;
+  const Email, Password: ansistring): PUser;
 
 implementation
 
-function SignIn(const Users: TSinglyLinkedList; const Email, Password: AnsiString): PUser;
+function SignIn(const Users: TSinglyLinkedList;
+  const Email, Password: ansistring): PUser;
 var
   U: PUser;
 begin
@@ -23,4 +25,3 @@ begin
 end;
 
 end.
-

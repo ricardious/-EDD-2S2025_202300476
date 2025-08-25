@@ -8,18 +8,19 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
   ComCtrls, MaskEdit, Grids, DateTimePicker, BCMDButton, ATShapeLineBGRA,
   BCLabel, BCRoundedImage, BGRACustomDrawn, BCButton, BGRAThemeButton,
-  BCMDButtonFocus, JsonUsersLoader, fpjson, jsonparser, AppState;
+  BCMDButtonFocus, JsonUsersLoader, fpjson, jsonparser, AppState,
+  FormLogin, ContactService, CircularLinkedList, User;
 
 type
 
   { TDashboardUser }
 
   TDashboardUser = class(TForm)
-    BCMDButtonFocus1: TBCMDButtonFocus;
+    BtnAddContact: TBCMDButtonFocus;
     BtnDelete1: TBCMDButton;
     BtnLogout: TBCMDButton;
-    BtnSelectFile: TBCMDButton;
-    BtnSelectFile1: TBCMDButton;
+    BtnNext: TBCMDButton;
+    BtnPrev: TBCMDButton;
     BtnSelectFile4: TBCMDButton;
     BtnSend: TBCButton;
     BtnSend1: TBCButton;
@@ -33,9 +34,9 @@ type
     GroupViewContacts: TGroupBox;
     Image2: TImage;
     LblEditName: TLabeledEdit;
-    LblEditName1: TLabeledEdit;
-    LblEditName2: TLabeledEdit;
-    LblEditName3: TLabeledEdit;
+    LblEditUsername: TLabeledEdit;
+    LblEditEmail: TLabeledEdit;
+    LblEditPhone: TLabeledEdit;
     LblEditName4: TLabeledEdit;
     LblEditName5: TLabeledEdit;
     LblEditName6: TLabeledEdit;
@@ -99,8 +100,12 @@ type
     ShapeLineBGRA1: TShapeLineBGRA;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
+    procedure BtnAddContactClick(Sender: TObject);
     procedure BtnContactsClick(Sender: TObject);
     procedure BtnInboxClick(Sender: TObject);
+    procedure BtnLogoutClick(Sender: TObject);
+    procedure BtnNextClick(Sender: TObject);
+    procedure BtnPrevClick(Sender: TObject);
     procedure BtnScheduledEmailsClick(Sender: TObject);
     procedure BtnScheduleEmailClick(Sender: TObject);
     procedure BtnSendEmailClick(Sender: TObject);
@@ -108,6 +113,10 @@ type
     procedure BtnUpdateProfileClick(Sender: TObject);
   private
     procedure ShowPanel(APanel: TPanel);
+  private
+    FContactCursor: PCircularNode;
+    procedure ShowCurrentContact;
+    procedure UpdateContactCursor;
   public
 
   end;
@@ -116,6 +125,7 @@ var
   DashboardUser: TDashboardUser;
 
 implementation
+
 {$R *.lfm}
 
 { TDashboardUser }
@@ -136,14 +146,78 @@ begin
   end;
 end;
 
+procedure TDashboardUser.ShowCurrentContact;
+var
+  C: PUser;
+begin
+  if FContactCursor = nil then
+  begin
+    LblEditName.Text := '';
+    LblEditUsername.Text := '';
+    LblEditEmail.Text := '';
+    LblEditPhone.Text := '';
+    Exit;
+  end;
+
+  C := PUser(FContactCursor^.Data);   // cast
+  LblEditName.Text := C^.Name;
+  LblEditUsername.Text := C^.Username;
+  LblEditEmail.Text := C^.Email;
+  LblEditPhone.Text := C^.Phone;
+end;
+
+procedure TDashboardUser.UpdateContactCursor;
+begin
+  FContactCursor := CurrentUser^.Contacts.Head;
+  ShowCurrentContact;
+end;
+
 procedure TDashboardUser.BtnInboxClick(Sender: TObject);
 begin
   ShowPanel(PanelInbox);
 end;
 
+procedure TDashboardUser.BtnLogoutClick(Sender: TObject);
+begin
+  CurrentUser := nil;
+  Self.Close;
+  SignIn.Show;
+end;
+
+procedure TDashboardUser.BtnNextClick(Sender: TObject);
+begin
+  if FContactCursor = nil then Exit;
+  FContactCursor := FContactCursor^.Next;
+  ShowCurrentContact;
+end;
+
+procedure TDashboardUser.BtnPrevClick(Sender: TObject);
+begin
+  if FContactCursor = nil then Exit;
+  FContactCursor := FContactCursor^.Prev;
+  ShowCurrentContact;
+end;
+
 procedure TDashboardUser.BtnContactsClick(Sender: TObject);
 begin
   ShowPanel(PanelContacts);
+end;
+
+procedure TDashboardUser.BtnAddContactClick(Sender: TObject);
+var
+  Err: integer;
+begin
+  Err := AddContactToUser(CurrentUser^, Users, EditEmail.Text);
+  case Err of
+    0: begin
+      ShowMessage('Contacto agregado');
+      UpdateContactCursor;
+    end;
+    -1: ShowMessage('Escriba un e-mail');
+    -2: ShowMessage('Ese usuario no está registrado');
+    -3: ShowMessage('El contacto ya existe');
+  end;
+
 end;
 
 procedure TDashboardUser.BtnScheduledEmailsClick(Sender: TObject);
@@ -172,4 +246,3 @@ begin
 end;
 
 end.
-

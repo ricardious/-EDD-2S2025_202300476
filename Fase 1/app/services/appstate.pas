@@ -9,19 +9,20 @@ uses
 
 var
   Users: TSinglyLinkedList;
+  CurrentUser: PUser = nil;
 
 procedure InitAppState;
-function UsersCount: Integer;
+function UsersCount: integer;
 function UsersDump: string;
+
 implementation
 
 procedure InitAppState;
-
 begin
   Init(Users);
 end;
 
-function UsersCount: Integer;
+function UsersCount: integer;
 var
   Node: PSinglyNode;
 begin
@@ -59,4 +60,3 @@ begin
 end;
 
 end.
-

@@ -6,16 +6,18 @@ interface
 
 type
   PCircularNode = ^TCircularNode;
+
   TCircularNode = record
     Data: Pointer;
     Next: PCircularNode;
+    Prev: PCircularNode;
   end;
 
   TCircularLinkedList = record
     Head: PCircularNode;
   end;
 
-  TDataToString = function (Data: Pointer): string;
+  TDataToString = function(Data: Pointer): string;
 
 procedure Init(var L: TCircularLinkedList);
 procedure Insert(var L: TCircularLinkedList; Item: Pointer);
@@ -24,11 +26,12 @@ procedure InsertAfter(var L: TCircularLinkedList; Node: PCircularNode; Item: Poi
 function Find(var L: TCircularLinkedList; Match: Pointer): PCircularNode;
 procedure Delete(var L: TCircularLinkedList; Item: Pointer);
 procedure DeleteNode(var L: TCircularLinkedList; Node: PCircularNode);
-function Count(var L: TCircularLinkedList): Integer;
+function Count(var L: TCircularLinkedList): integer;
 procedure Clear(var L: TCircularLinkedList);
-function IsEmpty(var L: TCircularLinkedList): Boolean;
+function IsEmpty(var L: TCircularLinkedList): boolean;
 function GetTail(var L: TCircularLinkedList): PCircularNode;
-procedure GenerateDotFile(var L: TCircularLinkedList; const FileName: string; DataToString: TDataToString);
+procedure GenerateDotFile(var L: TCircularLinkedList; const FileName: string;
+  DataToString: TDataToString);
 
 implementation
 
@@ -181,10 +184,10 @@ begin
     DeleteNode(L, NodeToDelete);
 end;
 
-function Count(var L: TCircularLinkedList): Integer;
+function Count(var L: TCircularLinkedList): integer;
 var
   Current: PCircularNode;
-  Counter: Integer;
+  Counter: integer;
 begin
   Counter := 0;
   if L.Head = nil then
@@ -202,7 +205,7 @@ begin
   Result := Counter;
 end;
 
-function IsEmpty(var L: TCircularLinkedList): Boolean;
+function IsEmpty(var L: TCircularLinkedList): boolean;
 begin
   Result := L.Head = nil;
 end;
@@ -210,7 +213,7 @@ end;
 procedure Clear(var L: TCircularLinkedList);
 var
   Current, Next: PCircularNode;
-  NodeCount, i: Integer;
+  NodeCount, i: integer;
 begin
   if L.Head = nil then Exit;
 
@@ -227,11 +230,12 @@ begin
   L.Head := nil;
 end;
 
-procedure GenerateDotFile(var L: TCircularLinkedList; const FileName: string; DataToString: TDataToString);
+procedure GenerateDotFile(var L: TCircularLinkedList; const FileName: string;
+  DataToString: TDataToString);
 var
   F: TextFile;
   Current: PCircularNode;
-  NodeIndex, TotalNodes: Integer;
+  NodeIndex, TotalNodes: integer;
 begin
   AssignFile(F, FileName);
   Rewrite(F);
@@ -258,11 +262,12 @@ begin
       NodeIndex := 0;
       repeat
         if Current = L.Head then
-          WriteLn(F, Format('    node%d [label="<data>%s|<next>", fillcolor=lightyellow];',
-                   [NodeIndex, DataToString(Current^.Data)]))
+          WriteLn(F, Format(
+            '    node%d [label="<data>%s|<next>", fillcolor=lightyellow];',
+            [NodeIndex, DataToString(Current^.Data)]))
         else
           WriteLn(F, Format('    node%d [label="<data>%s|<next>"];',
-                   [NodeIndex, DataToString(Current^.Data)]));
+            [NodeIndex, DataToString(Current^.Data)]));
         Current := Current^.Next;
         Inc(NodeIndex);
       until Current = L.Head;
@@ -273,11 +278,12 @@ begin
       NodeIndex := 0;
       repeat
         if Current^.Next = L.Head then
-          WriteLn(F, Format('    node%d:next -> node0:data [color=red, style=bold, label="circular"];',
-                   [NodeIndex]))
+          WriteLn(F, Format(
+            '    node%d:next -> node0:data [color=red, style=bold, label="circular"];',
+            [NodeIndex]))
         else
           WriteLn(F, Format('    node%d:next -> node%d:data [color=blue];',
-                   [NodeIndex, NodeIndex + 1]));
+            [NodeIndex, NodeIndex + 1]));
 
         Current := Current^.Next;
         Inc(NodeIndex);

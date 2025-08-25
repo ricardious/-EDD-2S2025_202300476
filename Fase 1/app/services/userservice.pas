@@ -5,12 +5,12 @@ unit UserService;
 interface
 
 uses
-  User, SinglyLinkedList;
+  User, SinglyLinkedList, DoublyLinkedList, Stack, Queue, CircularLinkedList;
 
 procedure BootstrapRoot(var L: TSinglyLinkedList);
-function  AddUser(var L: TSinglyLinkedList; const U: TUser): PUser;
-function  FindUserByEmail(const L: TSinglyLinkedList; const Email: AnsiString): PUser;
-function  FindUserById(const L: TSinglyLinkedList; const Id: Integer): PUser;
+function AddUser(var L: TSinglyLinkedList; const U: TUser): PUser;
+function FindUserByEmail(const L: TSinglyLinkedList; const Email: ansistring): PUser;
+function FindUserById(const L: TSinglyLinkedList; const Id: integer): PUser;
 
 implementation
 
@@ -33,11 +33,17 @@ var
 begin
   New(NewU);
   NewU^ := U;
-  InsertLast(L, Pointer(NewU));
+
+  DoublyLinkedList.Init(NewU^.Inbox);
+  Stack.Init(NewU^.Trash);
+  Queue.Init(NewU^.ScheduledMail);
+  CircularLinkedList.Init(NewU^.Contacts);
+
+  SinglyLinkedList.InsertLast(L, Pointer(NewU));
   Result := NewU;
 end;
 
-function FindUserByEmail(const L: TSinglyLinkedList; const Email: AnsiString): PUser;
+function FindUserByEmail(const L: TSinglyLinkedList; const Email: ansistring): PUser;
 var
   Node: PSinglyNode;
   Curr: PUser;
@@ -53,7 +59,7 @@ begin
   Result := nil;
 end;
 
-function FindUserById(const L: TSinglyLinkedList; const Id: Integer): PUser;
+function FindUserById(const L: TSinglyLinkedList; const Id: integer): PUser;
 var
   Node: PSinglyNode;
   Curr: PUser;
@@ -70,4 +76,3 @@ begin
 end;
 
 end.
-

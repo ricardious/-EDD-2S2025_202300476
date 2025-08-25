@@ -6,6 +6,7 @@ interface
 
 type
   PDoublyNode = ^TDoublyNode;
+
   TDoublyNode = record
     Data: Pointer;
     Prev, Next: PDoublyNode;
@@ -15,7 +16,7 @@ type
     Head, Tail: PDoublyNode;
   end;
 
-  TDataToString = function (Data: Pointer): string;
+  TDataToString = function(Data: Pointer): string;
 
 procedure Init(var L: TDoublyLinkedList);
 procedure InsertLast(var L: TDoublyLinkedList; Item: Pointer);
@@ -25,10 +26,11 @@ procedure InsertBefore(var L: TDoublyLinkedList; Node: PDoublyNode; Item: Pointe
 function Find(var L: TDoublyLinkedList; Match: Pointer): PDoublyNode;
 procedure Delete(var L: TDoublyLinkedList; Item: Pointer);
 procedure DeleteNode(var L: TDoublyLinkedList; Node: PDoublyNode);
-function Count(var L: TDoublyLinkedList): Integer;
+function Count(var L: TDoublyLinkedList): integer;
 procedure Clear(var L: TDoublyLinkedList);
-function IsEmpty(var L: TDoublyLinkedList): Boolean;
-procedure GenerateDotFile(var L: TDoublyLinkedList; const FileName: string; DataToString: TDataToString);
+function IsEmpty(var L: TDoublyLinkedList): boolean;
+procedure GenerateDotFile(var L: TDoublyLinkedList; const FileName: string;
+  DataToString: TDataToString);
 
 implementation
 
@@ -166,10 +168,10 @@ begin
     DeleteNode(L, NodeToDelete);
 end;
 
-function Count(var L: TDoublyLinkedList): Integer;
+function Count(var L: TDoublyLinkedList): integer;
 var
   Temp: PDoublyNode;
-  Counter: Integer;
+  Counter: integer;
 begin
   Counter := 0;
   Temp := L.Head;
@@ -181,7 +183,7 @@ begin
   Result := Counter;
 end;
 
-function IsEmpty(var L: TDoublyLinkedList): Boolean;
+function IsEmpty(var L: TDoublyLinkedList): boolean;
 begin
   Result := (L.Head = nil) and (L.Tail = nil);
 end;
@@ -201,11 +203,12 @@ begin
   L.Tail := nil;
 end;
 
-procedure GenerateDotFile(var L: TDoublyLinkedList; const FileName: string; DataToString: TDataToString);
+procedure GenerateDotFile(var L: TDoublyLinkedList; const FileName: string;
+  DataToString: TDataToString);
 var
   F: TextFile;
   Temp: PDoublyNode;
-  NodeIndex, N: Integer;
+  NodeIndex, N: integer;
 begin
   AssignFile(F, FileName);
   Rewrite(F);
@@ -232,7 +235,7 @@ begin
       while Temp <> nil do
       begin
         WriteLn(F, Format('    node%d [label="<prev>|<data>%s|<next>"];',
-                 [NodeIndex, DataToString(Temp^.Data)]));
+          [NodeIndex, DataToString(Temp^.Data)]));
         Temp := Temp^.Next;
         Inc(NodeIndex);
       end;
@@ -248,7 +251,7 @@ begin
       while (Temp <> nil) and (Temp^.Next <> nil) do
       begin
         WriteLn(F, Format('    node%d:next -> node%d:data [color=blue, label="next"];',
-                 [NodeIndex, NodeIndex + 1]));
+          [NodeIndex, NodeIndex + 1]));
         Temp := Temp^.Next;
         Inc(NodeIndex);
       end;
@@ -262,7 +265,7 @@ begin
       while (Temp <> nil) and (Temp^.Prev <> nil) do
       begin
         WriteLn(F, Format('    node%d:prev -> node%d:data [color=red, label="prev"];',
-                 [NodeIndex, NodeIndex - 1]));
+          [NodeIndex, NodeIndex - 1]));
         Temp := Temp^.Prev;
         Dec(NodeIndex);
       end;
@@ -279,7 +282,8 @@ begin
       WriteLn(F, '');
 
       WriteLn(F, '    head -> node0:data [color=darkgreen, style=bold];');
-      WriteLn(F, Format('    tail -> node%d:data [color=darkorange, style=bold];', [N - 1]));
+      WriteLn(F, Format('    tail -> node%d:data [color=darkorange, style=bold];',
+        [N - 1]));
 
       WriteLn(F, '');
       WriteLn(F, '    // Group elements for better visualization');
@@ -295,4 +299,3 @@ end;
 
 
 end.
-

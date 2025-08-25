@@ -4281,6 +4281,7 @@ object DashboardUser: TDashboardUser
         Align = alBottom
         Caption = 'Logout 🔑'
         Font.Style = [fsBold]
+        OnClick = BtnLogoutClick
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
@@ -4459,7 +4460,7 @@ object DashboardUser: TDashboardUser
           TabOrder = 0
           TextHint = 'Email'
         end
-        object BCMDButtonFocus1: TBCMDButtonFocus
+        object BtnAddContact: TBCMDButtonFocus
           AnchorSideLeft.Control = EditEmail
           AnchorSideLeft.Side = asrBottom
           Left = 375
@@ -4481,6 +4482,7 @@ object DashboardUser: TDashboardUser
           BorderSpacing.Left = 25
           Caption = 'Add'
           Constraints.MaxWidth = 200
+          OnClick = BtnAddContactClick
         end
       end
       object GroupViewContacts: TGroupBox
@@ -4509,29 +4511,7 @@ object DashboardUser: TDashboardUser
           Constraints.MaxWidth = 500
           ParentBackground = False
           TabOrder = 0
-          object BtnSelectFile: TBCMDButton
-            Left = 350
-            Height = 50
-            Top = 0
-            Width = 150
-            Animation = True
-            StyleNormal.Color = 16530449
-            StyleNormal.TextColor = clWhite
-            StyleHover.Color = 15046421
-            StyleHover.TextColor = clWhite
-            StyleActive.Color = 14408297
-            StyleActive.TextColor = clWhite
-            StyleDisabled.Color = clWhite
-            StyleDisabled.TextColor = 10724259
-            TextAutoSize = True
-            TextProportional = False
-            TextProportionalRatio = 0.5
-            Align = alRight
-            Anchors = []
-            Caption = 'Next →'
-            ParentFont = False
-          end
-          object BtnSelectFile1: TBCMDButton
+          object BtnPrev: TBCMDButton
             Left = 0
             Height = 50
             Top = 0
@@ -4552,6 +4532,30 @@ object DashboardUser: TDashboardUser
             Anchors = []
             BorderSpacing.Right = 8
             Caption = '← Previous'
+            OnClick = BtnPrevClick
+            ParentFont = False
+          end
+          object BtnNext: TBCMDButton
+            Left = 350
+            Height = 50
+            Top = 0
+            Width = 150
+            Animation = True
+            StyleNormal.Color = 16530449
+            StyleNormal.TextColor = clWhite
+            StyleHover.Color = 15046421
+            StyleHover.TextColor = clWhite
+            StyleActive.Color = 14408297
+            StyleActive.TextColor = clWhite
+            StyleDisabled.Color = clWhite
+            StyleDisabled.TextColor = 10724259
+            TextAutoSize = True
+            TextProportional = False
+            TextProportionalRatio = 0.5
+            Align = alRight
+            Anchors = []
+            Caption = 'Next →'
+            OnClick = BtnNextClick
             ParentFont = False
           end
         end
@@ -4573,7 +4577,7 @@ object DashboardUser: TDashboardUser
           ReadOnly = True
           TabOrder = 1
         end
-        object LblEditName1: TLabeledEdit
+        object LblEditUsername: TLabeledEdit
           Left = 195
           Height = 36
           Top = 77
@@ -4590,7 +4594,7 @@ object DashboardUser: TDashboardUser
           ReadOnly = True
           TabOrder = 2
         end
-        object LblEditName2: TLabeledEdit
+        object LblEditEmail: TLabeledEdit
           Left = 195
           Height = 36
           Top = 138
@@ -4607,7 +4611,7 @@ object DashboardUser: TDashboardUser
           ReadOnly = True
           TabOrder = 3
         end
-        object LblEditName3: TLabeledEdit
+        object LblEditPhone: TLabeledEdit
           Left = 195
           Height = 36
           Top = 199

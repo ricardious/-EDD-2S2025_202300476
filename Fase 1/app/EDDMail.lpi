@@ -118,6 +118,19 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="JsonUsersLoader"/>
       </Unit>
+      <Unit>
+        <Filename Value="gui/formlogin.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="SignIn"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormLogin"/>
+      </Unit>
+      <Unit>
+        <Filename Value="services/contactservice.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ContactService"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

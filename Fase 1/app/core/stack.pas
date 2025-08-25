@@ -6,6 +6,7 @@ interface
 
 type
   PStackNode = ^TStackNode;
+
   TStackNode = record
     Data: Pointer;
     Next: PStackNode;
@@ -53,4 +54,3 @@ begin
 end;
 
 end.
-

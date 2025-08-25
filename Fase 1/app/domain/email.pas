@@ -9,17 +9,17 @@ type
   TEmailState = (esUnread, esRead);
 
   PEmail = ^TEmail;
+
   TEmail = record
-    Id: LongInt;
-    Sender: AnsiString;      // email address of the sender
+    Id: longint;
+    Sender: ansistring;      // email address of the sender
     State: TEmailState;      // esUnread / esRead
-    Scheduled: Boolean;
-    Subject: AnsiString;
-    Date: AnsiString;
-    MessageBody: AnsiString;
+    Scheduled: boolean;
+    Subject: ansistring;
+    Date: ansistring;
+    MessageBody: ansistring;
   end;
 
 implementation
 
 end.
-

@@ -2,11 +2,15 @@ unit JsonUsersLoader;
 {$mode ObjFPC}{$H+}
 
 interface
-uses
-  Classes, SysUtils, fpjson, jsonparser, User, SinglyLinkedList, UserService;
 
-function LoadUsersFromJson(const Path: AnsiString; var Users: TSinglyLinkedList): Integer;
-function LoadUsersFromJsonContent(const Content: AnsiString; var Users: TSinglyLinkedList): Integer;
+uses
+  Classes, SysUtils, fpjson, jsonparser, User, SinglyLinkedList,
+  UserService, DoublyLinkedList, Stack, Queue, CircularLinkedList;
+
+function LoadUsersFromJson(const Path: ansistring;
+  var Users: TSinglyLinkedList): integer;
+function LoadUsersFromJsonContent(const Content: ansistring;
+  var Users: TSinglyLinkedList): integer;
 
 implementation
 
@@ -23,15 +27,16 @@ begin
   end;
 end;
 
-function LoadUsersFromJson(const Path: AnsiString; var Users: TSinglyLinkedList): Integer;
+function LoadUsersFromJson(const Path: ansistring;
+  var Users: TSinglyLinkedList): integer;
 var
   JSON: TJSONData;
   Obj, U: TJSONObject;
   Arr: TJSONArray;
-  I: Integer;
+  I: integer;
   Rec: TUser;
   Content: string;
-  LoadedCount: Integer;
+  LoadedCount: integer;
 begin
   Result := 0;
   LoadedCount := 0;
@@ -53,12 +58,17 @@ begin
             if Arr.Items[I] is TJSONObject then
             begin
               U := Arr.Objects[I];
-              Rec.Id       := U.Integers['id'];
-              Rec.Name     := U.Strings['nombre'];
+              Rec.Id := U.Integers['id'];
+              Rec.Name := U.Strings['nombre'];
               Rec.Username := U.Strings['usuario'];
               Rec.Password := U.Strings['password'];
-              Rec.Email    := U.Strings['email'];
-              Rec.Phone    := U.Strings['telefono'];
+              Rec.Email := U.Strings['email'];
+              Rec.Phone := U.Strings['telefono'];
+
+              DoublyLinkedList.Init(Rec.Inbox);
+              Stack.Init(Rec.Trash);
+              Queue.Init(Rec.ScheduledMail);
+              CircularLinkedList.Init(Rec.Contacts);
 
               if (FindUserById(Users, Rec.Id) <> nil) then
                 raise Exception.CreateFmt('Duplicate ID found: %d', [Rec.Id]);
@@ -85,14 +95,15 @@ begin
   end;
 end;
 
-function LoadUsersFromJsonContent(const Content: AnsiString; var Users: TSinglyLinkedList): Integer;
+function LoadUsersFromJsonContent(const Content: ansistring;
+  var Users: TSinglyLinkedList): integer;
 var
   JSON: TJSONData;
   Obj, U: TJSONObject;
   Arr: TJSONArray;
-  I: Integer;
+  I: integer;
   Rec: TUser;
-  LoadedCount: Integer;
+  LoadedCount: integer;
 begin
   Result := 0;
   LoadedCount := 0;
@@ -111,12 +122,17 @@ begin
             if Arr.Items[I] is TJSONObject then
             begin
               U := Arr.Objects[I];
-              Rec.Id       := U.Integers['id'];
-              Rec.Name     := U.Strings['nombre'];
+              Rec.Id := U.Integers['id'];
+              Rec.Name := U.Strings['nombre'];
               Rec.Username := U.Strings['usuario'];
               Rec.Password := U.Strings['password'];
-              Rec.Email    := U.Strings['email'];
-              Rec.Phone    := U.Strings['telefono'];
+              Rec.Email := U.Strings['email'];
+              Rec.Phone := U.Strings['telefono'];
+
+              DoublyLinkedList.Init(Rec.Inbox);
+              Stack.Init(Rec.Trash);
+              Queue.Init(Rec.ScheduledMail);
+              CircularLinkedList.Init(Rec.Contacts);
 
               if (FindUserById(Users, Rec.Id) <> nil) then
                 raise Exception.CreateFmt('Duplicate ID found: %d', [Rec.Id]);

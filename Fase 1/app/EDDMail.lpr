@@ -12,7 +12,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, datetimectrls, FormLogin, User, Email, UserService, SinglyLinkedList,
   DoublyLinkedList, CircularLinkedList, Queue, Stack, AppState,
-  AuthService, FormDashboardUser, JsonUsersLoader;
+  AuthService, JsonUsersLoader, ContactService;
 
 {$R *.res}
 
@@ -25,7 +25,7 @@ begin
   Application.Initialize;
   InitAppState;
   BootstrapRoot(Users);
-  Application.CreateForm(TDashboardUser, DashboardUser);
+  Application.CreateForm(FormLogin.TSignIn, FormLogin.SignIn);
   Application.Run;
 end.
 

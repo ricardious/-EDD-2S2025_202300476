@@ -6,6 +6,7 @@ interface
 
 type
   PSinglyNode = ^TSinglyNode;
+
   TSinglyNode = record
     Data: Pointer;          // generic pointer to any record
     Next: PSinglyNode;
@@ -15,16 +16,17 @@ type
     Head: PSinglyNode;
   end;
 
-  TDataToString = function (Data: Pointer): string;
+  TDataToString = function(Data: Pointer): string;
 
 procedure Init(var L: TSinglyLinkedList);
 procedure InsertLast(var L: TSinglyLinkedList; Item: Pointer);
 procedure InsertFirst(var L: TSinglyLinkedList; Item: Pointer);
 function Find(var L: TSinglyLinkedList; Match: Pointer): PSinglyNode;
 procedure Delete(var L: TSinglyLinkedList; Item: Pointer);
-function Count(var L: TSinglyLinkedList): Integer;
+function Count(var L: TSinglyLinkedList): integer;
 procedure Clear(var L: TSinglyLinkedList);
-procedure GenerateDotFile(var L: TSinglyLinkedList; const FileName: string; DataToString: TDataToString);
+procedure GenerateDotFile(var L: TSinglyLinkedList; const FileName: string;
+  DataToString: TDataToString);
 
 implementation
 
@@ -112,10 +114,10 @@ begin
   end;
 end;
 
-function Count(var L: TSinglyLinkedList): Integer;
+function Count(var L: TSinglyLinkedList): integer;
 var
   Temp: PSinglyNode;
-  Counter: Integer;
+  Counter: integer;
 begin
   Counter := 0;
   Temp := L.Head;
@@ -141,11 +143,12 @@ begin
   L.Head := nil;
 end;
 
-procedure GenerateDotFile(var L: TSinglyLinkedList; const FileName: string; DataToString: TDataToString);
+procedure GenerateDotFile(var L: TSinglyLinkedList; const FileName: string;
+  DataToString: TDataToString);
 var
   F: TextFile;
   Temp: PSinglyNode;
-  NodeIndex, LastIndex: Integer;
+  NodeIndex, LastIndex: integer;
 begin
   AssignFile(F, FileName);
   Rewrite(F);
@@ -166,7 +169,7 @@ begin
       while Temp <> nil do
       begin
         WriteLn(F, Format('    node%d [label="<data>%s|<next>"];',
-                 [NodeIndex, DataToString(Temp^.Data)]));
+          [NodeIndex, DataToString(Temp^.Data)]));
         Temp := Temp^.Next;
         Inc(NodeIndex);
       end;
@@ -178,7 +181,8 @@ begin
       NodeIndex := 0;
       while (Temp <> nil) and (Temp^.Next <> nil) do
       begin
-        WriteLn(F, Format('    node%d:next -> node%d:data;', [NodeIndex, NodeIndex + 1]));
+        WriteLn(F, Format('    node%d:next -> node%d:data;',
+          [NodeIndex, NodeIndex + 1]));
         Temp := Temp^.Next;
         Inc(NodeIndex);
       end;
@@ -194,4 +198,3 @@ begin
 end;
 
 end.
-

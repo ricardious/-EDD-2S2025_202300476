@@ -43,9 +43,8 @@ type
     procedure LblSignInMouseEnter(Sender: TObject);
     procedure LblSignInMouseLeave(Sender: TObject);
   private
-     function IsValidEmail(const S: AnsiString): Boolean;
-     procedure ClearFields;
-
+    function IsValidEmail(const S: ansistring): boolean;
+    procedure ClearFields;
   public
 
   end;
@@ -58,11 +57,11 @@ implementation
 uses
   AppState, UserService, User, FormLogin;
 
-{$R *.lfm}
+  {$R *.lfm}
 
-{ TSignUp }
+  { TSignUp }
 
-function TSignUp.IsValidEmail(const S: AnsiString): Boolean;
+function TSignUp.IsValidEmail(const S: ansistring): boolean;
 begin
   Result := (Pos('@', S) > 1) and (Pos('.', S) > 1) and (Length(S) >= 5);
 end;
@@ -80,7 +79,7 @@ end;
 procedure TSignUp.BtnSignUpClick(Sender: TObject);
 var
   newUser: TUser;
-  confirmPsw: AnsiString;
+  confirmPsw: ansistring;
 begin
   newUser.Name := Trim(EditName.Text);
   newUser.Username := Trim(EditUsername.Text);
@@ -89,7 +88,8 @@ begin
   newUser.Password := EditPsw.Text;
   confirmPsw := EditConfirmPsw.Text;
 
-  if (newUser.Name = '') or (newUser.Username = '') or (newUser.Email = '') or (newUser.Password = '') then
+  if (newUser.Name = '') or (newUser.Username = '') or (newUser.Email = '') or
+    (newUser.Password = '') then
   begin
     ShowMessage('All fields are required.');
     Exit;
@@ -135,23 +135,22 @@ procedure TSignUp.LblSignInClick(Sender: TObject);
 begin
   Self.Hide;
   if Assigned(SignIn) then
-     SignIn.Show;
+    SignIn.Show;
 end;
 
 procedure TSignUp.LblSignInMouseEnter(Sender: TObject);
 begin
-     LblSignIn.Font.Color := TColor($00FF3C00);
-     LblSignIn.Font.Style := [fsUnderline];
-     LblSignIn.Cursor := crHandPoint;
+  LblSignIn.Font.Color := TColor($00FF3C00);
+  LblSignIn.Font.Style := [fsUnderline];
+  LblSignIn.Cursor := crHandPoint;
 end;
 
 procedure TSignUp.LblSignInMouseLeave(Sender: TObject);
 begin
-     LblSignIn.Font.Color := TColor($00FF3C00);
-     LblSignIn.Font.Style := [];
-     LblSignIn.Cursor := crDefault;
+  LblSignIn.Font.Color := TColor($00FF3C00);
+  LblSignIn.Font.Style := [];
+  LblSignIn.Cursor := crDefault;
 end;
 
 
 end.
-
