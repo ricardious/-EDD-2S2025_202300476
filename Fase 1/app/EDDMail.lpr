@@ -10,7 +10,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, FormLogin, User, Email, UserService, SinglyLinkedList,
+  Forms, datetimectrls, FormLogin, User, Email, UserService, SinglyLinkedList,
   DoublyLinkedList, CircularLinkedList, Queue, Stack, AppState,
   AuthService, FormDashboardUser, JsonUsersLoader;
 
@@ -25,7 +25,7 @@ begin
   Application.Initialize;
   InitAppState;
   BootstrapRoot(Users);
-  Application.CreateForm(TDashboardRoot, DashboardRoot);
+  Application.CreateForm(TDashboardUser, DashboardUser);
   Application.Run;
 end.
 

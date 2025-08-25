@@ -6,33 +6,75 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
-  ComCtrls, BCMDButton, ATShapeLineBGRA, BCLabel, BCRoundedImage,
-  BGRACustomDrawn, BCButton, JsonUsersLoader, fpjson, jsonparser, AppState;
+  ComCtrls, MaskEdit, Grids, DateTimePicker, BCMDButton, ATShapeLineBGRA,
+  BCLabel, BCRoundedImage, BGRACustomDrawn, BCButton, BGRAThemeButton,
+  BCMDButtonFocus, JsonUsersLoader, fpjson, jsonparser, AppState;
 
 type
 
-  { TDashboardRoot }
+  { TDashboardUser }
 
-  TDashboardRoot = class(TForm)
+  TDashboardUser = class(TForm)
+    BCMDButtonFocus1: TBCMDButtonFocus;
+    BtnDelete1: TBCMDButton;
+    BtnLogout: TBCMDButton;
+    BtnSelectFile: TBCMDButton;
+    BtnSelectFile1: TBCMDButton;
+    BtnSelectFile4: TBCMDButton;
     BtnSend: TBCButton;
+    BtnSend1: TBCButton;
+    BtnSendAllClick: TBCMDButton;
+    DateEditSend: TDateTimePicker;
+    EditEmail: TEdit;
+    EditRecipient1: TEdit;
+    EditSearh: TEdit;
+    EditSubject1: TEdit;
+    GroupBox1: TGroupBox;
+    GroupViewContacts: TGroupBox;
+    Image2: TImage;
+    LblEditName: TLabeledEdit;
+    LblEditName1: TLabeledEdit;
+    LblEditName2: TLabeledEdit;
+    LblEditName3: TLabeledEdit;
+    LblEditName4: TLabeledEdit;
+    LblEditName5: TLabeledEdit;
+    LblEditName6: TLabeledEdit;
+    LblEditName7: TLabeledEdit;
+    LblEmail: TLabel;
+    LblInfo2: TLabel;
+    LblInfo3: TLabel;
+    LblInfo4: TLabel;
+    LblInfo5: TLabel;
     LblMessage: TBCLabel;
     EditSubject: TEdit;
+    LblMessage1: TBCLabel;
+    LblSendDate: TBCLabel;
+    LblRecipient1: TBCLabel;
     LblSubject: TBCLabel;
     EditRecipient: TEdit;
     LblRecipient: TBCLabel;
-    BCRoundedImage2: TBCRoundedImage;
     BtnContacts: TBCMDButton;
     BtnDelete: TBCMDButton;
     BtnUpdateProfile: TBCMDButton;
-    BtnSelectFile2: TBCMDButton;
-    BtnAddContact: TBCMDButton;
     BtnScheduledEmails: TBCMDButton;
     BtnScheduleEmail: TBCMDButton;
     BtnGenerateReports: TBCMDButton;
     LblFileSelected: TBCLabel;
-    LblFileSelected1: TBCLabel;
     LblInfo1: TLabel;
-    LblInfo2: TLabel;
+    LblSubject1: TBCLabel;
+    ListView2: TListView;
+    ListView3: TListView;
+    MemoMessage1: TMemo;
+    MemoPreview1: TMemo;
+    Panel1: TPanel;
+    PanelUpdateProfile: TPanel;
+    PanelControls1: TPanel;
+    PanelScheduledEmails: TPanel;
+    PanelInboxBody1: TPanel;
+    PanelInboxBody2: TPanel;
+    PanelContacts: TPanel;
+    PanelScheduleEmail: TPanel;
+    PanelTitle: TLabel;
     BtnInbox: TBCMDButton;
     BtnSendEmail: TBCMDButton;
     BtnTrash: TBCMDButton;
@@ -44,10 +86,9 @@ type
     ListView1: TListView;
     MemoMessage: TMemo;
     MemoPreview: TMemo;
-    Panel2: TPanel;
     PanelInboxBody: TPanel;
     PanelControls2: TPanel;
-    PanelRelationsReport: TPanel;
+    PanelTrash: TPanel;
     PanelSendEmail: TPanel;
     PanelControls: TPanel;
     PanelInbox: TPanel;
@@ -57,47 +98,46 @@ type
     Shape1: TShape;
     ShapeLineBGRA1: TShapeLineBGRA;
     Splitter1: TSplitter;
+    Splitter2: TSplitter;
     procedure BtnTrashClick(Sender: TObject);
     procedure PanelControlsClick(Sender: TObject);
+    procedure PanelInboxClick(Sender: TObject);
   private
     procedure ShowPanel(APanel: TPanel);
   private
-     FSelectedFile: string;
+
   public
 
   end;
 
 var
-  DashboardRoot: TDashboardRoot;
+  DashboardUser: TDashboardUser;
 
 implementation
 
 {$R *.lfm}
 
-{ TDashboardRoot }
+{ TDashboardUser }
 
 
-procedure TDashboardRoot.ShowPanel(APanel: TPanel);
-begin
-  PanelInbox.Visible := False;
-  PanelSendEmail.Visible := False;
-  PanelRelationsReport.Visible := False;
-
-  if Assigned(APanel) then
-  begin
-    APanel.Visible := True;
-  end;
-end;
-
-procedure TDashboardRoot.PanelControlsClick(Sender: TObject);
+procedure TDashboardUser.ShowPanel(APanel: TPanel);
 begin
 
 end;
 
-
-procedure TDashboardRoot.BtnTrashClick(Sender: TObject);
+procedure TDashboardUser.PanelControlsClick(Sender: TObject);
 begin
-  ShowPanel(PanelSendEmail);
+
+end;
+
+procedure TDashboardUser.PanelInboxClick(Sender: TObject);
+begin
+
+end;
+
+
+procedure TDashboardUser.BtnTrashClick(Sender: TObject);
+begin
 end;
 
 
