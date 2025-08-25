@@ -210,12 +210,12 @@ begin
   Err := AddContactToUser(CurrentUser^, Users, EditEmail.Text);
   case Err of
     0: begin
-      ShowMessage('Contacto agregado');
+      ShowMessage('Contact added');
       UpdateContactCursor;
     end;
-    -1: ShowMessage('Escriba un e-mail');
-    -2: ShowMessage('Ese usuario no está registrado');
-    -3: ShowMessage('El contacto ya existe');
+    -1: ShowMessage('Please enter an email');
+    -2: ShowMessage('This user is not registered');
+    -3: ShowMessage('The contact already exists');
   end;
 
 end;

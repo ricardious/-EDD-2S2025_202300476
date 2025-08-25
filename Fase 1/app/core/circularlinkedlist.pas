@@ -45,7 +45,7 @@ end;
 
 procedure Insert(var L: TCircularLinkedList; Item: Pointer);
 var
-  NewNode, Temp: PCircularNode;
+  NewNode, Tail: PCircularNode;
 begin
   New(NewNode);
   NewNode^.Data := Item;
@@ -53,15 +53,18 @@ begin
   if L.Head = nil then
   begin
     L.Head := NewNode;
-    NewNode^.Next := L.Head;
+    NewNode^.Next := NewNode;
+    NewNode^.Prev := NewNode;
   end
   else
   begin
-    Temp := L.Head;
-    while Temp^.Next <> L.Head do
-      Temp := Temp^.Next;
-    Temp^.Next := NewNode;
+    Tail := L.Head^.Prev;
+
     NewNode^.Next := L.Head;
+    NewNode^.Prev := Tail;
+
+    Tail^.Next := NewNode;
+    L.Head^.Prev := NewNode;
   end;
 end;
 
@@ -75,13 +78,19 @@ begin
   if L.Head = nil then
   begin
     L.Head := NewNode;
-    NewNode^.Next := L.Head;
+    NewNode^.Next := NewNode;
+    NewNode^.Prev := NewNode;
   end
   else
   begin
-    Tail := GetTail(L);
+    Tail := L.Head^.Prev;
+
     NewNode^.Next := L.Head;
+    NewNode^.Prev := Tail;
+
+    L.Head^.Prev := NewNode;
     Tail^.Next := NewNode;
+
     L.Head := NewNode;
   end;
 end;
@@ -98,7 +107,11 @@ begin
 
   New(NewNode);
   NewNode^.Data := Item;
+
   NewNode^.Next := Node^.Next;
+  NewNode^.Prev := Node;
+
+  Node^.Next^.Prev := NewNode;
   Node^.Next := NewNode;
 end;
 
@@ -121,58 +134,31 @@ begin
 end;
 
 function GetTail(var L: TCircularLinkedList): PCircularNode;
-var
-  Current: PCircularNode;
 begin
-  Result := nil;
-  if L.Head = nil then Exit;
-
-  Current := L.Head;
-  while Current^.Next <> L.Head do
-    Current := Current^.Next;
-  Result := Current;
+  if L.Head = nil then
+    Result := nil
+  else
+    Result := L.Head^.Prev;
 end;
 
 procedure DeleteNode(var L: TCircularLinkedList; Node: PCircularNode);
-var
-  Current, Prev: PCircularNode;
 begin
   if (L.Head = nil) or (Node = nil) then Exit;
 
-  if L.Head^.Next = L.Head then
+  if Node^.Next = Node then
   begin
-    if L.Head = Node then
-    begin
-      Dispose(L.Head);
-      L.Head := nil;
-    end;
+    Dispose(Node);
+    L.Head := nil;
     Exit;
   end;
+
+  Node^.Prev^.Next := Node^.Next;
+  Node^.Next^.Prev := Node^.Prev;
 
   if L.Head = Node then
-  begin
-    Current := L.Head;
-    while Current^.Next <> L.Head do
-      Current := Current^.Next;
-    Current^.Next := L.Head^.Next;
-    L.Head := L.Head^.Next;
-    Dispose(Node);
-    Exit;
-  end;
+    L.Head := Node^.Next;
 
-  Prev := L.Head;
-  Current := L.Head^.Next;
-
-  repeat
-    if Current = Node then
-    begin
-      Prev^.Next := Current^.Next;
-      Dispose(Current);
-      Exit;
-    end;
-    Prev := Current;
-    Current := Current^.Next;
-  until Current = L.Head;
+  Dispose(Node);
 end;
 
 procedure Delete(var L: TCircularLinkedList; Item: Pointer);
@@ -241,7 +227,7 @@ begin
   Rewrite(F);
 
   try
-    WriteLn(F, 'digraph CircularLinkedList {');
+    WriteLn(F, 'digraph CircularDoublyLinkedList {');
     WriteLn(F, '    rankdir=LR;');
     WriteLn(F, '    node [shape=record, style=filled, fillcolor=lightcyan];');
     WriteLn(F, '    edge [color=blue];');
@@ -263,10 +249,10 @@ begin
       repeat
         if Current = L.Head then
           WriteLn(F, Format(
-            '    node%d [label="<data>%s|<next>", fillcolor=lightyellow];',
+            '    node%d [label="<prev>|<data>%s|<next>", fillcolor=lightyellow];',
             [NodeIndex, DataToString(Current^.Data)]))
         else
-          WriteLn(F, Format('    node%d [label="<data>%s|<next>"];',
+          WriteLn(F, Format('    node%d [label="<prev>|<data>%s|<next>"];',
             [NodeIndex, DataToString(Current^.Data)]));
         Current := Current^.Next;
         Inc(NodeIndex);
@@ -279,10 +265,10 @@ begin
       repeat
         if Current^.Next = L.Head then
           WriteLn(F, Format(
-            '    node%d:next -> node0:data [color=red, style=bold, label="circular"];',
+            '    node%d:next -> node0:data [color=red, style=bold, label="next"];',
             [NodeIndex]))
         else
-          WriteLn(F, Format('    node%d:next -> node%d:data [color=blue];',
+          WriteLn(F, Format('    node%d:next -> node%d:data [color=blue, label="next"];',
             [NodeIndex, NodeIndex + 1]));
 
         Current := Current^.Next;
@@ -291,10 +277,29 @@ begin
 
       WriteLn(F, '');
 
+      Current := L.Head;
+      NodeIndex := 0;
+      repeat
+        if Current^.Prev = GetTail(L) then
+        begin
+          if NodeIndex = 0 then
+            WriteLn(F, Format(
+              '    node0:prev -> node%d:data [color=darkgreen, style=bold, label="prev"];',
+              [TotalNodes - 1]));
+        end
+        else
+          WriteLn(F, Format(
+            '    node%d:prev -> node%d:data [color=green, label="prev"];',
+            [NodeIndex, NodeIndex - 1]));
+
+        Current := Current^.Next;
+        Inc(NodeIndex);
+      until Current = L.Head;
+
+      WriteLn(F, '');
       WriteLn(F, '    head -> node0:data [color=darkgreen, style=bold];');
 
       WriteLn(F, '');
-
       WriteLn(F, '    // Configuración para layout circular');
       if TotalNodes <= 4 then
       begin
@@ -309,7 +314,8 @@ begin
       end;
 
       WriteLn(F, '');
-      WriteLn(F, '    // Sugerencia: la flecha roja muestra la conexión circular');
+      WriteLn(F, '    // Flechas rojas: conexiones circulares Next');
+      WriteLn(F, '    // Flechas verdes: conexiones Prev');
     end;
 
     WriteLn(F, '}');

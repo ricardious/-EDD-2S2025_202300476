@@ -9,6 +9,7 @@ object DashboardUser: TDashboardUser
   Constraints.MinHeight = 650
   Constraints.MinWidth = 960
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   WindowState = wsMaximized
   object PanelTop: TPanel
     Left = 0
@@ -4439,7 +4440,7 @@ object DashboardUser: TDashboardUser
         Align = alTop
         BorderSpacing.Around = 25
         Caption = 'Add Contact'
-        ClientHeight = 80
+        ClientHeight = 76
         ClientWidth = 688
         ParentBackground = False
         TabOrder = 0
@@ -4493,7 +4494,7 @@ object DashboardUser: TDashboardUser
         Align = alClient
         BorderSpacing.Around = 25
         Caption = 'My Contacts'
-        ClientHeight = 350
+        ClientHeight = 346
         ClientWidth = 688
         ParentBackground = False
         TabOrder = 1
