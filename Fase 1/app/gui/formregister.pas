@@ -107,6 +107,7 @@ begin
     Exit;
   end;
 
+  newUser.Id := -1;
   AddUser(Users, newUser);
 
   ShowMessage('Registration successful! You can now sign in.');

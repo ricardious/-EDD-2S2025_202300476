@@ -26,10 +26,10 @@ object DashboardUser: TDashboardUser
     TabOrder = 0
     object LblSection: TLabel
       Left = 16
-      Height = 23
+      Height = 20
       Top = 16
-      Width = 199
-      Caption = 'Admin · Root Dashboard'
+      Width = 178
+      Caption = 'User · User Dashboard'
       Color = cl3DDkShadow
       Font.Color = clWhite
       Font.Height = -16
@@ -79,7 +79,7 @@ object DashboardUser: TDashboardUser
       object ShapeLineBGRA1: TShapeLineBGRA
         Left = 50
         Height = 30
-        Top = 105
+        Top = 102
         Width = 120
         Color = clNone
         Align = alTop
@@ -4050,7 +4050,7 @@ object DashboardUser: TDashboardUser
       end
       object Label2: TLabel
         Left = 0
-        Height = 23
+        Height = 20
         Top = 82
         Width = 220
         Align = alTop
@@ -4066,7 +4066,7 @@ object DashboardUser: TDashboardUser
       object BtnInbox: TBCMDButton
         Left = 0
         Height = 50
-        Top = 135
+        Top = 132
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4091,7 +4091,7 @@ object DashboardUser: TDashboardUser
       object BtnSendEmail: TBCMDButton
         Left = 0
         Height = 50
-        Top = 185
+        Top = 182
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4116,7 +4116,7 @@ object DashboardUser: TDashboardUser
       object BtnTrash: TBCMDButton
         Left = 0
         Height = 50
-        Top = 235
+        Top = 232
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4141,7 +4141,7 @@ object DashboardUser: TDashboardUser
       object BtnScheduledEmails: TBCMDButton
         Left = 0
         Height = 50
-        Top = 335
+        Top = 332
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4166,7 +4166,7 @@ object DashboardUser: TDashboardUser
       object BtnScheduleEmail: TBCMDButton
         Left = 0
         Height = 50
-        Top = 285
+        Top = 282
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4191,7 +4191,7 @@ object DashboardUser: TDashboardUser
       object BtnContacts: TBCMDButton
         Left = 0
         Height = 50
-        Top = 385
+        Top = 382
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4216,7 +4216,7 @@ object DashboardUser: TDashboardUser
       object BtnUpdateProfile: TBCMDButton
         Left = 0
         Height = 50
-        Top = 435
+        Top = 432
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4241,7 +4241,7 @@ object DashboardUser: TDashboardUser
       object BtnGenerateReports: TBCMDButton
         Left = 0
         Height = 50
-        Top = 485
+        Top = 482
         Width = 220
         Animation = True
         StyleNormal.Color = 15017237
@@ -4302,7 +4302,7 @@ object DashboardUser: TDashboardUser
       Visible = False
       object LblInfo5: TLabel
         Left = 0
-        Height = 46
+        Height = 39
         Top = 10
         Width = 740
         Align = alTop
@@ -4313,14 +4313,14 @@ object DashboardUser: TDashboardUser
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object LblEditName4: TLabeledEdit
+      object LblEditUpdName: TLabeledEdit
         AnchorSideTop.Side = asrCenter
         Left = 208
-        Height = 35
+        Height = 36
         Top = 109
         Width = 350
         Anchors = [akTop, akLeft, akRight]
-        EditLabel.Height = 35
+        EditLabel.Height = 36
         EditLabel.Width = 54
         EditLabel.Caption = 'Name'
         EditLabel.ParentFont = False
@@ -4331,13 +4331,13 @@ object DashboardUser: TDashboardUser
         ReadOnly = True
         TabOrder = 0
       end
-      object LblEditName5: TLabeledEdit
+      object LblEditUpdUsername: TLabeledEdit
         Left = 208
-        Height = 35
+        Height = 36
         Top = 170
         Width = 350
         Anchors = [akTop, akLeft, akRight]
-        EditLabel.Height = 35
+        EditLabel.Height = 36
         EditLabel.Width = 94
         EditLabel.Caption = 'Username'
         EditLabel.ParentFont = False
@@ -4345,16 +4345,15 @@ object DashboardUser: TDashboardUser
         EditLabel.Font.Name = 'Sans'
         LabelPosition = lpLeft
         LabelSpacing = 15
-        ReadOnly = True
         TabOrder = 1
       end
-      object LblEditName6: TLabeledEdit
+      object LblEditUpdEmail: TLabeledEdit
         Left = 208
-        Height = 35
+        Height = 36
         Top = 231
         Width = 350
         Anchors = [akTop, akLeft, akRight]
-        EditLabel.Height = 35
+        EditLabel.Height = 36
         EditLabel.Width = 50
         EditLabel.Caption = 'Email'
         EditLabel.ParentFont = False
@@ -4365,13 +4364,13 @@ object DashboardUser: TDashboardUser
         ReadOnly = True
         TabOrder = 2
       end
-      object LblEditName7: TLabeledEdit
+      object LblEditUpdPhone: TLabeledEdit
         Left = 208
-        Height = 35
+        Height = 36
         Top = 292
         Width = 350
         Anchors = [akTop, akLeft, akRight]
-        EditLabel.Height = 35
+        EditLabel.Height = 36
         EditLabel.Width = 57
         EditLabel.Caption = 'Phone'
         EditLabel.ParentFont = False
@@ -4379,10 +4378,9 @@ object DashboardUser: TDashboardUser
         EditLabel.Font.Name = 'Sans'
         LabelPosition = lpLeft
         LabelSpacing = 15
-        ReadOnly = True
         TabOrder = 3
       end
-      object BtnSelectFile4: TBCMDButton
+      object BtnUpdProfile: TBCMDButton
         AnchorSideLeft.Control = PanelUpdateProfile
         AnchorSideLeft.Side = asrCenter
         AnchorSideRight.Side = asrCenter
@@ -4404,6 +4402,7 @@ object DashboardUser: TDashboardUser
         TextProportionalRatio = 0.5
         Caption = 'Update Profile'
         Constraints.MaxWidth = 200
+        OnClick = BtnUpdProfileClick
         ParentFont = False
       end
     end
@@ -4421,7 +4420,7 @@ object DashboardUser: TDashboardUser
       Visible = False
       object LblInfo4: TLabel
         Left = 0
-        Height = 46
+        Height = 39
         Top = 10
         Width = 740
         Align = alTop
@@ -4435,25 +4434,25 @@ object DashboardUser: TDashboardUser
       object GroupBox1: TGroupBox
         Left = 25
         Height = 100
-        Top = 81
+        Top = 74
         Width = 690
         Align = alTop
         BorderSpacing.Around = 25
         Caption = 'Add Contact'
-        ClientHeight = 76
+        ClientHeight = 80
         ClientWidth = 688
         ParentBackground = False
         TabOrder = 0
         object LblEmail: TLabel
           Left = 16
-          Height = 23
+          Height = 19
           Top = 24
-          Width = 43
+          Width = 38
           Caption = 'Email'
         end
         object EditEmail: TEdit
           Left = 100
-          Height = 35
+          Height = 36
           Top = 18
           Width = 250
           Anchors = [akTop, akLeft, akRight]
@@ -4488,13 +4487,13 @@ object DashboardUser: TDashboardUser
       end
       object GroupViewContacts: TGroupBox
         Left = 25
-        Height = 363
-        Top = 206
+        Height = 370
+        Top = 199
         Width = 690
         Align = alClient
         BorderSpacing.Around = 25
         Caption = 'My Contacts'
-        ClientHeight = 339
+        ClientHeight = 350
         ClientWidth = 688
         ParentBackground = False
         TabOrder = 1
@@ -4563,11 +4562,11 @@ object DashboardUser: TDashboardUser
         object LblEditName: TLabeledEdit
           AnchorSideTop.Side = asrCenter
           Left = 195
-          Height = 35
+          Height = 36
           Top = 16
           Width = 350
           Anchors = [akTop, akLeft, akRight]
-          EditLabel.Height = 35
+          EditLabel.Height = 36
           EditLabel.Width = 54
           EditLabel.Caption = 'Name'
           EditLabel.ParentFont = False
@@ -4580,11 +4579,11 @@ object DashboardUser: TDashboardUser
         end
         object LblEditUsername: TLabeledEdit
           Left = 195
-          Height = 35
+          Height = 36
           Top = 77
           Width = 350
           Anchors = [akTop, akLeft, akRight]
-          EditLabel.Height = 35
+          EditLabel.Height = 36
           EditLabel.Width = 94
           EditLabel.Caption = 'Username'
           EditLabel.ParentFont = False
@@ -4597,11 +4596,11 @@ object DashboardUser: TDashboardUser
         end
         object LblEditEmail: TLabeledEdit
           Left = 195
-          Height = 35
+          Height = 36
           Top = 138
           Width = 350
           Anchors = [akTop, akLeft, akRight]
-          EditLabel.Height = 35
+          EditLabel.Height = 36
           EditLabel.Width = 50
           EditLabel.Caption = 'Email'
           EditLabel.ParentFont = False
@@ -4614,11 +4613,11 @@ object DashboardUser: TDashboardUser
         end
         object LblEditPhone: TLabeledEdit
           Left = 195
-          Height = 35
+          Height = 36
           Top = 199
           Width = 350
           Anchors = [akTop, akLeft, akRight]
-          EditLabel.Height = 35
+          EditLabel.Height = 36
           EditLabel.Width = 57
           EditLabel.Caption = 'Phone'
           EditLabel.ParentFont = False
@@ -4645,7 +4644,7 @@ object DashboardUser: TDashboardUser
       Visible = False
       object LblInfo3: TLabel
         Left = 0
-        Height = 46
+        Height = 39
         Top = 10
         Width = 740
         Align = alTop
@@ -4659,7 +4658,7 @@ object DashboardUser: TDashboardUser
       object PanelControls1: TPanel
         Left = 25
         Height = 32
-        Top = 81
+        Top = 74
         Width = 690
         Align = alTop
         Anchors = []
@@ -4669,11 +4668,11 @@ object DashboardUser: TDashboardUser
         ClientWidth = 690
         ParentBackground = False
         TabOrder = 0
-        object BtnSendAllClick: TBCMDButton
+        object BtnSendAll: TBCMDButton
           Left = 0
           Height = 32
           Top = 0
-          Width = 127
+          Width = 120
           Animation = True
           StyleNormal.Color = 16530449
           StyleNormal.TextColor = clWhite
@@ -4690,23 +4689,24 @@ object DashboardUser: TDashboardUser
           AutoSize = True
           BorderSpacing.Right = 8
           Caption = 'Send All Now'
+          OnClick = BtnSendAllClick
         end
       end
       object PanelInboxBody2: TPanel
         Left = 25
-        Height = 431
-        Top = 138
+        Height = 438
+        Top = 131
         Width = 690
         Align = alClient
         BorderSpacing.Around = 25
         BevelOuter = bvNone
-        ClientHeight = 431
+        ClientHeight = 438
         ClientWidth = 690
         ParentBackground = False
         TabOrder = 1
-        object ListView3: TListView
+        object LvScheduledEmails: TListView
           Left = 0
-          Height = 431
+          Height = 438
           Top = 0
           Width = 690
           Align = alClient
@@ -4717,7 +4717,7 @@ object DashboardUser: TDashboardUser
               Width = 150
             end          
             item
-              Caption = 'Sender'
+              Caption = 'Recipient'
               MaxWidth = 200
               Width = 135
             end          
@@ -4728,7 +4728,7 @@ object DashboardUser: TDashboardUser
             end          
             item
               Caption = 'Scheduled Time'
-              Width = 230
+              Width = 239
             end>
           GridLines = True
           HideSelection = False
@@ -4742,6 +4742,7 @@ object DashboardUser: TDashboardUser
     object PanelScheduleEmail: TPanel
       Left = 220
       Height = 594
+      Hint = 'Type your message here...'
       Top = 0
       Width = 740
       Align = alClient
@@ -4754,7 +4755,7 @@ object DashboardUser: TDashboardUser
       Visible = False
       object LblInfo2: TLabel
         Left = 0
-        Height = 46
+        Height = 39
         Top = 10
         Width = 740
         Align = alTop
@@ -4767,9 +4768,9 @@ object DashboardUser: TDashboardUser
       end
       object LblRecipient1: TBCLabel
         Left = 143
-        Height = 28
+        Height = 25
         Top = 181
-        Width = 96
+        Width = 91
         Background.Gradient1.StartColor = clWhite
         Background.Gradient1.EndColor = clBlack
         Background.Gradient1.GradientType = gtLinear
@@ -4799,22 +4800,22 @@ object DashboardUser: TDashboardUser
         Rounding.RoundX = 1
         Rounding.RoundY = 1
       end
-      object EditRecipient1: TEdit
+      object EditScheduleRecipient: TEdit
         Left = 272
-        Height = 40
+        Height = 42
         Top = 175
         Width = 350
         Anchors = [akTop, akLeft, akRight]
         Font.Height = 20
         ParentFont = False
         TabOrder = 0
-        Text = 'Enter recipient email...'
+        TextHint = 'Enter recipient email...'
       end
       object LblSubject1: TBCLabel
         Left = 143
-        Height = 28
+        Height = 25
         Top = 256
-        Width = 77
+        Width = 74
         Background.Gradient1.StartColor = clWhite
         Background.Gradient1.EndColor = clBlack
         Background.Gradient1.GradientType = gtLinear
@@ -4844,22 +4845,22 @@ object DashboardUser: TDashboardUser
         Rounding.RoundX = 1
         Rounding.RoundY = 1
       end
-      object EditSubject1: TEdit
+      object EditScheduleSubject: TEdit
         Left = 272
-        Height = 40
+        Height = 42
         Top = 250
         Width = 350
         Anchors = [akTop, akLeft, akRight]
         Font.Height = 20
         ParentFont = False
         TabOrder = 1
-        Text = 'Enter subject...'
+        TextHint = 'Enter subject...'
       end
       object LblMessage1: TBCLabel
         Left = 143
-        Height = 28
+        Height = 25
         Top = 325
-        Width = 92
+        Width = 90
         Background.Gradient1.StartColor = clWhite
         Background.Gradient1.EndColor = clBlack
         Background.Gradient1.GradientType = gtLinear
@@ -4889,7 +4890,7 @@ object DashboardUser: TDashboardUser
         Rounding.RoundX = 1
         Rounding.RoundY = 1
       end
-      object MemoMessage1: TMemo
+      object MemoScheduleMessage: TMemo
         Left = 272
         Height = 150
         Top = 325
@@ -4900,9 +4901,10 @@ object DashboardUser: TDashboardUser
           'Type your message here...'
         )
         ParentFont = False
+        ParentShowHint = False
         TabOrder = 2
       end
-      object BtnSend1: TBCButton
+      object BtnScheduleSend: TBCButton
         Cursor = crHandPoint
         Left = 220
         Height = 35
@@ -4990,6 +4992,7 @@ object DashboardUser: TDashboardUser
         DropDownWidth = 16
         DropDownArrowSize = 8
         GlobalOpacity = 255
+        OnClick = BtnScheduleSendClick
         ParentColor = False
         Rounding.RoundX = 15
         Rounding.RoundY = 15
@@ -5000,7 +5003,7 @@ object DashboardUser: TDashboardUser
       end
       object DateEditSend: TDateTimePicker
         Left = 272
-        Height = 34
+        Height = 31
         Top = 100
         Width = 350
         CenturyFrom = 1941
@@ -5010,15 +5013,15 @@ object DashboardUser: TDashboardUser
         ParentFont = False
         TabOrder = 3
         TrailingSeparator = False
-        TextForNullDate = 'NULL'
+        TextForNullDate = ''
         LeadingZeros = True
         Anchors = [akTop, akLeft, akRight]
-        Kind = dtkDate
+        Kind = dtkDateTime
         TimeFormat = tf24
         TimeDisplay = tdHMS
         DateMode = dmComboBox
-        Date = 45903
-        Time = 0.432817094908387
+        Date = 1.7E308
+        Time = 1.7E308
         UseDefaultSeparators = True
         HideDateTimeParts = []
         MonthNames = 'Long'
@@ -5026,9 +5029,9 @@ object DashboardUser: TDashboardUser
       end
       object LblSendDate: TBCLabel
         Left = 143
-        Height = 28
+        Height = 25
         Top = 103
-        Width = 104
+        Width = 100
         Background.Gradient1.StartColor = clWhite
         Background.Gradient1.EndColor = clBlack
         Background.Gradient1.GradientType = gtLinear
@@ -5073,7 +5076,7 @@ object DashboardUser: TDashboardUser
       Visible = False
       object PanelTitle: TLabel
         Left = 0
-        Height = 46
+        Height = 39
         Top = 10
         Width = 740
         Align = alTop
@@ -5087,7 +5090,7 @@ object DashboardUser: TDashboardUser
       object PanelControls2: TPanel
         Left = 25
         Height = 32
-        Top = 81
+        Top = 74
         Width = 690
         Align = alTop
         Anchors = []
@@ -5170,11 +5173,11 @@ object DashboardUser: TDashboardUser
           }
           Stretch = True
         end
-        object BtnDelete1: TBCMDButton
-          Left = 613
+        object BtnEmptyTrash: TBCMDButton
+          Left = 576
           Height = 32
           Top = 0
-          Width = 77
+          Width = 114
           Animation = True
           StyleNormal.Color = 16530449
           StyleNormal.TextColor = clWhite
@@ -5189,10 +5192,10 @@ object DashboardUser: TDashboardUser
           TextProportionalRatio = 0.5
           Align = alRight
           AutoSize = True
-          Caption = 'Delete'
-          Enabled = False
+          Caption = 'Empty Trash'
+          OnClick = BtnEmptyTrashClick
         end
-        object EditSearh: TEdit
+        object EditSearch: TEdit
           Left = 40
           Height = 32
           Top = 0
@@ -5202,56 +5205,57 @@ object DashboardUser: TDashboardUser
           Font.Height = 12
           ParentFont = False
           TabOrder = 0
-          Text = 'Search in subject...'
+          TextHint = 'Search in subject...'
+          OnChange = EditSearchChange
         end
       end
-      object PanelInboxBody1: TPanel
+      object PanelTrashBody: TPanel
         Left = 25
-        Height = 431
-        Top = 138
+        Height = 438
+        Top = 131
         Width = 690
         Align = alClient
         BorderSpacing.Around = 25
         BevelOuter = bvNone
-        ClientHeight = 431
+        ClientHeight = 438
         ClientWidth = 690
         ParentBackground = False
         TabOrder = 1
-        object ListView2: TListView
+        object LvTrashEmails: TListView
           Left = 0
-          Height = 431
+          Height = 438
           Top = 0
           Width = 350
           Align = alLeft
           Columns = <          
-            item
-              Caption = 'Estado'
-              Width = 100
-            end          
             item
               Caption = 'Subject'
               Width = 100
             end          
             item
               Caption = 'Sender'
-              Width = 135
+              Width = 100
+            end          
+            item
+              Caption = 'Message'
+              Width = 148
             end>
           GridLines = True
           HideSelection = False
           ReadOnly = True
-          RowSelect = True
           TabOrder = 0
           ViewStyle = vsReport
+          OnSelectItem = LvTrashEmailsSelectItem
         end
         object Splitter2: TSplitter
           Left = 350
-          Height = 431
+          Height = 438
           Top = 0
           Width = 5
         end
-        object MemoPreview1: TMemo
+        object MemoTrashPreview: TMemo
           Left = 355
-          Height = 431
+          Height = 438
           Top = 0
           Width = 335
           Align = alClient
@@ -5284,7 +5288,7 @@ object DashboardUser: TDashboardUser
       Visible = False
       object LblInfo1: TLabel
         Left = 0
-        Height = 46
+        Height = 39
         Top = 10
         Width = 740
         Align = alTop
@@ -5297,9 +5301,9 @@ object DashboardUser: TDashboardUser
       end
       object LblRecipient: TBCLabel
         Left = 143
-        Height = 28
+        Height = 25
         Top = 109
-        Width = 96
+        Width = 91
         Background.Gradient1.StartColor = clWhite
         Background.Gradient1.EndColor = clBlack
         Background.Gradient1.GradientType = gtLinear
@@ -5331,7 +5335,7 @@ object DashboardUser: TDashboardUser
       end
       object EditRecipient: TEdit
         Left = 272
-        Height = 40
+        Height = 42
         Top = 100
         Width = 350
         Anchors = [akTop, akLeft, akRight]
@@ -5342,9 +5346,9 @@ object DashboardUser: TDashboardUser
       end
       object LblSubject: TBCLabel
         Left = 143
-        Height = 28
+        Height = 25
         Top = 184
-        Width = 77
+        Width = 74
         Background.Gradient1.StartColor = clWhite
         Background.Gradient1.EndColor = clBlack
         Background.Gradient1.GradientType = gtLinear
@@ -5376,7 +5380,7 @@ object DashboardUser: TDashboardUser
       end
       object EditSubject: TEdit
         Left = 272
-        Height = 40
+        Height = 42
         Top = 175
         Width = 350
         Anchors = [akTop, akLeft, akRight]
@@ -5387,9 +5391,9 @@ object DashboardUser: TDashboardUser
       end
       object LblMessage: TBCLabel
         Left = 143
-        Height = 28
+        Height = 25
         Top = 250
-        Width = 92
+        Width = 90
         Background.Gradient1.StartColor = clWhite
         Background.Gradient1.EndColor = clBlack
         Background.Gradient1.GradientType = gtLinear
@@ -5543,7 +5547,7 @@ object DashboardUser: TDashboardUser
       TabOrder = 1
       object LblInfo: TLabel
         Left = 0
-        Height = 46
+        Height = 39
         Top = 10
         Width = 740
         Align = alTop
@@ -5557,7 +5561,7 @@ object DashboardUser: TDashboardUser
       object PanelControls: TPanel
         Left = 25
         Height = 32
-        Top = 81
+        Top = 74
         Width = 690
         Align = alTop
         Anchors = []
@@ -5571,7 +5575,7 @@ object DashboardUser: TDashboardUser
           Left = 0
           Height = 32
           Top = 0
-          Width = 76
+          Width = 86
           Align = alLeft
           Background.Gradient1.StartColor = clWhite
           Background.Gradient1.EndColor = clBlack
@@ -5599,14 +5603,15 @@ object DashboardUser: TDashboardUser
           FontEx.ShadowOffsetX = 5
           FontEx.ShadowOffsetY = 5
           FontEx.Style = [fsItalic]
+          FontEx.PaddingRight = 10
           Rounding.RoundX = 1
           Rounding.RoundY = 1
         end
         object BtnSortAZ: TBCMDButton
-          Left = 84
+          Left = 94
           Height = 32
           Top = 0
-          Width = 90
+          Width = 85
           Animation = True
           StyleNormal.Color = 16530449
           StyleNormal.TextColor = clWhite
@@ -5626,10 +5631,10 @@ object DashboardUser: TDashboardUser
           OnClick = BtnSortAZClick
         end
         object BtnDelete: TBCMDButton
-          Left = 613
+          Left = 617
           Height = 32
           Top = 0
-          Width = 77
+          Width = 73
           Animation = True
           StyleNormal.Color = 16530449
           StyleNormal.TextColor = clWhite
@@ -5651,19 +5656,19 @@ object DashboardUser: TDashboardUser
       end
       object PanelInboxBody: TPanel
         Left = 25
-        Height = 431
-        Top = 138
+        Height = 438
+        Top = 131
         Width = 690
         Align = alClient
         BorderSpacing.Around = 25
         BevelOuter = bvNone
-        ClientHeight = 431
+        ClientHeight = 438
         ClientWidth = 690
         ParentBackground = False
         TabOrder = 1
         object LvInbox: TListView
           Left = 0
-          Height = 431
+          Height = 438
           Top = 0
           Width = 350
           Align = alLeft
@@ -5678,25 +5683,24 @@ object DashboardUser: TDashboardUser
             end          
             item
               Caption = 'Sender'
-              Width = 135
+              Width = 148
             end>
           GridLines = True
           HideSelection = False
           ReadOnly = True
-          RowSelect = True
           TabOrder = 0
           ViewStyle = vsReport
           OnSelectItem = LvInboxSelectItem
         end
         object Splitter1: TSplitter
           Left = 350
-          Height = 431
+          Height = 438
           Top = 0
           Width = 5
         end
         object MemoPreview: TMemo
           Left = 355
-          Height = 431
+          Height = 438
           Top = 0
           Width = 335
           Align = alClient

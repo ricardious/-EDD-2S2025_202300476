@@ -26,6 +26,7 @@ type
     Shape3: TShape;
     procedure BtnSignInClick(Sender: TObject);
     procedure EditPswChange(Sender: TObject);
+    procedure EditPswExit(Sender: TObject);
     procedure LblSignUpClick(Sender: TObject);
     procedure LblSignUpMouseEnter(Sender: TObject);
     procedure LblSignUpMouseLeave(Sender: TObject);
@@ -50,6 +51,12 @@ uses
 procedure TSignIn.EditPswChange(Sender: TObject);
 begin
   EditPsw.PasswordChar := '*';
+end;
+
+procedure TSignIn.EditPswExit(Sender: TObject);
+begin
+  if Trim(EditPsw.Text) = '' then
+    EditPsw.PasswordChar := #0;
 end;
 
 procedure TSignIn.LblSignUpClick(Sender: TObject);
@@ -86,6 +93,10 @@ begin
     begin
       // ShowMessage('Welcome, ' + foundUser^.Name + '!');
       CurrentUser := foundUser;
+
+      EditEmail.Text := '';
+      EditPsw.Text := '';
+
       Self.Hide;
 
       if foundUser^.Email = 'root@edd.com' then
@@ -100,7 +111,7 @@ begin
         ShowMessage('Welcome, ' + foundUser^.Name + '!');
         if not Assigned(DashboardUser) then
           Application.CreateForm(TDashboardUser, DashboardUser);
-        //DashboardUser.RefreshInboxList;
+        // DashboardUser.RefreshInboxList;
         DashboardUser.Show;
       end;
 

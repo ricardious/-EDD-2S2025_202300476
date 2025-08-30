@@ -985,7 +985,7 @@ object SignIn: TSignIn
   end
   object EditEmail: TEdit
     Left = 304
-    Height = 27
+    Height = 36
     Top = 200
     Width = 232
     BorderStyle = bsNone
@@ -998,7 +998,7 @@ object SignIn: TSignIn
   end
   object EditPsw: TEdit
     Left = 304
-    Height = 27
+    Height = 36
     Top = 280
     Width = 232
     BorderStyle = bsNone
@@ -1010,6 +1010,7 @@ object SignIn: TSignIn
     TabOrder = 1
     TextHint = 'Password'
     OnChange = EditPswChange
+    OnExit = EditPswExit
   end
   object BtnSignIn: TBCButton
     Cursor = crHandPoint

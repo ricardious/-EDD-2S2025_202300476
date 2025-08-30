@@ -10,17 +10,35 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, datetimectrls, FormLogin, User, Email, UserService, SinglyLinkedList,
-  DoublyLinkedList, CircularLinkedList, Queue, Stack, AppState,
-  AuthService, JsonUsersLoader, ContactService, EmailService;
+  Forms,
+  datetimectrls,
+  FormLogin,
+  User,
+  Email,
+  UserService,
+  SinglyLinkedList,
+  DoublyLinkedList,
+  CircularLinkedList,
+  Queue,
+  Stack,
+  AppState,
+  AuthService,
+  JsonUsersLoader,
+  ContactService,
+  EmailService,
+  SparseMatrix,
+  RelationsService,
+  CommunityService,
+  Community;
 
-{$R *.res}
+  {$R *.res}
 
 begin
-  RequireDerivedFormResource:=True;
-  Application.Scaled:=True;
-  {$PUSH}{$WARN 5044 OFF}
-  Application.MainFormOnTaskbar:=True;
+  RequireDerivedFormResource := True;
+  Application.Scaled := True;
+  {$PUSH}
+  {$WARN 5044 OFF}
+  Application.MainFormOnTaskbar := True;
   {$POP}
   Application.Initialize;
   InitAppState;
@@ -28,4 +46,3 @@ begin
   Application.CreateForm(FormLogin.TSignIn, FormLogin.SignIn);
   Application.Run;
 end.
-

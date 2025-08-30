@@ -11,6 +11,8 @@ procedure BootstrapRoot(var L: TSinglyLinkedList);
 function AddUser(var L: TSinglyLinkedList; const U: TUser): PUser;
 function FindUserByEmail(const L: TSinglyLinkedList; const Email: ansistring): PUser;
 function FindUserById(const L: TSinglyLinkedList; const Id: integer): PUser;
+function FindUserByUsername(const L: TSinglyLinkedList;
+  const Username: ansistring): PUser;
 
 implementation
 
@@ -27,12 +29,37 @@ begin
   AddUser(L, root);
 end;
 
+function GetMaxUserId(const L: TSinglyLinkedList): integer;
+var
+  Node: PSinglyNode;
+  Curr: PUser;
+  MaxId: integer;
+begin
+  MaxId := -1;
+  Node := L.Head;
+  while Node <> nil do
+  begin
+    Curr := PUser(Node^.Data);
+    if (Curr <> nil) and (Curr^.Id > MaxId) then
+      MaxId := Curr^.Id;
+    Node := Node^.Next;
+  end;
+  Result := MaxId;
+end;
+
 function AddUser(var L: TSinglyLinkedList; const U: TUser): PUser;
 var
   NewU: PUser;
+  NewId: integer;
 begin
   New(NewU);
   NewU^ := U;
+
+  if NewU^.Id = -1 then
+  begin
+    NewId := GetMaxUserId(L) + 1;
+    NewU^.Id := NewId;
+  end;
 
   DoublyLinkedList.Init(NewU^.Inbox);
   Stack.Init(NewU^.Trash);
@@ -69,6 +96,23 @@ begin
   begin
     Curr := PUser(Node^.Data);
     if (Curr <> nil) and (Curr^.Id = Id) then
+      exit(Curr);
+    Node := Node^.Next;
+  end;
+  Result := nil;
+end;
+
+function FindUserByUsername(const L: TSinglyLinkedList;
+  const Username: ansistring): PUser;
+var
+  Node: PSinglyNode;
+  Curr: PUser;
+begin
+  Node := L.Head;
+  while Node <> nil do
+  begin
+    Curr := PUser(Node^.Data);
+    if (Curr <> nil) and (Curr^.Username = Username) then
       exit(Curr);
     Node := Node^.Next;
   end;

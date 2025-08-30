@@ -16,7 +16,9 @@ function SendEmailToContact(const SenderUser: PUser;
   const RecipientEmail, Subject, MessageBody: string): TEmailSendResult;
 function DeliverEmailToUser(const RecipientEmail: string;
   MailPtr: PEmail): TEmailDeliveryResult;
-function CreateNewEmail(const Sender, Subject, MessageBody: string): PEmail;
+function CreateNewEmail(const Sender, Recipient, Subject, MessageBody: AnsiString): PEmail; overload;
+function CreateNewEmail(const Sender, Recipient, Subject, MessageBody: AnsiString;
+  ScheduledDate: TDateTime): PEmail; overload;
 
 function ValidateEmailRecipient(const RecipientEmail: string;
   var SenderContacts: TCircularLinkedList): TEmailSendResult;
@@ -35,18 +37,27 @@ implementation
 uses
   UserService, ContactService;
 
-function CreateNewEmail(const Sender, Subject, MessageBody: string): PEmail;
+function CreateNewEmail(const Sender, Recipient, Subject, MessageBody: string): PEmail; overload;
 begin
   New(Result);
   Result^.Id := NextEmailId;
   Inc(NextEmailId);
   Result^.Sender := Sender;
+  Result^.Recipient := Recipient;
   Result^.Subject := Subject;
   Result^.MessageBody := MessageBody;
-  Result^.Date := FormatDateTime('yyyy-mm-dd hh:nn', Now);
+  Result^.Date := Now;
   Result^.State := esUnread;
   Result^.Scheduled := False;
 end;
+
+function CreateNewEmail(const Sender, Recipient, Subject, MessageBody: string; ScheduledDate: TDateTime): PEmail; overload;
+begin
+  Result := CreateNewEmail(Sender, Recipient, Subject, MessageBody);
+  Result^.Date := ScheduledDate;
+  Result^.Scheduled := True;
+end;
+
 
 function ValidateEmailRecipient(const RecipientEmail: string;
   var SenderContacts: TCircularLinkedList): TEmailSendResult;
@@ -87,7 +98,7 @@ begin
   if ValidationResult <> esrSuccess then
     Exit(ValidationResult);
 
-  MailPtr := CreateNewEmail(SenderUser^.Email, Subject, MessageBody);
+  MailPtr := CreateNewEmail(SenderUser^.Email, RecipientEmail, Subject, MessageBody);
 
   DeliveryResult := DeliverEmailToUser(RecipientEmail, MailPtr);
   if DeliveryResult = edrUserNotFound then
@@ -145,7 +156,13 @@ begin
   M1 := PEmail(Node1^.Data);
   M2 := PEmail(Node2^.Data);
   if (M1 = nil) or (M2 = nil) then Exit(0);
-  Result := CompareText(M1^.Date, M2^.Date);
+
+  if M1^.Date < M2^.Date then
+    Result := -1
+  else if M1^.Date > M2^.Date then
+    Result := 1
+  else
+    Result := 0;
 end;
 
 function CompareEmailsBySender(Node1, Node2: PDoublyNode): integer;

@@ -13,10 +13,11 @@ type
   TEmail = record
     Id: longint;
     Sender: ansistring;      // email address of the sender
+    Recipient: ansistring;   // email address of the recipient
     State: TEmailState;      // esUnread / esRead
     Scheduled: boolean;
     Subject: ansistring;
-    Date: ansistring;
+    Date: TDateTime;
     MessageBody: ansistring;
   end;
 

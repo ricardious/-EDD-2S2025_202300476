@@ -155,21 +155,60 @@ begin
   try
     WriteLn(F, 'digraph LinkedList {');
     WriteLn(F, '    rankdir=LR;');
-    WriteLn(F, '    node [shape=record, style=filled, fillcolor=lightblue];');
+    WriteLn(F, '    bgcolor=transparent;');
+    WriteLn(F, '    node [');
+    WriteLn(F, '        shape=box,');
+    WriteLn(F, '        style="filled,rounded",');
+    WriteLn(F, '        fillcolor="#667eea:#764ba2",');
+    WriteLn(F, '        gradientangle=45,');
+    WriteLn(F, '        color="#5a67d8",');
+    WriteLn(F, '        penwidth=0.8,');
+    WriteLn(F, '        fontname="Segoe UI",');
+    WriteLn(F, '        fontsize=14,');
+    WriteLn(F, '        fontcolor="#FFFFFF",');
+    WriteLn(F, '        margin=0.3');
+    WriteLn(F, '    ];');
+    WriteLn(F, '    edge [');
+    WriteLn(F, '        color="#667eea",');
+    WriteLn(F, '        penwidth=2,');
+    WriteLn(F, '        arrowsize=1,');
+    WriteLn(F, '        arrowhead=vee');
+    WriteLn(F, '    ];');
     WriteLn(F, '');
 
     if L.Head = nil then
     begin
-      WriteLn(F, '    empty [label="Lista Vacía", shape=ellipse, fillcolor=lightgray];');
+      WriteLn(F, '    empty [');
+      WriteLn(F, '        label="Lista Vacía",');
+      WriteLn(F, '        shape=ellipse,');
+      WriteLn(F, '        style="filled,rounded",');
+      WriteLn(F, '        fillcolor="#f093fb:#f5576c",');
+      WriteLn(F, '        gradientangle=90,');
+      WriteLn(F, '        color="#e53e3e",');
+      WriteLn(F, '        fontcolor="#FFFFFF",');
+      WriteLn(F, '        penwidth=0.8');
+      WriteLn(F, '    ];');
     end
     else
     begin
+      // Generar nodos con gradientes alternados
       Temp := L.Head;
       NodeIndex := 0;
       while Temp <> nil do
       begin
-        WriteLn(F, Format('    node%d [label="<data>%s|<next>"];',
-          [NodeIndex, DataToString(Temp^.Data)]));
+        WriteLn(F, Format('    node%d [', [NodeIndex]));
+        WriteLn(F, Format('        label="%s",', [DataToString(Temp^.Data)]));
+        if NodeIndex mod 2 = 0 then
+        begin
+          WriteLn(F, '        fillcolor="#667eea:#764ba2",');
+          WriteLn(F, '        gradientangle=45');
+        end
+        else
+        begin
+          WriteLn(F, '        fillcolor="#4facfe:#00f2fe",');
+          WriteLn(F, '        gradientangle=135');
+        end;
+        WriteLn(F, '    ];');
         Temp := Temp^.Next;
         Inc(NodeIndex);
       end;
@@ -177,18 +216,31 @@ begin
       LastIndex := NodeIndex - 1;
       WriteLn(F, '');
 
+      // Generar conexiones entre nodos
       Temp := L.Head;
       NodeIndex := 0;
       while (Temp <> nil) and (Temp^.Next <> nil) do
       begin
-        WriteLn(F, Format('    node%d:next -> node%d:data;',
-          [NodeIndex, NodeIndex + 1]));
+        WriteLn(F, Format('    node%d -> node%d;', [NodeIndex, NodeIndex + 1]));
         Temp := Temp^.Next;
         Inc(NodeIndex);
       end;
 
-      WriteLn(F, '    null [label="NULL", shape=ellipse, fillcolor=lightcoral];');
-      WriteLn(F, Format('    node%d:next -> null;', [LastIndex]));
+      // Nodo NULL con gradiente especial
+      WriteLn(F, '    null [');
+      WriteLn(F, '        label="∅",');
+      WriteLn(F, '        shape=circle,');
+      WriteLn(F, '        style="filled",');
+      WriteLn(F, '        fillcolor="#a8edea:#fed6e3",');
+      WriteLn(F, '        gradientangle=180,');
+      WriteLn(F, '        color="#667eea",');
+      WriteLn(F, '        fontcolor="#5a67d8",');
+      WriteLn(F, '        fontsize=18,');
+      WriteLn(F, '        penwidth=0.8,');
+      WriteLn(F, '        width=0.6,');
+      WriteLn(F, '        height=0.6');
+      WriteLn(F, '    ];');
+      WriteLn(F, Format('    node%d -> null;', [LastIndex]));
     end;
 
     WriteLn(F, '}');

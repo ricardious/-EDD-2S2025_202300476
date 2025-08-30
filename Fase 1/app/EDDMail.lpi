@@ -25,6 +25,12 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="SynEditDsgn"/>
+      </Item>
+      <Item>
+        <PackageName Value="SynEdit"/>
+      </Item>
+      <Item>
         <PackageName Value="DateTimeCtrlsDsgn"/>
       </Item>
       <Item>
@@ -93,7 +99,7 @@
       <Unit>
         <Filename Value="core/sparsematrix.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Unit1"/>
+        <UnitName Value="SparseMatrix"/>
       </Unit>
       <Unit>
         <Filename Value="services/appstate.pas"/>
@@ -135,6 +141,21 @@
         <Filename Value="services/emailservice.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EmailService"/>
+      </Unit>
+      <Unit>
+        <Filename Value="services/relationsservice.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="RelationsService"/>
+      </Unit>
+      <Unit>
+        <Filename Value="services/communityservice.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CommunityService"/>
+      </Unit>
+      <Unit>
+        <Filename Value="domain/community.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Community"/>
       </Unit>
     </Units>
   </ProjectOptions>
