@@ -5,7 +5,7 @@ unit UserService;
 interface
 
 uses
-  User, SinglyLinkedList, DoublyLinkedList, Stack, Queue, CircularLinkedList;
+  SysUtils, User, SinglyLinkedList, DoublyLinkedList, Stack, Queue, CircularLinkedList, DotUtils;
 
 procedure BootstrapRoot(var L: TSinglyLinkedList);
 function AddUser(var L: TSinglyLinkedList; const U: TUser): PUser;
@@ -13,6 +13,8 @@ function FindUserByEmail(const L: TSinglyLinkedList; const Email: ansistring): P
 function FindUserById(const L: TSinglyLinkedList; const Id: integer): PUser;
 function FindUserByUsername(const L: TSinglyLinkedList;
   const Username: ansistring): PUser;
+
+function UserToStr(Data: Pointer): string;
 
 implementation
 
@@ -117,6 +119,19 @@ begin
     Node := Node^.Next;
   end;
   Result := nil;
+end;
+
+function UserToStr(Data: Pointer): string;
+var
+  U: PUser absolute Data;
+begin
+  if U = nil then
+    Exit('(empty user)');
+
+  Result := Format('Id: %s' + '\n' + 'Name: %s' +
+    '\n' + 'Username: %s' + '\n' + 'Email: %s' + '\n' + 'Phone: %s',
+    [DotEscape(IntToStr(U^.Id)), DotEscape(U^.Name),
+    DotEscape(U^.Username), DotEscape(U^.Email), DotEscape(U^.Phone)]);
 end;
 
 end.

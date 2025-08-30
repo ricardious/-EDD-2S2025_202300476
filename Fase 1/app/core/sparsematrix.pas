@@ -121,7 +121,6 @@ begin
   NewHeader^.FirstNode := nil;
   NewHeader^.NextRow := nil;
 
-  // Insertar ordenadamente
   if (M.RowHeaders = nil) or (M.RowHeaders^.RowIndex > Row) then
   begin
     NewHeader^.NextRow := M.RowHeaders;
@@ -152,7 +151,6 @@ begin
   NewHeader^.FirstNode := nil;
   NewHeader^.NextCol := nil;
 
-  // Insertar ordenadamente
   if (M.ColHeaders = nil) or (M.ColHeaders^.ColIndex > Col) then
   begin
     NewHeader^.NextCol := M.ColHeaders;
@@ -184,11 +182,9 @@ begin
   if (Row < 0) or (Row >= M.MaxRows) or (Col < 0) or (Col >= M.MaxCols) then
     Exit;
 
-  // Verificar si ya existe un nodo en esta posición
   if Get(M, Row, Col) <> nil then
     Delete(M, Row, Col);
 
-  // Crear el nuevo nodo
   New(NewNode);
   NewNode^.Row := Row;
   NewNode^.Col := Col;
@@ -196,17 +192,14 @@ begin
   NewNode^.NextRow := nil;
   NewNode^.NextCol := nil;
 
-  // Obtener o crear header de fila
   RowHdr := FindRowHeader(M, Row);
   if RowHdr = nil then
     RowHdr := CreateRowHeader(M, Row);
 
-  // Obtener o crear header de columna
   ColHdr := FindColHeader(M, Col);
   if ColHdr = nil then
     ColHdr := CreateColHeader(M, Col);
 
-  // Insertar en la lista de fila (ordenado por columna)
   if (RowHdr^.FirstNode = nil) or (RowHdr^.FirstNode^.Col > Col) then
   begin
     NewNode^.NextRow := RowHdr^.FirstNode;
@@ -225,7 +218,6 @@ begin
     Prev^.NextRow := NewNode;
   end;
 
-  // Insertar en la lista de columna (ordenado por fila)
   if (ColHdr^.FirstNode = nil) or (ColHdr^.FirstNode^.Row > Row) then
   begin
     NewNode^.NextCol := ColHdr^.FirstNode;
@@ -289,7 +281,6 @@ begin
   if (RowHdr = nil) or (ColHdr = nil) then
     Exit;
 
-  // Encontrar el nodo en la lista de fila
   NodeToDelete := nil;
   if RowHdr^.FirstNode^.Col = Col then
   begin
@@ -316,7 +307,6 @@ begin
   if NodeToDelete = nil then
     Exit;
 
-  // Remover de la lista de columna
   if ColHdr^.FirstNode = NodeToDelete then
     ColHdr^.FirstNode := NodeToDelete^.NextCol
   else
@@ -345,7 +335,6 @@ var
   ColHdr, NextColHdr: PColHeader;
   Node, NextNode: PSparseNode;
 begin
-  // Liberar todos los nodos a través de las filas
   RowHdr := M.RowHeaders;
   while RowHdr <> nil do
   begin
@@ -361,7 +350,6 @@ begin
     RowHdr := NextRowHdr;
   end;
 
-  // Liberar headers de columna
   ColHdr := M.ColHeaders;
   while ColHdr <> nil do
   begin
@@ -433,7 +421,6 @@ begin
   GenerateDotFile(M, FileName, DataToString, nil, nil);
 end;
 
-// NUEVO procedimiento sobrecargado con etiquetas personalizadas
 procedure GenerateDotFile(var M: TSparseMatrix; const FileName: string;
   DataToString: TDataToString; RowLabels, ColLabels: TStringList);
 var
@@ -448,7 +435,8 @@ begin
   try
     WriteLn(F, 'digraph SparseMatrix {');
     WriteLn(F, '    graph [splines=ortho, nodesep=0.6, ranksep=1.0, bgcolor=transparent];');
-    WriteLn(F, '    node [shape=box, style="filled,rounded", fontname="Segoe UI", fontsize=10, margin=0.25];');
+    WriteLn(F,
+      '    node [shape=box, style="filled,rounded", fontname="Segoe UI", fontsize=10, margin=0.25];');
     WriteLn(F, '    edge [penwidth=1.5, arrowsize=0.8];');
     WriteLn(F, '');
 
@@ -463,7 +451,6 @@ begin
       WriteLn(F, '    M_root [style=invis, width=0, height=0, shape=point];');
       WriteLn(F, '');
 
-      // Nodos de encabezado de Fila con etiquetas personalizadas
       RowHdr := M.RowHeaders;
       while RowHdr <> nil do
       begin
@@ -472,13 +459,13 @@ begin
         else
           RowLabel := AnsiQuotedStr('Fila ' + IntToStr(RowHdr^.RowIndex), '"');
 
-        WriteLn(F, Format('    row_hdr_%d [label=%s, fillcolor="#2196f3", fontcolor="#FFFFFF"];',
+        WriteLn(F, Format(
+          '    row_hdr_%d [label=%s, fillcolor="#2196f3", fontcolor="#FFFFFF"];',
           [RowHdr^.RowIndex, RowLabel]));
         RowHdr := RowHdr^.NextRow;
       end;
       WriteLn(F, '');
 
-      // Nodos de encabezado de Columna con etiquetas personalizadas
       ColHdr := M.ColHeaders;
       while ColHdr <> nil do
       begin
@@ -487,20 +474,21 @@ begin
         else
           ColLabel := AnsiQuotedStr('Col ' + IntToStr(ColHdr^.ColIndex), '"');
 
-        WriteLn(F, Format('    col_hdr_%d [label=%s, fillcolor="#4caf50", fontcolor="#FFFFFF"];',
+        WriteLn(F, Format(
+          '    col_hdr_%d [label=%s, fillcolor="#4caf50", fontcolor="#FFFFFF"];',
           [ColHdr^.ColIndex, ColLabel]));
         ColHdr := ColHdr^.NextCol;
       end;
       WriteLn(F, '');
 
-      // Nodos de Datos (sin cambios)
       RowHdr := M.RowHeaders;
       while RowHdr <> nil do
       begin
         Node := RowHdr^.FirstNode;
         while Node <> nil do
         begin
-          WriteLn(F, Format('    node_%d_%d [label="[%d,%d]\n%s", fillcolor="#667eea:#764ba2", gradientangle=45, fontcolor="#FFFFFF", fontsize=12];',
+          WriteLn(F, Format(
+            '    node_%d_%d [label="[%d,%d]\n%s", fillcolor="#667eea:#764ba2", gradientangle=45, fontcolor="#FFFFFF", fontsize=12];',
             [Node^.Row, Node^.Col, Node^.Row, Node^.Col, DataToString(Node^.Data)]));
           Node := Node^.NextRow;
         end;
@@ -508,7 +496,6 @@ begin
       end;
       WriteLn(F, '');
 
-      // Resto del código de alineación y conexión (sin cambios)
       Write(F, '    { rank=same; M_root; ');
       ColHdr := M.ColHeaders;
       while ColHdr <> nil do
@@ -535,13 +522,15 @@ begin
       ColHdr := M.ColHeaders;
       if ColHdr <> nil then
       begin
-        WriteLn(F, Format('    M_root -> col_hdr_%d [style=invis];', [ColHdr^.ColIndex]));
+        WriteLn(F, Format('    M_root -> col_hdr_%d [style=invis];',
+          [ColHdr^.ColIndex]));
         PrevColHdr := ColHdr;
         ColHdr := ColHdr^.NextCol;
       end;
       while ColHdr <> nil do
       begin
-        WriteLn(F, Format('    col_hdr_%d -> col_hdr_%d [style=invis];', [PrevColHdr^.ColIndex, ColHdr^.ColIndex]));
+        WriteLn(F, Format('    col_hdr_%d -> col_hdr_%d [style=invis];',
+          [PrevColHdr^.ColIndex, ColHdr^.ColIndex]));
         PrevColHdr := ColHdr;
         ColHdr := ColHdr^.NextCol;
       end;
@@ -550,13 +539,15 @@ begin
       RowHdr := M.RowHeaders;
       if RowHdr <> nil then
       begin
-        WriteLn(F, Format('    M_root -> row_hdr_%d [style=invis];', [RowHdr^.RowIndex]));
+        WriteLn(F, Format('    M_root -> row_hdr_%d [style=invis];',
+          [RowHdr^.RowIndex]));
         PrevRowHdr := RowHdr;
         RowHdr := RowHdr^.NextRow;
       end;
       while RowHdr <> nil do
       begin
-        WriteLn(F, Format('    row_hdr_%d -> row_hdr_%d [style=invis];', [PrevRowHdr^.RowIndex, RowHdr^.RowIndex]));
+        WriteLn(F, Format('    row_hdr_%d -> row_hdr_%d [style=invis];',
+          [PrevRowHdr^.RowIndex, RowHdr^.RowIndex]));
         PrevRowHdr := RowHdr;
         RowHdr := RowHdr^.NextRow;
       end;
@@ -566,12 +557,14 @@ begin
       begin
         if RowHdr^.FirstNode <> nil then
         begin
-          WriteLn(F, Format('    row_hdr_%d -> node_%d_%d [color="#2196f3", constraint=false];',
+          WriteLn(F, Format(
+            '    row_hdr_%d -> node_%d_%d [color="#2196f3", constraint=false];',
             [RowHdr^.RowIndex, RowHdr^.FirstNode^.Row, RowHdr^.FirstNode^.Col]));
           Node := RowHdr^.FirstNode;
           while Node^.NextRow <> nil do
           begin
-            WriteLn(F, Format('    node_%d_%d -> node_%d_%d [color="#ff9800", constraint=false];',
+            WriteLn(F, Format(
+              '    node_%d_%d -> node_%d_%d [color="#ff9800", constraint=false];',
               [Node^.Row, Node^.Col, Node^.NextRow^.Row, Node^.NextRow^.Col]));
             Node := Node^.NextRow;
           end;
@@ -598,9 +591,7 @@ begin
       end;
       WriteLn(F, '');
       WriteLn(F, Format(
-  '    info [label="Matriz Dispersa\nDimensiones: %dx%d\nElementos: %d", shape=note, style="filled", fillcolor="#ffeaa7", fontcolor="#2d3436"];',
-  [M.MaxRows, M.MaxCols, M.NodeCount]
-));
+        '    info [label="Matriz Dispersa\nDimensiones: %dx%d\nElementos: %d", shape=note, style="filled", fillcolor="#ffeaa7", fontcolor="#2d3436"];', [M.MaxRows, M.MaxCols, M.NodeCount]));
     end;
 
     WriteLn(F, '}');
@@ -608,8 +599,5 @@ begin
     CloseFile(F);
   end;
 end;
-
-
-
 
 end.

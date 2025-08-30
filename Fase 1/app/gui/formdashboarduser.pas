@@ -10,7 +10,7 @@ uses
   ATShapeLineBGRA, BCLabel, BCRoundedImage, BGRACustomDrawn, BCButton,
   BGRAThemeButton, BCMDButtonFocus, DTAnalogClock, JsonUsersLoader, fpjson,
   jsonparser, AppState, FormLogin, ContactService, CircularLinkedList, User,
-  Email, DoublyLinkedList, UserService, Stack, EmailService, Queue;
+  Email, DoublyLinkedList, UserService, Stack, EmailService, Queue, Process, LCLIntf;
 
 type
 
@@ -105,6 +105,7 @@ type
     procedure BtnContactsClick(Sender: TObject);
     procedure BtnDeleteClick(Sender: TObject);
     procedure BtnEmptyTrashClick(Sender: TObject);
+    procedure BtnGenerateReportsClick(Sender: TObject);
     procedure BtnInboxClick(Sender: TObject);
     procedure BtnLogoutClick(Sender: TObject);
     procedure BtnNextClick(Sender: TObject);
@@ -158,6 +159,28 @@ implementation
 {$R *.lfm}
 
 { TDashboardUser }
+
+function RunDotToPng(const DotFile, PngFile: string): boolean;
+const
+  GraphvizCmd = 'dot';
+var
+  Proc: TProcess;
+begin
+  Result := False;
+  Proc := TProcess.Create(nil);
+  try
+    Proc.Executable := GraphvizCmd;
+    Proc.Parameters.Add('-Tpng');
+    Proc.Parameters.Add('-o' + PngFile); // igual que en Root
+    Proc.Parameters.Add(DotFile);
+    Proc.Options := [poWaitOnExit];
+    Proc.Execute;
+    Result := (Proc.ExitStatus = 0) and FileExists(PngFile);
+  finally
+    Proc.Free;
+  end;
+end;
+
 
 procedure TDashboardUser.ShowPanel(APanel: TPanel);
 begin
@@ -555,6 +578,60 @@ begin
     MemoTrashPreview.Clear;
   end;
 end;
+
+procedure TDashboardUser.BtnGenerateReportsClick(Sender: TObject);
+const
+  DOT = '.dot';
+  PNG = '.png';
+var
+  BaseDir, DotPath, PngPath: string;
+begin
+  if CurrentUser = nil then Exit;
+
+  BaseDir := ExpandFileName(ExtractFilePath(Application.ExeName) +
+    '..' + DirectorySeparator + 'data' + DirectorySeparator + 'output' +
+    DirectorySeparator + Format('%s-Reportes', [CurrentUser^.Username]));
+  ForceDirectories(BaseDir);
+
+  Screen.Cursor := crHourGlass;
+  try
+    // INBOX
+    DotPath := BaseDir + DirectorySeparator + 'ReporteInbox' + DOT;
+    PngPath := BaseDir + DirectorySeparator + 'ReporteInbox' + PNG;
+    DoublyLinkedList.GenerateDotFile(CurrentUser^.Inbox, DotPath, @EmailToStr);
+    if not RunDotToPng(DotPath, PngPath) then
+      raise Exception.Create('Graphviz failed generating Inbox PNG.');
+
+    // TRASH
+    DotPath := BaseDir + DirectorySeparator + 'ReportePapelera' + DOT;
+    PngPath := BaseDir + DirectorySeparator + 'ReportePapelera' + PNG;
+    Stack.GenerateDotFile(CurrentUser^.Trash, DotPath, @EmailToStr);
+    if not RunDotToPng(DotPath, PngPath) then
+      raise Exception.Create('Graphviz failed generating Trash PNG.');
+
+    // SCHEDULED
+    DotPath := BaseDir + DirectorySeparator + 'ReporteProgramados' + DOT;
+    PngPath := BaseDir + DirectorySeparator + 'ReporteProgramados' + PNG;
+    Queue.GenerateDotFile(CurrentUser^.ScheduledMail, DotPath, @EmailToStr);
+    if not RunDotToPng(DotPath, PngPath) then
+      raise Exception.Create('Graphviz failed generating Scheduled PNG.');
+
+    // CONTACTS
+    DotPath := BaseDir + DirectorySeparator + 'ReporteContactos' + DOT;
+    PngPath := BaseDir + DirectorySeparator + 'ReporteContactos' + PNG;
+    CircularLinkedList.GenerateDotFile(CurrentUser^.Contacts, DotPath, @UserToStr);
+    if not RunDotToPng(DotPath, PngPath) then
+      raise Exception.Create('Graphviz failed generating Contacts PNG.');
+
+    ShowMessage('Reports generated at: ' + BaseDir);
+    OpenDocument(BaseDir);
+  except
+    on E: Exception do
+      MessageDlg('Graphviz Error', E.Message, mtError, [mbOK], 0);
+  end;
+  Screen.Cursor := crDefault;
+end;
+
 
 procedure TDashboardUser.BtnAddContactClick(Sender: TObject);
 var

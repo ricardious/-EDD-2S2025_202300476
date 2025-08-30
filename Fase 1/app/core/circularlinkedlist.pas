@@ -220,102 +220,109 @@ procedure GenerateDotFile(var L: TCircularLinkedList; const FileName: string;
   DataToString: TDataToString);
 var
   F: TextFile;
-  Current: PCircularNode;
-  NodeIndex, TotalNodes: integer;
+  Temp: PCircularNode;
+  NodeIndex, N: integer;
 begin
   AssignFile(F, FileName);
   Rewrite(F);
-
   try
     WriteLn(F, 'digraph CircularDoublyLinkedList {');
     WriteLn(F, '    rankdir=LR;');
-    WriteLn(F, '    node [shape=record, style=filled, fillcolor=lightcyan];');
-    WriteLn(F, '    edge [color=blue];');
+    WriteLn(F, '    splines=ortho;');
+    WriteLn(F, '    nodesep=0.8;');
+    WriteLn(F, '    bgcolor=transparent;');
+    WriteLn(F, '    node [');
+    WriteLn(F, '        shape=record,');
+    WriteLn(F, '        style="filled,rounded",');
+    WriteLn(F, '        fillcolor="#667eea:#764ba2",');
+    WriteLn(F, '        gradientangle=45,');
+    WriteLn(F, '        color="#5a67d8",');
+    WriteLn(F, '        penwidth=0.8,');
+    WriteLn(F, '        fontname="Segoe UI",');
+    WriteLn(F, '        fontsize=12,');
+    WriteLn(F, '        fontcolor="#FFFFFF",');
+    WriteLn(F, '        margin=0.2');
+    WriteLn(F, '    ];');
     WriteLn(F, '');
 
     if IsEmpty(L) then
     begin
-      WriteLn(F, '    empty [label="Lista Vacía", shape=ellipse, fillcolor=lightgray];');
+      WriteLn(F, '    empty [');
+      WriteLn(F, '        label="Lista Vacía",');
+      WriteLn(F, '        shape=ellipse,');
+      WriteLn(F, '        fillcolor="#f093fb:#f5576c",');
+      WriteLn(F, '        gradientangle=90,');
+      WriteLn(F, '        color="#e53e3e"');
+      WriteLn(F, '    ];');
     end
     else
     begin
-      TotalNodes := Count(L);
+      N := Count(L);
 
-      WriteLn(F, '    head [label="HEAD", shape=ellipse, fillcolor=yellow];');
-      WriteLn(F, '');
-
-      Current := L.Head;
+      Temp := L.Head;
       NodeIndex := 0;
       repeat
-        if Current = L.Head then
-          WriteLn(F, Format(
-            '    node%d [label="<prev>|<data>%s|<next>", fillcolor=lightyellow];',
-            [NodeIndex, DataToString(Current^.Data)]))
-        else
-          WriteLn(F, Format('    node%d [label="<prev>|<data>%s|<next>"];',
-            [NodeIndex, DataToString(Current^.Data)]));
-        Current := Current^.Next;
+        WriteLn(F, Format('    node%d [label="<prev>•|<data>%s|<next>•"];',
+          [NodeIndex, DataToString(Temp^.Data)]));
+        Temp := Temp^.Next;
         Inc(NodeIndex);
-      until Current = L.Head;
-
+      until Temp = L.Head;
       WriteLn(F, '');
 
-      Current := L.Head;
-      NodeIndex := 0;
-      repeat
-        if Current^.Next = L.Head then
-          WriteLn(F, Format(
-            '    node%d:next -> node0:data [color=red, style=bold, label="next"];',
-            [NodeIndex]))
-        else
-          WriteLn(F, Format('    node%d:next -> node%d:data [color=blue, label="next"];',
-            [NodeIndex, NodeIndex + 1]));
-
-        Current := Current^.Next;
-        Inc(NodeIndex);
-      until Current = L.Head;
-
-      WriteLn(F, '');
-
-      Current := L.Head;
-      NodeIndex := 0;
-      repeat
-        if Current^.Prev = GetTail(L) then
-        begin
-          if NodeIndex = 0 then
-            WriteLn(F, Format(
-              '    node0:prev -> node%d:data [color=darkgreen, style=bold, label="prev"];',
-              [TotalNodes - 1]));
-        end
-        else
-          WriteLn(F, Format(
-            '    node%d:prev -> node%d:data [color=green, label="prev"];',
-            [NodeIndex, NodeIndex - 1]));
-
-        Current := Current^.Next;
-        Inc(NodeIndex);
-      until Current = L.Head;
-
-      WriteLn(F, '');
-      WriteLn(F, '    head -> node0:data [color=darkgreen, style=bold];');
-
-      WriteLn(F, '');
-      WriteLn(F, '    // Configuración para layout circular');
-      if TotalNodes <= 4 then
+      if N = 1 then
       begin
-        WriteLn(F, '    {rank=same; ');
-        for NodeIndex := 0 to TotalNodes - 1 do
+        WriteLn(F, '    // Conexiones para un solo nodo circular');
+        WriteLn(F, '    edge [color="#667eea", penwidth=2, arrowsize=1, arrowhead=vee];');
+        WriteLn(F, '    node0:next -> node0:data [');
+        WriteLn(F, '        tailport=w,');
+        WriteLn(F, '        headport=e,');
+        WriteLn(F, '        constraint=false,');
+        WriteLn(F, '        minlen=2,');
+        WriteLn(F, '        label="next",');
+        WriteLn(F, '        fontsize=10,');
+        WriteLn(F, '        fontcolor="#667eea",');
+        WriteLn(F, '        labeldistance=2,');
+        WriteLn(F, '        labelangle=45');
+        WriteLn(F, '    ];');
+        WriteLn(F, '');
+        WriteLn(F,
+          '    edge [color="#4facfe", style=dashed, penwidth=2, arrowsize=1, arrowhead=normal];');
+        WriteLn(F, '    node0:prev -> node0:data [');
+        WriteLn(F, '        tailport=w,');
+        WriteLn(F, '        headport=e,');
+        WriteLn(F, '        constraint=false,');
+        WriteLn(F, '        minlen=2,');
+        WriteLn(F, '        label="prev",');
+        WriteLn(F, '        fontsize=10,');
+        WriteLn(F, '        fontcolor="#4facfe",');
+        WriteLn(F, '        labeldistance=2,');
+        WriteLn(F, '        labelangle=-45');
+        WriteLn(F, '    ];');
+      end
+      else
+      begin
+        WriteLn(F, '    edge [color="#667eea", penwidth=1.5, arrowsize=0.8, arrowhead=vee];');
+        for NodeIndex := 0 to N - 2 do
         begin
-          if NodeIndex = TotalNodes - 1 then
-            WriteLn(F, Format('node%d;}', [NodeIndex]))
-          else
-            Write(F, Format('node%d; ', [NodeIndex]));
+          WriteLn(F, Format('    node%d:next -> node%d:prev [constraint=true];',
+            [NodeIndex, NodeIndex + 1]));
         end;
-      end;
 
-      WriteLn(F, '');
-      WriteLn(F, '    // Flechas rojas: conexiones circulares Next');
-      WriteLn(F, '    // Flechas verdes: conexiones Prev');
+        WriteLn(F, Format(
+          '    node%d:next -> node0:prev [constraint=false, tailport=n, headport=e];', [N - 1]));
+        WriteLn(F, '');
+
+        WriteLn(F,
+          '    edge [color="#4facfe", style=dashed, penwidth=1.2, arrowsize=0.7, arrowhead=normal];');
+        for NodeIndex := 1 to N - 1 do
+        begin
+          WriteLn(F, Format('    node%d:prev -> node%d:next [constraint=true];',
+            [NodeIndex, NodeIndex - 1]));
+        end;
+
+        WriteLn(F, Format(
+          '    node0:prev -> node%d:next [constraint=false, tailport=s, headport=w];', [N - 1]));
+      end;
     end;
 
     WriteLn(F, '}');

@@ -157,6 +157,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Community"/>
       </Unit>
+      <Unit>
+        <Filename Value="infra/dotutils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="DotUtils"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -191,7 +191,6 @@ begin
     end
     else
     begin
-      // Generar nodos con gradientes alternados
       Temp := L.Head;
       NodeIndex := 0;
       while Temp <> nil do
@@ -216,7 +215,6 @@ begin
       LastIndex := NodeIndex - 1;
       WriteLn(F, '');
 
-      // Generar conexiones entre nodos
       Temp := L.Head;
       NodeIndex := 0;
       while (Temp <> nil) and (Temp^.Next <> nil) do
@@ -226,7 +224,6 @@ begin
         Inc(NodeIndex);
       end;
 
-      // Nodo NULL con gradiente especial
       WriteLn(F, '    null [');
       WriteLn(F, '        label="∅",');
       WriteLn(F, '        shape=circle,');

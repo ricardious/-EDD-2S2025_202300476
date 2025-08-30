@@ -16,8 +16,10 @@ function SendEmailToContact(const SenderUser: PUser;
   const RecipientEmail, Subject, MessageBody: string): TEmailSendResult;
 function DeliverEmailToUser(const RecipientEmail: string;
   MailPtr: PEmail): TEmailDeliveryResult;
-function CreateNewEmail(const Sender, Recipient, Subject, MessageBody: AnsiString): PEmail; overload;
-function CreateNewEmail(const Sender, Recipient, Subject, MessageBody: AnsiString;
+function CreateNewEmail(const Sender, Recipient, Subject, MessageBody:
+  ansistring): PEmail;
+  overload;
+function CreateNewEmail(const Sender, Recipient, Subject, MessageBody: ansistring;
   ScheduledDate: TDateTime): PEmail; overload;
 
 function ValidateEmailRecipient(const RecipientEmail: string;
@@ -32,12 +34,15 @@ function CompareEmailsBySubject(Node1, Node2: PDoublyNode): integer;
 function CompareEmailsByDate(Node1, Node2: PDoublyNode): integer;
 function CompareEmailsBySender(Node1, Node2: PDoublyNode): integer;
 
+function EmailToStr(Data: Pointer): string;
+
 implementation
 
 uses
-  UserService, ContactService;
+  UserService, ContactService, DotUtils;
 
-function CreateNewEmail(const Sender, Recipient, Subject, MessageBody: string): PEmail; overload;
+function CreateNewEmail(const Sender, Recipient, Subject, MessageBody: string): PEmail;
+  overload;
 begin
   New(Result);
   Result^.Id := NextEmailId;
@@ -51,7 +56,8 @@ begin
   Result^.Scheduled := False;
 end;
 
-function CreateNewEmail(const Sender, Recipient, Subject, MessageBody: string; ScheduledDate: TDateTime): PEmail; overload;
+function CreateNewEmail(const Sender, Recipient, Subject, MessageBody: string;
+  ScheduledDate: TDateTime): PEmail; overload;
 begin
   Result := CreateNewEmail(Sender, Recipient, Subject, MessageBody);
   Result^.Date := ScheduledDate;
@@ -173,6 +179,21 @@ begin
   M2 := PEmail(Node2^.Data);
   if (M1 = nil) or (M2 = nil) then Exit(0);
   Result := CompareText(M1^.Sender, M2^.Sender);
+end;
+
+function EmailToStr(Data: Pointer): string;
+var
+  E: PEmail absolute Data;
+begin
+  if E = nil then Exit('(empty email)');
+
+  Result := Format('Id: %s' + '\n' + 'From: %s' + '\n' + 'State: %s' +
+    '\n' + 'Scheduled: %s' + '\n' + 'Subject: %s' + '\n' + 'Date: %s' +
+    '\n' + 'Body: %s', [DotEscape(IntToStr(E^.Id)), DotEscape(E^.Sender),
+    DotEscape(EmailStateToText(Ord(E^.State))), // esUnread/esRead
+    BoolToYesNo(E^.Scheduled), // Yes/No
+    DotEscape(E^.Subject), FormatDateTime('yyyy-mm-dd hh:nn', E^.Date),
+    DotEscape(DotTrunc(E^.MessageBody, 60))]);
 end;
 
 end.

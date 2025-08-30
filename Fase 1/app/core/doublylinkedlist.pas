@@ -220,43 +220,106 @@ begin
   Rewrite(F);
   try
     WriteLn(F, 'digraph DoublyLinkedList {');
-    WriteLn(F, '    rankdir=LR;');
-    WriteLn(F, '    node [shape=record, style=filled, fillcolor=lightgreen];');
-    WriteLn(F, '    edge [color=blue];');
+    WriteLn(F, '    rankdir=TB;'); // <--- CAMBIO AQUÍ
+    WriteLn(F, '    bgcolor=transparent;');
+    WriteLn(F, '    node [');
+    WriteLn(F, '        shape=record,');
+    WriteLn(F, '        style="filled,rounded",');
+    WriteLn(F, '        fillcolor="#667eea:#764ba2",');
+    WriteLn(F, '        gradientangle=45,');
+    WriteLn(F, '        color="#5a67d8",');
+    WriteLn(F, '        penwidth=0.8,');
+    WriteLn(F, '        fontname="Segoe UI",');
+    WriteLn(F, '        fontsize=12,');
+    WriteLn(F, '        fontcolor="#FFFFFF",');
+    WriteLn(F, '        margin=0.2');
+    WriteLn(F, '    ];');
+    WriteLn(F, '    edge [');
+    WriteLn(F, '        color="#667eea",');
+    WriteLn(F, '        penwidth=1.5,');
+    WriteLn(F, '        arrowsize=0.8,');
+    WriteLn(F, '        arrowhead=vee');
+    WriteLn(F, '    ];');
     WriteLn(F, '');
 
     if IsEmpty(L) then
     begin
-      WriteLn(F, '    empty [label="Empty list", shape=ellipse, fillcolor=lightgray];');
+      WriteLn(F, '    empty [');
+      WriteLn(F, '        label="Lista Vacía",');
+      WriteLn(F, '        shape=ellipse,');
+      WriteLn(F, '        style="filled,rounded",');
+      WriteLn(F, '        fillcolor="#f093fb:#f5576c",');
+      WriteLn(F, '        gradientangle=90,');
+      WriteLn(F, '        color="#e53e3e",');
+      WriteLn(F, '        fontcolor="#FFFFFF",');
+      WriteLn(F, '        penwidth=0.8');
+      WriteLn(F, '    ];');
     end
     else
     begin
-      WriteLn(F, '    head [label="HEAD", shape=ellipse, fillcolor=yellow];');
-      WriteLn(F, '    tail [label="TAIL", shape=ellipse, fillcolor=orange];');
-      WriteLn(F, '');
+      N := Count(L);
 
-      // Nodes
+      // Nodos con gradientes alternos profesionales
       Temp := L.Head;
       NodeIndex := 0;
       while Temp <> nil do
       begin
-        WriteLn(F, Format('    node%d [label="<prev>|<data>%s|<next>"];',
-          [NodeIndex, DataToString(Temp^.Data)]));
+        WriteLn(F, Format('    node%d [', [NodeIndex]));
+        WriteLn(F, Format('        label="<prev>•|<data>%s|<next>•",', [DataToString(Temp^.Data)]));
+        if NodeIndex mod 2 = 0 then
+        begin
+          WriteLn(F, '        fillcolor="#667eea:#764ba2",');
+          WriteLn(F, '        gradientangle=45');
+        end
+        else
+        begin
+          WriteLn(F, '        fillcolor="#4facfe:#00f2fe",');
+          WriteLn(F, '        gradientangle=135');
+        end;
+        WriteLn(F, '    ];');
         Temp := Temp^.Next;
         Inc(NodeIndex);
       end;
 
       WriteLn(F, '');
-      WriteLn(F, '    null_left [label="NULL", shape=ellipse, fillcolor=lightcoral];');
-      WriteLn(F, '    null_right [label="NULL", shape=ellipse, fillcolor=lightcoral];');
+
+      // Nodos NULL profesionales
+      WriteLn(F, '    null_top ['); // Cambiado de null_left
+      WriteLn(F, '        label="∅",');
+      WriteLn(F, '        shape=circle,');
+      WriteLn(F, '        style="filled",');
+      WriteLn(F, '        fillcolor="#a8edea:#fed6e3",');
+      WriteLn(F, '        gradientangle=180,');
+      WriteLn(F, '        color="#667eea",');
+      WriteLn(F, '        fontcolor="#5a67d8",');
+      WriteLn(F, '        fontsize=14,');
+      WriteLn(F, '        penwidth=0.8,');
+      WriteLn(F, '        width=0.5,');
+      WriteLn(F, '        height=0.5');
+      WriteLn(F, '    ];');
+      WriteLn(F, '');
+      WriteLn(F, '    null_bottom ['); // Cambiado de null_right
+      WriteLn(F, '        label="∅",');
+      WriteLn(F, '        shape=circle,');
+      WriteLn(F, '        style="filled",');
+      WriteLn(F, '        fillcolor="#a8edea:#fed6e3",');
+      WriteLn(F, '        gradientangle=180,');
+      WriteLn(F, '        color="#667eea",');
+      WriteLn(F, '        fontcolor="#5a67d8",');
+      WriteLn(F, '        fontsize=14,');
+      WriteLn(F, '        penwidth=0.8,');
+      WriteLn(F, '        width=0.5,');
+      WriteLn(F, '        height=0.5');
+      WriteLn(F, '    ];');
       WriteLn(F, '');
 
-      // Next edges (left -> right)
+      // Conexiones NEXT (hacia adelante, ahora hacia abajo)
       Temp := L.Head;
       NodeIndex := 0;
       while (Temp <> nil) and (Temp^.Next <> nil) do
       begin
-        WriteLn(F, Format('    node%d:next -> node%d:data [color=blue, label="next"];',
+        // La conexión sigue siendo la misma, pero la orientación la hará vertical
+        WriteLn(F, Format('    node%d:next -> node%d:prev [color="#667eea", constraint=true];',
           [NodeIndex, NodeIndex + 1]));
         Temp := Temp^.Next;
         Inc(NodeIndex);
@@ -264,13 +327,12 @@ begin
 
       WriteLn(F, '');
 
-      // Prev edges (right -> left)
+      // Conexiones PREV (hacia atrás, ahora hacia arriba) - con estilo diferente
       Temp := L.Tail;
-      N := Count(L);           // cache the count
       NodeIndex := N - 1;
       while (Temp <> nil) and (Temp^.Prev <> nil) do
       begin
-        WriteLn(F, Format('    node%d:prev -> node%d:data [color=red, label="prev"];',
+        WriteLn(F, Format('    node%d:prev -> node%d:next [color="#4facfe", style=dashed, constraint=false];',
           [NodeIndex, NodeIndex - 1]));
         Temp := Temp^.Prev;
         Dec(NodeIndex);
@@ -278,23 +340,13 @@ begin
 
       WriteLn(F, '');
 
+      // Conexiones a NULL
       if N > 0 then
       begin
-        // These two lines do NOT need Format
-        WriteLn(F, '    node0:prev -> null_left [color=red];');
-        WriteLn(F, Format('    node%d:next -> null_right [color=blue];', [N - 1]));
+        // Conexiones a los nodos nulos superior e inferior
+        WriteLn(F, '    node0:prev -> null_top [color="#a8edea"];');
+        WriteLn(F, Format('    node%d:next -> null_bottom [color="#a8edea"];', [N - 1]));
       end;
-
-      WriteLn(F, '');
-
-      WriteLn(F, '    head -> node0:data [color=darkgreen, style=bold];');
-      WriteLn(F, Format('    tail -> node%d:data [color=darkorange, style=bold];',
-        [N - 1]));
-
-      WriteLn(F, '');
-      WriteLn(F, '    // Group elements for better visualization');
-      WriteLn(F, '    {rank=same; head; node0;}');
-      WriteLn(F, Format('    {rank=same; tail; node%d;}', [N - 1]));
     end;
 
     WriteLn(F, '}');

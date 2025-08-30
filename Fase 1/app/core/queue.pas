@@ -21,12 +21,15 @@ type
 procedure Init(var Q: TQueue);
 procedure Enqueue(var Q: TQueue; Item: Pointer);
 function Dequeue(var Q: TQueue): Pointer;
-function Peek(var Q: TQueue): Pointer;
-function IsEmpty(var Q: TQueue): boolean;
-function Count(var Q: TQueue): integer;
+function Peek(const Q: TQueue): Pointer;
+function GetRear(const Q: TQueue): Pointer;
+function IsEmpty(const Q: TQueue): boolean;
+function Count(const Q: TQueue): integer;
 procedure Clear(var Q: TQueue);
-function GetRear(var Q: TQueue): Pointer;
-procedure GenerateDotFile(var Q: TQueue; const FileName: string;
+
+function GetItem(const Q: TQueue; Index: integer): Pointer;
+
+procedure GenerateDotFile(const Q: TQueue; const FileName: string;
   DataToString: TDataToString);
 
 implementation
@@ -49,11 +52,15 @@ begin
   NewNode^.Next := nil;
 
   if Q.Rear = nil then
-    Q.Front := NewNode
+  begin
+    Q.Front := NewNode;
+    Q.Rear := NewNode;
+  end
   else
+  begin
     Q.Rear^.Next := NewNode;
-
-  Q.Rear := NewNode;
+    Q.Rear := NewNode;
+  end;
 end;
 
 function Dequeue(var Q: TQueue): Pointer;
@@ -61,157 +68,226 @@ var
   Temp: PQueueNode;
 begin
   if Q.Front = nil then
-  begin
-    Result := nil;
-    Exit;
-  end;
+    Exit(nil);
 
   Temp := Q.Front;
   Result := Temp^.Data;
   Q.Front := Temp^.Next;
-
   if Q.Front = nil then
     Q.Rear := nil;
-
   Dispose(Temp);
 end;
 
-function Peek(var Q: TQueue): Pointer;
+function Peek(const Q: TQueue): Pointer;
 begin
-  if Q.Front = nil then
-    Result := nil
+  if Q.Front <> nil then
+    Result := Q.Front^.Data
   else
-    Result := Q.Front^.Data;
+    Result := nil;
 end;
 
-function GetRear(var Q: TQueue): Pointer;
+function GetRear(const Q: TQueue): Pointer;
 begin
-  if Q.Rear = nil then
-    Result := nil
+  if Q.Rear <> nil then
+    Result := Q.Rear^.Data
   else
-    Result := Q.Rear^.Data;
+    Result := nil;
 end;
 
-function IsEmpty(var Q: TQueue): boolean;
+function IsEmpty(const Q: TQueue): boolean;
 begin
   Result := Q.Front = nil;
 end;
 
-function Count(var Q: TQueue): integer;
+function Count(const Q: TQueue): integer;
 var
-  Current: PQueueNode;
-  Counter: integer;
+  Cur: PQueueNode;
 begin
-  Counter := 0;
-  Current := Q.Front;
-  while Current <> nil do
+  Result := 0;
+  Cur := Q.Front;
+  while Cur <> nil do
   begin
-    Inc(Counter);
-    Current := Current^.Next;
+    Inc(Result);
+    Cur := Cur^.Next;
   end;
-  Result := Counter;
 end;
 
 procedure Clear(var Q: TQueue);
 var
-  Current, Next: PQueueNode;
+  Cur, Nx: PQueueNode;
 begin
-  Current := Q.Front;
-  while Current <> nil do
+  Cur := Q.Front;
+  while Cur <> nil do
   begin
-    Next := Current^.Next;
-    Dispose(Current);
-    Current := Next;
+    Nx := Cur^.Next;
+    Dispose(Cur);
+    Cur := Nx;
   end;
   Q.Front := nil;
   Q.Rear := nil;
 end;
 
-procedure GenerateDotFile(var Q: TQueue; const FileName: string;
+function GetItem(const Q: TQueue; Index: integer): Pointer;
+var
+  Cur: PQueueNode;
+  i: integer;
+begin
+  if Index < 0 then Exit(nil);
+  Cur := Q.Front;
+  i := 0;
+  while (Cur <> nil) and (i < Index) do
+  begin
+    Cur := Cur^.Next;
+    Inc(i);
+  end;
+  if Cur <> nil then
+    Result := Cur^.Data
+  else
+    Result := nil;
+end;
+
+procedure GenerateDotFile(const Q: TQueue; const FileName: string;
   DataToString: TDataToString);
 var
   F: TextFile;
-  Current: PQueueNode;
-  NodeIndex: integer;
+  Cur: PQueueNode;
+  N, idx: integer;
+
+  procedure WriteHeader;
+  begin
+    Writeln(F, 'digraph Queue {');
+    Writeln(F, '    rankdir=TB;');
+    Writeln(F, '    bgcolor=transparent;');
+    Writeln(F, '    nodesep=0.6;');
+    Writeln(F, '    node [');
+    Writeln(F, '        shape=record,');
+    Writeln(F, '        style="filled,rounded",');
+    Writeln(F, '        fillcolor="#667eea:#764ba2",');
+    Writeln(F, '        gradientangle=45,');
+    Writeln(F, '        color="#5a67d8",');
+    Writeln(F, '        penwidth=0.8,');
+    Writeln(F, '        fontname="Segoe UI",');
+    Writeln(F, '        fontsize=12,');
+    Writeln(F, '        fontcolor="#FFFFFF",');
+    Writeln(F, '        margin=0.2');
+    Writeln(F, '    ];');
+    Writeln(F, '    edge [');
+    Writeln(F, '        color="#667eea",');
+    Writeln(F, '        penwidth=1.5,');
+    Writeln(F, '        arrowsize=0.8,');
+    Writeln(F, '        arrowhead=vee');
+    Writeln(F, '    ];');
+    Writeln(F);
+  end;
+
+  procedure WriteEmpty;
+  begin
+    Writeln(F, '    empty [');
+    Writeln(F, '        label="Cola Vacía",');
+    Writeln(F, '        shape=ellipse,');
+    Writeln(F, '        style="filled,rounded",');
+    Writeln(F, '        fillcolor="#f093fb:#f5576c",');
+    Writeln(F, '        gradientangle=90,');
+    Writeln(F, '        color="#e53e3e",');
+    Writeln(F, '        fontcolor="#FFFFFF",');
+    Writeln(F, '        penwidth=0.8');
+    Writeln(F, '    ];');
+  end;
+
+  procedure WritePointers;
+  begin
+    Writeln(F, '    front_ptr [');
+    Writeln(F, '        label="FRONT",');
+    Writeln(F, '        shape=plaintext,');
+    Writeln(F, '        fontname="Segoe UI",');
+    Writeln(F, '        fontsize=14,');
+    Writeln(F, '        fontcolor="#5a67d8"');
+    Writeln(F, '    ];');
+
+    Writeln(F, '    rear_ptr [');
+    Writeln(F, '        label="REAR",');
+    Writeln(F, '        shape=plaintext,');
+    Writeln(F, '        fontname="Segoe UI",');
+    Writeln(F, '        fontsize=14,');
+    Writeln(F, '        fontcolor="#5a67d8"');
+    Writeln(F, '    ];');
+    Writeln(F);
+  end;
+
+  procedure WriteNullBottom;
+  begin
+    Writeln(F, '    null_bottom [');
+    Writeln(F, '        label="∅",');
+    Writeln(F, '        shape=circle,');
+    Writeln(F, '        style="filled",');
+    Writeln(F, '        fillcolor="#a8edea:#fed6e3",');
+    Writeln(F, '        gradientangle=180,');
+    Writeln(F, '        color="#667eea",');
+    Writeln(F, '        fontcolor="#5a67d8",');
+    Writeln(F, '        fontsize=14,');
+    Writeln(F, '        penwidth=0.8,');
+    Writeln(F, '        width=0.5,');
+    Writeln(F, '        height=0.5');
+    Writeln(F, '    ];');
+    Writeln(F);
+  end;
+
 begin
   AssignFile(F, FileName);
   Rewrite(F);
-
   try
-    WriteLn(F, 'digraph Queue {');
-    WriteLn(F, '    rankdir=LR;');
-    WriteLn(F, '    node [shape=record, style=filled, fillcolor=lightblue];');
-    WriteLn(F, '    edge [color=darkblue];');
-    WriteLn(F, '');
+    WriteHeader;
 
     if IsEmpty(Q) then
     begin
-      WriteLn(F,
-        '    empty [label="Cola Vacía\\nFRONT = NULL\\nREAR = NULL", shape=ellipse, fillcolor=lightgray];');
-    end
-    else
-    begin
-      WriteLn(F, '    front [label="FRONT\\n(Dequeue)", shape=ellipse, fillcolor=lightgreen];');
-      WriteLn(F, '    rear [label="REAR\\n(Enqueue)", shape=ellipse, fillcolor=lightcoral];');
-      WriteLn(F, '');
-
-      Current := Q.Front;
-      NodeIndex := 0;
-      while Current <> nil do
-      begin
-        if Current = Q.Front then
-          WriteLn(F, Format(
-            '    node%d [label="<data>%s|<next>", fillcolor=lightgreen];',
-            [NodeIndex, DataToString(Current^.Data)]))
-        else if Current = Q.Rear then
-          WriteLn(F, Format(
-            '    node%d [label="<data>%s|<next>", fillcolor=lightcoral];',
-            [NodeIndex, DataToString(Current^.Data)]))
-        else
-          WriteLn(F, Format('    node%d [label="<data>%s|<next>"];',
-            [NodeIndex, DataToString(Current^.Data)]));
-        Current := Current^.Next;
-        Inc(NodeIndex);
-      end;
-
-      WriteLn(F, '');
-      WriteLn(F, '    null [label="NULL", shape=ellipse, fillcolor=gray];');
-      WriteLn(F, '');
-
-      Current := Q.Front;
-      NodeIndex := 0;
-      while Current <> nil do
-      begin
-        if Current^.Next <> nil then
-          WriteLn(F, Format('    node%d:next -> node%d:data [color=darkblue];',
-            [NodeIndex, NodeIndex + 1]))
-        else
-          WriteLn(F, Format('    node%d:next -> null [color=gray];', [NodeIndex]));
-        Current := Current^.Next;
-        Inc(NodeIndex);
-      end;
-
-      WriteLn(F, '');
-
-      WriteLn(F, '    front -> node0:data [color=darkgreen, style=bold, label="dequeue"];');
-      WriteLn(F, Format(
-        '    rear -> node%d:data [color=darkred, style=bold, label="enqueue"];',
-        [Count(Q) - 1]));
-
-      WriteLn(F, '');
-
-      WriteLn(F, Format(
-        '    info [label="Tamaño: %d\\nFIFO: First In, First Out", shape=note, fillcolor=lightyellow];',
-        [Count(Q)]));
-
-      WriteLn(F, '');
-      WriteLn(F, '    // Agrupar elementos para mejor visualización');
-      WriteLn(F, '    {rank=same; front; node0;}');
-      WriteLn(F, Format('    {rank=same; rear; node%d;}', [Count(Q) - 1]));
-      WriteLn(F, '    {rank=min; info;}');
+      WriteEmpty;
+      Writeln(F, '}');
+      Exit;
     end;
 
-    WriteLn(F, '}');
+    N := Count(Q);
+    WritePointers;
+    WriteNullBottom;
+
+    Cur := Q.Front;
+    idx := 0;
+    while Cur <> nil do
+    begin
+      Writeln(F, Format('    n%d [', [idx]));
+      Writeln(F, Format('        label="<data>%s",', [DataToString(Cur^.Data)]));
+      if (idx mod 2) = 0 then
+      begin
+        Writeln(F, '        fillcolor="#667eea:#764ba2",');
+        Writeln(F, '        gradientangle=45');
+      end
+      else
+      begin
+        Writeln(F, '        fillcolor="#4facfe:#00f2fe",');
+        Writeln(F, '        gradientangle=135');
+      end;
+      Writeln(F, '    ];');
+
+      Cur := Cur^.Next;
+      Inc(idx);
+    end;
+
+    Writeln(F);
+
+    Writeln(F, '    front_ptr -> n0 [style=dashed, color="#5a67d8", constraint=false];');
+    Writeln(F, Format(
+      '    rear_ptr  -> n%d [style=dashed, color="#5a67d8", constraint=false];',
+      [N - 1]));
+    Writeln(F, '    {rank=same; front_ptr; n0;}');
+    Writeln(F, Format('    {rank=same; rear_ptr;  n%d;}', [N - 1]));
+    Writeln(F);
+
+    for idx := 0 to N - 2 do
+      Writeln(F, Format('    n%d -> n%d [constraint=true];', [idx, idx + 1]));
+
+    Writeln(F, Format('    n%d -> null_bottom [style=dashed, color="#a8edea"];',
+      [N - 1]));
+
+    Writeln(F, '}');
   finally
     CloseFile(F);
   end;

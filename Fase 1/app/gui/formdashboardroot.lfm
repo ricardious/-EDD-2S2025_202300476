@@ -4190,6 +4190,160 @@ object DashboardRoot: TDashboardRoot
         ShowHint = True
       end
     end
+    object PanelCommunityControl: TPanel
+      Left = 220
+      Height = 544
+      Top = 0
+      Width = 740
+      Align = alClient
+      BevelOuter = bvNone
+      ClientHeight = 544
+      ClientWidth = 740
+      ParentBackground = False
+      TabOrder = 4
+      Visible = False
+      object LblInfo4: TLabel
+        Left = 0
+        Height = 46
+        Top = 10
+        Width = 740
+        Align = alTop
+        Alignment = taCenter
+        BorderSpacing.Top = 10
+        Caption = 'Communities Hub'
+        Font.Height = 32
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object GroupBoxCreateCommunity: TGroupBox
+        Left = 25
+        Height = 130
+        Top = 81
+        Width = 690
+        Align = alTop
+        BorderSpacing.Around = 25
+        Caption = 'Create Community'
+        ClientHeight = 106
+        ClientWidth = 688
+        ParentBackground = False
+        TabOrder = 0
+        object LblEditName1: TLabeledEdit
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = BtnAddCommunity
+          Left = 225
+          Height = 35
+          Top = 32
+          Width = 246
+          Anchors = [akTop, akLeft, akRight]
+          EditLabel.Height = 35
+          EditLabel.Width = 162
+          EditLabel.Caption = 'Community name'
+          EditLabel.ParentFont = False
+          EditLabel.Font.Height = -19
+          EditLabel.Font.Name = 'Sans'
+          LabelPosition = lpLeft
+          LabelSpacing = 15
+          ReadOnly = True
+          TabOrder = 0
+          TextHint = 'Enter community name'
+        end
+        object BtnAddCommunity: TBCMDButtonFocus
+          AnchorSideLeft.Side = asrBottom
+          Left = 496
+          Height = 33
+          Top = 34
+          Width = 150
+          StyleNormal.Color = 16530449
+          StyleNormal.TextColor = clWhite
+          StyleHover.Color = 15046421
+          StyleHover.TextColor = clWhite
+          StyleActive.Color = 14408297
+          StyleActive.TextColor = clWhite
+          StyleDisabled.Color = clWhite
+          StyleDisabled.TextColor = 10724259
+          TextAutoSize = True
+          TextProportional = False
+          TextProportionalRatio = 0.5
+          Anchors = [akTop, akRight]
+          BorderSpacing.Left = 25
+          Caption = 'Add'
+          Constraints.MaxWidth = 200
+        end
+      end
+      object GroupAddUsersToCommunity: TGroupBox
+        Left = 25
+        Height = 283
+        Top = 236
+        Width = 690
+        Align = alClient
+        BorderSpacing.Around = 25
+        Caption = 'Add Users to Community'
+        ClientHeight = 259
+        ClientWidth = 688
+        ParentBackground = False
+        TabOrder = 1
+        object LblEditName: TLabeledEdit
+          AnchorSideTop.Side = asrCenter
+          Left = 195
+          Height = 35
+          Top = 62
+          Width = 350
+          Anchors = [akTop, akLeft, akRight]
+          EditLabel.Height = 35
+          EditLabel.Width = 105
+          EditLabel.Caption = 'Community'
+          EditLabel.ParentFont = False
+          EditLabel.Font.Height = -19
+          EditLabel.Font.Name = 'Sans'
+          LabelPosition = lpLeft
+          LabelSpacing = 15
+          ReadOnly = True
+          TabOrder = 0
+        end
+        object LblEditEmail: TLabeledEdit
+          Left = 195
+          Height = 35
+          Top = 134
+          Width = 350
+          Anchors = [akTop, akLeft, akRight]
+          EditLabel.Height = 35
+          EditLabel.Width = 132
+          EditLabel.Caption = 'Member email'
+          EditLabel.ParentFont = False
+          EditLabel.Font.Height = -19
+          EditLabel.Font.Name = 'Sans'
+          LabelPosition = lpLeft
+          LabelSpacing = 15
+          ReadOnly = True
+          TabOrder = 1
+          TextHint = 'name@edd.com'
+        end
+        object BtnAddContact1: TBCMDButtonFocus
+          AnchorSideLeft.Side = asrBottom
+          Left = 270
+          Height = 34
+          Top = 200
+          Width = 150
+          StyleNormal.Color = 16530449
+          StyleNormal.TextColor = clWhite
+          StyleHover.Color = 15046421
+          StyleHover.TextColor = clWhite
+          StyleActive.Color = 14408297
+          StyleActive.TextColor = clWhite
+          StyleDisabled.Color = clWhite
+          StyleDisabled.TextColor = 10724259
+          TextAutoSize = True
+          TextProportional = True
+          TextProportionalRatio = 0.5
+          Anchors = [akTop]
+          Caption = 'Add'
+          Constraints.MaxWidth = 200
+          Font.Height = -19
+          Font.Name = 'Sans'
+          ParentFont = False
+        end
+      end
+    end
     object PanelRelationsReport: TPanel
       Left = 220
       Height = 544
@@ -6828,160 +6982,6 @@ object DashboardRoot: TDashboardRoot
           AutoSize = True
           Caption = 'Load Data'
           OnClick = LblLoadDataClick
-        end
-      end
-    end
-    object PanelCommunityControl: TPanel
-      Left = 220
-      Height = 544
-      Top = 0
-      Width = 740
-      Align = alClient
-      BevelOuter = bvNone
-      ClientHeight = 544
-      ClientWidth = 740
-      ParentBackground = False
-      TabOrder = 4
-      Visible = False
-      object LblInfo4: TLabel
-        Left = 0
-        Height = 46
-        Top = 10
-        Width = 740
-        Align = alTop
-        Alignment = taCenter
-        BorderSpacing.Top = 10
-        Caption = 'Communities Hub'
-        Font.Height = 32
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object GroupBoxCreateCommunity: TGroupBox
-        Left = 25
-        Height = 130
-        Top = 81
-        Width = 690
-        Align = alTop
-        BorderSpacing.Around = 25
-        Caption = 'Create Community'
-        ClientHeight = 106
-        ClientWidth = 688
-        ParentBackground = False
-        TabOrder = 0
-        object LblEditName1: TLabeledEdit
-          AnchorSideTop.Side = asrCenter
-          AnchorSideRight.Control = BtnAddCommunity
-          Left = 225
-          Height = 35
-          Top = 32
-          Width = 246
-          Anchors = [akTop, akLeft, akRight]
-          EditLabel.Height = 35
-          EditLabel.Width = 162
-          EditLabel.Caption = 'Community name'
-          EditLabel.ParentFont = False
-          EditLabel.Font.Height = -19
-          EditLabel.Font.Name = 'Sans'
-          LabelPosition = lpLeft
-          LabelSpacing = 15
-          ReadOnly = True
-          TabOrder = 0
-          TextHint = 'Enter community name'
-        end
-        object BtnAddCommunity: TBCMDButtonFocus
-          AnchorSideLeft.Side = asrBottom
-          Left = 496
-          Height = 33
-          Top = 34
-          Width = 150
-          StyleNormal.Color = 16530449
-          StyleNormal.TextColor = clWhite
-          StyleHover.Color = 15046421
-          StyleHover.TextColor = clWhite
-          StyleActive.Color = 14408297
-          StyleActive.TextColor = clWhite
-          StyleDisabled.Color = clWhite
-          StyleDisabled.TextColor = 10724259
-          TextAutoSize = True
-          TextProportional = False
-          TextProportionalRatio = 0.5
-          Anchors = [akTop, akRight]
-          BorderSpacing.Left = 25
-          Caption = 'Add'
-          Constraints.MaxWidth = 200
-        end
-      end
-      object GroupAddUsersToCommunity: TGroupBox
-        Left = 25
-        Height = 283
-        Top = 236
-        Width = 690
-        Align = alClient
-        BorderSpacing.Around = 25
-        Caption = 'Add Users to Community'
-        ClientHeight = 259
-        ClientWidth = 688
-        ParentBackground = False
-        TabOrder = 1
-        object LblEditName: TLabeledEdit
-          AnchorSideTop.Side = asrCenter
-          Left = 195
-          Height = 35
-          Top = 62
-          Width = 350
-          Anchors = [akTop, akLeft, akRight]
-          EditLabel.Height = 35
-          EditLabel.Width = 105
-          EditLabel.Caption = 'Community'
-          EditLabel.ParentFont = False
-          EditLabel.Font.Height = -19
-          EditLabel.Font.Name = 'Sans'
-          LabelPosition = lpLeft
-          LabelSpacing = 15
-          ReadOnly = True
-          TabOrder = 0
-        end
-        object LblEditEmail: TLabeledEdit
-          Left = 195
-          Height = 35
-          Top = 134
-          Width = 350
-          Anchors = [akTop, akLeft, akRight]
-          EditLabel.Height = 35
-          EditLabel.Width = 132
-          EditLabel.Caption = 'Member email'
-          EditLabel.ParentFont = False
-          EditLabel.Font.Height = -19
-          EditLabel.Font.Name = 'Sans'
-          LabelPosition = lpLeft
-          LabelSpacing = 15
-          ReadOnly = True
-          TabOrder = 1
-          TextHint = 'name@edd.com'
-        end
-        object BtnAddContact1: TBCMDButtonFocus
-          AnchorSideLeft.Side = asrBottom
-          Left = 270
-          Height = 34
-          Top = 200
-          Width = 150
-          StyleNormal.Color = 16530449
-          StyleNormal.TextColor = clWhite
-          StyleHover.Color = 15046421
-          StyleHover.TextColor = clWhite
-          StyleActive.Color = 14408297
-          StyleActive.TextColor = clWhite
-          StyleDisabled.Color = clWhite
-          StyleDisabled.TextColor = 10724259
-          TextAutoSize = True
-          TextProportional = True
-          TextProportionalRatio = 0.5
-          Anchors = [akTop]
-          Caption = 'Add'
-          Constraints.MaxWidth = 200
-          Font.Height = -19
-          Font.Name = 'Sans'
-          ParentFont = False
         end
       end
     end
