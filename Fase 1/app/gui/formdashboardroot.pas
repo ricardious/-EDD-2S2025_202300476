@@ -44,7 +44,7 @@ type
     LblSection: TLabel;
     Label2: TLabel;
     MemoJson: TMemo;
-    PanelContacts: TPanel;
+    PanelCommunityControl: TPanel;
     PanelControls2: TPanel;
     PanelRelationsReport: TPanel;
     PanelUsersReport: TPanel;
@@ -60,6 +60,7 @@ type
     Shape1: TShape;
     ShapeLineBGRA1: TShapeLineBGRA;
     procedure BtnBulkLoadClick(Sender: TObject);
+    procedure BtnCommunitiesClick(Sender: TObject);
     procedure BtnGenerateRelationsReportClick(Sender: TObject);
     procedure BtnGenerateUserReportClick(Sender: TObject);
     procedure BtnLogoutClick(Sender: TObject);
@@ -205,6 +206,11 @@ end;
 procedure TDashboardRoot.BtnBulkLoadClick(Sender: TObject);
 begin
   ShowPanel(PanelBulk);
+end;
+
+procedure TDashboardRoot.BtnCommunitiesClick(Sender: TObject);
+begin
+  ShowPanel(PanelCommunityControl);
 end;
 
 procedure TDashboardRoot.BtnGenerateRelationsReportClick(Sender: TObject);
