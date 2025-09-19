@@ -162,6 +162,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="DotUtils"/>
       </Unit>
+      <Unit>
+        <Filename Value="core/linkedlistoflists.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LinkedListOfLists"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

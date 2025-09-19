@@ -29,7 +29,7 @@ uses
   SparseMatrix,
   RelationsService,
   CommunityService,
-  Community, DotUtils;
+  Community, DotUtils, LinkedListOfLists;
 
   {$R *.res}
 

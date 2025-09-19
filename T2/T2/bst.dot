@@ -1,0 +1,34 @@
+digraph BST {
+  graph [rankdir=TB, splines=true, nodesep="0.35", ranksep="0.6"];
+  node  [shape=box, style="rounded,filled", fillcolor="#eef5ff", color="#5b7bb2", fontname="Helvetica"];
+  edge  [color="#7c8fb3", arrowsize=0.8, fontname="Helvetica"];
+  n35 [label="35\nChicky Egle of Germany\ncegleofgermany0@paginegialle.it"];
+  n35 -> n22 [label="L"];
+  n22 [label="22\nElane Antonik\neantonik2@army.mil"];
+  n22 -> n16 [label="L"];
+  n16 [label="16\nThomasa Olphert\ntolphert3@senate.gov"];
+  n16 -> n13 [label="L"];
+  n13 [label="13\nTamas Hedney\nthedney5@deliciousdays.com"];
+  n13 -> n1 [label="L"];
+  n1 [label="1\nStanton Whiston\nswhistona@amazon.de"];
+  n13 -> n14 [label="R"];
+  n14 [label="14\nElwood Corwood\necorwoode@dagondesign.com"];
+  n16 -> n19 [label="R"];
+  n19 [label="19\nSaxe Spencelayh\nsspencelayh9@xrea.com"];
+  n22 -> n23 [label="R"];
+  n23 [label="23\nKennedy Beedham\nkbeedham8@jimdo.com"];
+  n23 -> n28 [label="R"];
+  n28 [label="28\nEnoch Flanders\neflandersc@alexa.com"];
+  n28 -> n30 [label="R"];
+  n30 [label="30\nRamsay Dallin\nrdallind@imageshack.us"];
+  n35 -> n60 [label="R"];
+  n60 [label="60\nNorine Sindle\nnsindle1@wp.com"];
+  n60 -> n50 [label="L"];
+  n50 [label="50\nLinzy Kerne\nlkerne4@globo.com"];
+  n50 -> n49 [label="L"];
+  n49 [label="49\nCarrissa Elwyn\ncelwyn6@uol.com.br"];
+  n49 -> n43 [label="L"];
+  n43 [label="43\nLexine Dempsey\nldempsey7@pcworld.com"];
+  n60 -> n82 [label="R"];
+  n82 [label="82\nLyndell Jeune\nljeuneb@meetup.com"];
+}

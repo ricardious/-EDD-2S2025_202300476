@@ -10,6 +10,7 @@ object SignIn: TSignIn
   ClientWidth = 800
   Color = 16740096
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   object Shape1: TShape
     Left = 160
     Height = 450
